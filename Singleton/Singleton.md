@@ -1,6 +1,6 @@
 # Singleton
 
-### 用"静态内部类"
+### 静态内部类实现
 
 静态内部类的优点是：外部类加载时并不需要立即加载内部类，内部类不被加载则不去初始化INSTANCE，故而不占内存。即当SingleTon第一次被加载时，并不需要去加载SingleTonHoler，只有当getInstance()方法第一次被调用时，才会去初始化INSTANCE,第一次调用getInstance()方法会导致虚拟机加载SingleTonHoler类，这种方法不仅能确保线程安全，也能保证单例的唯一性，同时也延迟了单例的实例化。
 
@@ -40,3 +40,20 @@ public class Singleton {
 **故而，可以看出INSTANCE在创建过程中是线程安全的，所以说静态内部类形式的单例可保证线程安全，也能保证单例的唯一性，同时也延迟了单例的实例化。**
 
 那么，是不是可以说静态内部类单例就是最完美的单例模式了呢？其实不然，静态内部类也有着一个致命的缺点，就是传参的问题，由于是静态内部类的形式去创建单例的，故外部无法传递参数进去，例如Context这种参数，所以，我们创建单例时，可以在静态内部类与DCL模式里自己斟酌。
+
+## Pro & Cons
+
+### Pros
+
+- You can be sure that a class has only a single instance.
+- You gain a global access point to that instance.
+- The singleton object is initialized only when it’s requested for the first time.
+
+### Cons
+
+- Since Singleton does not have an abstraction layer, so the expansion has great difficulties.
+- Violates the Single Responsibility Principle. The pattern solves
+    two problems at the time.
+- The Singleton pattern can mask bad design, for instance, when the components of the program know too much about each other.
+- The pattern requires special treatment in a multithreaded environment so that multiple threads won’t create a singleton object several times.
+- It may be diffi cultt o unit test the client code of the Singleton because many test frameworks rely on inheritance when producing mock objects. Since the constructor of the singleton class is private and overriding static methods is impossible in most languages, you will need to think of a creative way to mock the singleton. Or just don’t write the tests. Or don’t use the Singleton pattern.
