@@ -73,13 +73,13 @@
 
 在第二步`A→C→D`时，由于节点D已经被缓存，所以会立即返回，不必再次遍历E/F，避免重复搜索。
 
-<img src="Maven/images/986147-faf73cbbb587cda3.png" alt="img" style="zoom: 20%;" />
+<img src="images/Maven/986147-faf73cbbb587cda3.png" alt="img" style="zoom: 20%;" />
 
 ## 依赖冲突
 
 但是假如 2 个包同时依赖了同一个 jar 包，但是这个 jar 包版本不同，规则是什么样的呢？比如下图 A 通过 B 和 D 引入了 1.0 版本的 E，同时 A 通过 C 引入了 2.0 版本的 E。针对这种多个版本构建依赖时，Maven 采用「短路径优先」原则，即 A 会依赖 2.0 版本的 E。如果想引入 1.0 版本的 E，需要直接在 A 的 pom 中声明 E 的版本。
 
-<img src="Maven/images/986147-f13f3855e6798e05.png" alt="img" style="zoom: 40%;" />
+<img src="images/Maven/986147-f13f3855e6798e05.png" alt="img" style="zoom: 40%;" />
 
 如果 Java 项目过于庞大，或者依赖传递过于复杂时，可以使用 dependencyManagement 定义默认的版本号，一次定义全局生效，避免开发者自行管理依赖的版本。
 
@@ -109,4 +109,4 @@
 
 在清楚了Maven的依赖调解规则后，我可以很自然地想到解决方案，就是把我们需要的版本的路径缩短或者声明提前。如下图，比如我们明确需要使用D-1.2，那么我们可以明确在pom依赖中，手动引入D-1.2包，并且将D-1.2的依赖声明写在依赖A的前面即可：
 
-<img src="Maven/images/2636642-312ad6c23fcafbe7.png" alt="img" style="zoom: 33%;" />
+<img src="images/Maven/2636642-312ad6c23fcafbe7.png" alt="img" style="zoom: 33%;" />
