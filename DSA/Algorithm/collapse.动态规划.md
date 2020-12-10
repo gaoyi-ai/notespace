@@ -1,4 +1,16 @@
-﻿@[toc]
+﻿---
+title: collapse
+categories:
+- DSA
+- Algorithm
+tags:
+- dp
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+@[toc]
+
 # 题目介绍
 The game works as follows: The player starts in the center of a collapsing building, which consists of a quadratic grid of (2n + 1) × (2n + 1) rooms. Each room contains 0-9 units of supplies. With each move the player can go up, down, left or right and collect the supplies in the room entered. The entire row or column of rooms he just left then collapses behind him and can no longer be entered. After 2n moves no further moves can be taken and the game ends. If the player has collected enough supplies to survive till the rescue team gets him after D days, he wins. If not he looses.
 
@@ -62,7 +74,7 @@ def max_food(building: Building) -> int:
 # 题目变式
 
 - 把食物分开成食物和水，所以既要满足食物要求和水的要求，即只要最大值 = min（食物最大值，水最大值） 
- 
+
 ```python
  def max_supplies(building: Building) -> int:
     """returns the maximum of min(food,water) that can be collected from given building"""

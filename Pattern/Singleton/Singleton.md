@@ -1,3 +1,16 @@
+---
+title: Singleton
+categories:
+- Pattern
+- Singleton
+tags:
+- singleton
+date: 2019/8/1 20:00:17
+updated: 2020/12/10 12:00:17
+---
+
+
+
 # Singleton
 
 ### 静态内部类实现

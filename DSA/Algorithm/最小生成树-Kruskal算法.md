@@ -1,4 +1,19 @@
-﻿![Kruskal](images/%E6%9C%80%E5%B0%8F%E7%94%9F%E6%88%90%E6%A0%91-Kruskal%E7%AE%97%E6%B3%95/20191108130835450.jpg)
+﻿---
+title: Kruskal
+categories:
+- DSA
+- Algorithm
+- Graph
+tags:
+- MST
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+![Kruskal](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191108130835450.jpg)
+
 ### Kruskal算法
 **更为直接地贪心，每次从图中找：
 没有收录的  

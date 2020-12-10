@@ -1,4 +1,17 @@
-﻿@[toc]
+﻿---
+title: Assembly-Lab 8
+categories:
+- Assembly
+tags:
+- jmp
+- Program execution process
+date: 2019/8/1 20:00:00
+updated: 2020/12/10 12:00:00
+---
+
+
+
+@[toc]
 
 # 实验8
 
@@ -52,20 +65,20 @@ end start
 2. 这里就考察对于`jmp 转移位移`的指令的原理的理解
 
     先贴出其对应的机器指令
-    ![在这里插入图片描述](images/Assembly-Lab%208/20200714123600363.png)
+    ![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714123600363.png)
 
     1. 首先先回顾CPU执行指令的过程，比如下面中的指令`EB03`
 
-![在这里插入图片描述](images/Assembly-Lab%208/20200714123723199.png)
-![在这里插入图片描述](images/Assembly-Lab%208/20200714123743385.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714123723199.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714123743385.png)
 
    2. `jmp 转移位移`指令的转移位移的计算方法
 
-![在这里插入图片描述](images/Assembly-Lab%208/20200714123815152.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714123815152.png)
 
 3. 清楚了上面的知识，再来观察ip
 
-![在这里插入图片描述](images/Assembly-Lab%208/20200714124031660.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714124031660.png)
 
 4. 程序经过编译之后
 
@@ -84,7 +97,7 @@ end start
     **之后再执行指令ip+=-10，等于0**
 
 5. 程序执行之后变为
-![在这里插入图片描述](images/Assembly-Lab%208/20200714124040312.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714124040312.png)
 
 # 汇编编译器(masm.exe)对jmp的相关处理
 

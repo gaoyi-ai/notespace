@@ -1,4 +1,18 @@
-﻿@[toc]
+﻿---
+title: Huffman Tree
+categories:
+- DSA
+- DS
+tags:
+- huffman tree 
+- huffman code
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
 
 # Huffman Tree
 最优二叉树 指带权路径长度最短的树
@@ -9,7 +23,7 @@
  - 带权值的节点都是叶子节点
  - 只有叶子节点和度为2的节点，没有度为1的节点
  - 若有n个叶子节点，则一共有2n-1个结点
-![在这里插入图片描述](images/Huffman%20Tree/20200716175015353.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716175015353.png)
 
 # code
 ```python

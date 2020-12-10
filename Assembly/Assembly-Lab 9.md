@@ -1,7 +1,17 @@
-﻿@[toc]
+﻿---
+title: Assembly-Lab 9
+categories:
+- Assembly
+tags:
+- 寻址方式
+date: 2019/8/1 20:00:01
+updated: 2020/12/10 12:00:01
+---
 
-![在这里插入图片描述](images/Assembly-Lab%209/20200714165105311.png)
-![在这里插入图片描述](images/Assembly-Lab%209/2020071416512730.png)
+@[toc]
+
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714165105311.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/2020071416512730.png)
 
 # 实验分析
 - 3行16列的字符串处理，一定会用到嵌套循环，所以要定义stack保存cx
@@ -17,7 +27,7 @@
 
 - 对于寻址方式的理解
 	这道题也可以用bx指向行si指向列di
-	![在这里插入图片描述](images/Assembly-Lab%209/20200714165546682.png)
+	![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200714165546682.png)
 
 # code
 

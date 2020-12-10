@@ -1,4 +1,16 @@
-﻿### - **主要任务**
+﻿---
+title: 贪吃蛇
+categories:
+- Python
+tags:
+- Pygame
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+### - **主要任务**
 
  - **实现游戏结束判定，包括：**
     **玩家碰到边界、玩家撞到障碍物、玩家撞到AI、AI撞到玩家、玩家撞到自己**
@@ -336,14 +348,14 @@ with open('history.txt', 'a+') as f:
 ```
 
 游戏截图如下：
-**初始页面**![初始界面](images/%E8%B4%AA%E5%90%83%E8%9B%87-%E2%80%98AI%E2%80%99%E9%94%81%E5%A4%B4-Python/20191102203219575.jpg)
+**初始页面**![初始界面](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191102203219575.jpg)
 
-**碰到边界**![碰到边界](images/%E8%B4%AA%E5%90%83%E8%9B%87-%E2%80%98AI%E2%80%99%E9%94%81%E5%A4%B4-Python/20191102203419540.jpg)
+**碰到边界**![碰到边界](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191102203419540.jpg)
 
 **碰到AI**
-![碰到AI](images/%E8%B4%AA%E5%90%83%E8%9B%87-%E2%80%98AI%E2%80%99%E9%94%81%E5%A4%B4-Python/20191102203532194.jpg)
+![碰到AI](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191102203532194.jpg)
 **AI碰到玩家**
-![AI碰到玩家](images/%E8%B4%AA%E5%90%83%E8%9B%87-%E2%80%98AI%E2%80%99%E9%94%81%E5%A4%B4-Python/20191102203656621.jpg)
+![AI碰到玩家](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191102203656621.jpg)
 **碰到自己**
-![碰到自己](images/%E8%B4%AA%E5%90%83%E8%9B%87-%E2%80%98AI%E2%80%99%E9%94%81%E5%A4%B4-Python/20191102203723500.jpg)
+![碰到自己](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191102203723500.jpg)
 

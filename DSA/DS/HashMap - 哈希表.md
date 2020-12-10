@@ -1,4 +1,18 @@
-﻿@[toc]
+﻿---
+title: HashMap
+categories:
+- DSA
+- DS
+tags:
+- hashMap
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+
+---
+
+
+
+@[toc]
 
 # TreeMap分析
 
@@ -22,7 +36,7 @@
 
 通过哈希表实现Map
 
-![在这里插入图片描述](images/HashMap%20-%20%E5%93%88%E5%B8%8C%E8%A1%A8/20200716181754771.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716181754771.png)
 
 ◼ 添加、搜索、删除的流程都是类似的
 
@@ -115,7 +129,7 @@ h = key.hashCode();
 ✓ 可能会导致 2 个 equals 为 true 的 key 同时存在哈希表中
 
 # Hash Collision
-![在这里插入图片描述](images/HashMap%20-%20%E5%93%88%E5%B8%8C%E8%A1%A8/20200716182053822.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716182053822.png)
 
 2 个不同的 key，经过哈希函数计算出相同的结果
 key1 ≠ key2 ，hash(key1) = hash(key2)

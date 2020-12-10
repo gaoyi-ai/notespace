@@ -1,4 +1,15 @@
-﻿
+﻿---
+title: Pythonic
+categories:
+- Python
+tags:
+- pythonic
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
 @[toc]
 
 # zip & map & filter
@@ -466,7 +477,7 @@ total_age = reduce(reducer, scientists)
 print(total_age)
 ```
 
-![img](images/Pythonic/ad8c014a0188d3d3b41d3d545bfcab4f.png)
+![img](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/ad8c014a0188d3d3b41d3d545bfcab4f.png)
 
 ```python
 scientists =({'name':'Alan Turing', 'age':105, 'gender':'male'},
@@ -483,7 +494,7 @@ reduce 有三个参数， 第三个参数是初始值
 
 修改之后流程如下
 
-![img](images/Pythonic/06ea5e55de79633a6c948e8dec9cbc27.png)
+![img](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/06ea5e55de79633a6c948e8dec9cbc27.png)
 
  
 

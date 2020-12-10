@@ -1,8 +1,20 @@
-﻿## 反转链表
+﻿---
+title: 反转链表
+categories:
+- DSA
+- Algorithm
+- LeetCode
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+## 反转链表
 
  1. **反转一定个数节点**
 
-![在这里插入图片描述](images/Reverse%20Linklist/20191020194153196.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191020194153196.png)
 **tmp用来记住old的next结点**
 
 ```python
@@ -81,13 +93,13 @@ def test_reverse_linklist():
 ```
 
 ll链表
-![ll链表](images/Reverse%20Linklist/20191026144758340.jpg)
+![ll链表](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191026144758340.jpg)
 rev_ll链表
 注意到此时ll链表的root和tailnode交换，即头尾互换
 rev_ll没有根结点
-![rev_ll链表](images/Reverse%20Linklist/20191026144548354.jpg)
+![rev_ll链表](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191026144548354.jpg)
 rev_ll2链表
 rev_ll2是由rev_ll加上根节点反转的
 注意此时的ll链表再次反转
 
-![在这里插入图片描述](images/Reverse%20Linklist/20191026144910537.jpg)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191026144910537.jpg)

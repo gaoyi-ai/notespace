@@ -1,8 +1,20 @@
+---
+title: HM Code
+categories:
+- Error Correct Code
+tags:
+- HMCode
+date: 2019/8/1 20:00:12
+updated: 2020/12/10 12:00:12
+---
+
+
+
 # Error Correct Code
 
 纠错的基本原则就是在所有可能的消息所组成的巨大空间中，只有一些子集才算得上是有效信息。比如，当一条正确的信息被改后，接收方需要把错误信息纠正回最接近的有效信息。
 
-![image-20201114123547790](images/HMCode/image-20201114123547790.png)
+![image-20201114123547790](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114123547790.png)
 
 ## Parity Check
 
@@ -12,23 +24,23 @@ Change anywhere --> One bit of information
 
 # Hamming Code
 
-![image-20201114124817316](images/HMCode/image-20201114124817316.png)
+![image-20201114124817316](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114124817316.png)
 
 > 为什么我们的奇偶性比特位正好落在了2的次方上，比如 1，2，4，8？
 
 这些位置标签的二进制恰好只有一位是1，意昧着每一位奇偶性比特位正好落在了一个且仅有一个的奇偶性检验组里面
 
-![image-20201114132933529](images/HMCode/image-20201114132933529.png)
+![image-20201114132933529](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114132933529.png)
 
 > 异或就是两个比特位的奇偶性 
 
-![image-20201114134829950](images/HMCode/image-20201114134829950.png)
+![image-20201114134829950](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114134829950.png)
 
 去思考汉明码算法中奇偶性检验的方式，因为所有的计算都压缩成了一个操作。虽然第一眼看去非常不同，具体来说，把16个位置写成二进制就像我们之前所做的，接着把所有信息数位上为1的区域高亮，然后把这些位置的二进制标签放在一列，一起取"异或”
 
-![image-20201114135118721](images/HMCode/image-20201114135118721.png)
+![image-20201114135118721](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114135118721.png)
 
-![image-20201114135150112](images/HMCode/image-20201114135150112.png)
+![image-20201114135150112](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114135150112.png)
 
 最右一列在计算所有末位为1的位置，但是我们已经把计算局限于高亮的这些位置，所有我们实际计算的是，**有多少高亮的位置属于第一组奇偶性组**
 
@@ -44,11 +56,11 @@ def hamming_syndrome(bits):
     )
 ```
 
-![image-20201114140307989](images/HMCode/image-20201114140307989.png)
+![image-20201114140307989](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114140307989.png)
 
 并且实际中错误往往会突发在一起,这就会毁掉整个块,所以一个常见的处理思路就是,在数据传输或储存之前,像这样把一连串的错误交错打散到许多个数据块中
 
-![image-20201114140539202](images/HMCode/image-20201114140539202.png)
+![image-20201114140539202](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201114140539202.png)
 
 
 

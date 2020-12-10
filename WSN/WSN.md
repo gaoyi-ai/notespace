@@ -1,3 +1,15 @@
+---
+title: WSN
+categories:
+- WSN
+tags:
+- WSN
+date: 2019/8/1 20:00:11
+updated: 2020/12/10 12:00:11
+---
+
+
+
 >[Reference link](https://www.cnblogs.com/hdawen/p/9572022.html)
 
 ## 无线传感器网络基本特点

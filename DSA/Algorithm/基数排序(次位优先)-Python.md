@@ -1,11 +1,21 @@
-﻿
+﻿---
+title: 基数排序
+categories:
+- DSA
+- Algorithm
+- Sort
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
 
  - **次位优先-Least Significant Digit**
 
 **先比较每个数字的低位，排好之后，再按更高位的数排序，以此类推
 注意：高位没有数字默认为0**
 
-![LSD](images/%E5%9F%BA%E6%95%B0%E6%8E%92%E5%BA%8F(%E6%AC%A1%E4%BD%8D%E4%BC%98%E5%85%88)-Python/20191120133421415.jpg)
+![LSD](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191120133421415.jpg)
 
 ```python
 def LSD(seq):

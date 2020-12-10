@@ -1,8 +1,20 @@
-﻿
+﻿---
+title: RB Tree
+categories:
+- DSA
+- DS
+tags:
+- RBTree
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
 @[toc]
 
 # Red Black Tree
-![RBTree](images/Red%20Black%20Tree%20-%20RBTree/2019120113201412.jpg)
+![RBTree](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/2019120113201412.jpg)
 
 1. 节点是RED或BLACK
 
@@ -19,8 +31,8 @@
 
 # 红黑树 vs 2-3-4树
 
-![B树](images/Red%20Black%20Tree%20-%20RBTree/20191201132147225.jpg)
-![2-3-4树](images/Red%20Black%20Tree%20-%20RBTree/20191201132048311.jpg)
+![B树](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201132147225.jpg)
+![2-3-4树](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201132048311.jpg)
 
  - **红黑树 与 4阶B树(2-3-4树) 等价**（每个节点所存储的节点个数为1-3）
  - 每一个红色节点与其**黑色**父节点合并形成一个超级节点
@@ -34,7 +46,7 @@
 
 ◼ 如果添加的是根节点，染成 BLACK 即可 
 
-![在这里插入图片描述](images/Red%20Black%20Tree%20-%20RBTree/20191201132417615.jpg)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201132417615.jpg)
 
 1. parent为BLACK：
 
@@ -50,11 +62,11 @@
 
 LL/RR：把parent染BLACK，grand染RED，对grand进行单旋
 
-![LL/RR](images/Red%20Black%20Tree%20-%20RBTree/20191201133326233.jpg)
+![LL/RR](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201133326233.jpg)
 
 LR/RL：把自己染成BLACK，grand染成RED，再进行旋转
 
-![LR/RL](images/Red%20Black%20Tree%20-%20RBTree/20191201133425602.jpg)
+![LR/RL](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201133425602.jpg)
 
 - 当添加之后会造成对应B树节点**上溢**，即uncle为红色（因为uncle如果为黑色，会单独成为一个节点）
 	
@@ -65,7 +77,7 @@ LR/RL：把自己染成BLACK，grand染成RED，再进行旋转
 
 注意：当上溢到根节点，只需要把根节点染成BLACK
 	
-![上溢](images/Red%20Black%20Tree%20-%20RBTree/20191201133545636.jpg)
+![上溢](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201133545636.jpg)
 
 # 删除
 
@@ -82,7 +94,7 @@ LR/RL：把自己染成BLACK，grand染成RED，再进行旋转
 1. 拥有 1 个 RED 子节点的 BLACK 节点
 2. BLACK 叶子节点
 
-![remove](images/Red%20Black%20Tree%20-%20RBTree/20191201133631655.jpg)
+![remove](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201133631655.jpg)
 
 - 删除 拥有 1 个 RED 子节点的 BLACK 节点
 
@@ -112,7 +124,7 @@ LR/RL：把自己染成BLACK，grand染成RED，再进行旋转
     会导致 parent 也下溢
     这时只需要把 parent 当做被删除的节点处理即可
 
-    ![下溢](images/Red%20Black%20Tree%20-%20RBTree/20191201133926252.jpg)![下溢修复](images/Red%20Black%20Tree%20-%20RBTree/20191201133943768.jpg)
+    ![下溢](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201133926252.jpg)![下溢修复](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201133943768.jpg)
 
 - 删除 BLACK叶子节点 – sibling为RED
 
@@ -125,7 +137,7 @@ LR/RL：把自己染成BLACK，grand染成RED，再进行旋转
     sibling 染成 BLACK，parent 染成 RED，进行旋转
     于是又回到 sibling 是 BLACK 的情况
 
-    ![删除情况三](images/Red%20Black%20Tree%20-%20RBTree/20191201134040663.jpg)
+    ![删除情况三](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201134040663.jpg)
 
 # 平衡情况
 
@@ -356,13 +368,13 @@ public class RBTree<E> extends BBST<E> {
 [61, 2, 58, 74, 97, 44, 68, 20, 90, 28, 18, 22, 77, 78, 51]
 
 插入：
-![insert](images/Red%20Black%20Tree%20-%20RBTree/20191201140157945.jpg)
+![insert](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201140157945.jpg)
 删除97：
-![remove97](images/Red%20Black%20Tree%20-%20RBTree/20191201140940396.jpg)
+![remove97](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201140940396.jpg)
 删除28：
-![remove28](images/Red%20Black%20Tree%20-%20RBTree/20191201141002671.jpg)
+![remove28](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201141002671.jpg)
 删除74：
-![remove74](images/Red%20Black%20Tree%20-%20RBTree/20191201141017941.jpg)
+![remove74](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191201141017941.jpg)
 
 > Reference：[geeksforgeeks](https://www.geeksforgeeks.org) / [小码哥MJ](https://space.bilibili.com/325538782/)
 

@@ -1,6 +1,21 @@
-﻿@[toc]
+﻿---
+title: OSPF路由规划拓扑
+categories:
+- Network
+tags:
+- OSPF
+- RIP
+date: 2019/8/1 20:00:16
+updated: 2020/12/10 12:00:16
+---
+
+
+
+@[toc]
+
 # OSPF路由规划拓扑
-![在这里插入图片描述](images/OSPF%E4%B8%8ERIP%E5%8D%8F%E8%AE%AE%E5%AF%B9%E6%AF%94/20200521204216315.png)
+
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200521204216315.png)
 # OSPF与RIP协议对比
 显然，根据RIP协议，10.0.0.1 向 40.0.0.1 发送ICMP请求会
 

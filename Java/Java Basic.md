@@ -1,4 +1,17 @@
-﻿@[toc]
+﻿---
+title: Java Basic
+categories:
+- Java
+tags:
+- Java
+date: 2019/8/1 20:00:13
+updated: 2020/12/10 12:00:13
+---
+
+
+
+@[toc]
+
 # StringBuilder
 
 `StringBuilder`可以支持链式操作，实现链式操作的关键是返回实例本身；

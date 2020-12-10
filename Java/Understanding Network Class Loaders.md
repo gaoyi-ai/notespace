@@ -1,3 +1,15 @@
+---
+title: Network ClassLoader
+categories:
+- Java
+tags:
+- classLoader
+date: 2019/8/1 20:00:15
+updated: 2020/12/10 12:00:15
+---
+
+
+
 # Understanding Network Class Loaders
 
 > [Understanding Network Class Loaders (oracle.com)](https://www.oracle.com/technical-resources/articles/javase/classloaders.html)

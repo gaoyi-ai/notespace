@@ -1,4 +1,16 @@
-﻿@[toc]
+﻿---
+title: FourInLine
+categories:
+- Functional Paradigm
+tags:
+- Java Functional Paradigm
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
 
 # FourInLine 介绍
 
@@ -6,7 +18,7 @@
 
 [在线游戏](https://www.mathsisfun.com/games/connect4.html)
 
-![在这里插入图片描述](images/FourInLine%20-%20Functional%20Programming/20200705191526514.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200705191526514.png)
 
 # 游戏逻辑
 

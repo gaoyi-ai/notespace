@@ -1,3 +1,13 @@
+---
+title: Reflection
+categories:
+- Java
+tags:
+- reflection
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
 # The Reflection API
 
 ## Uses of Reflection

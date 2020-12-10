@@ -1,4 +1,19 @@
-﻿@[toc]
+﻿---
+title: Dijkstra
+categories:
+- DSA
+- Algorithm
+- Graph
+tags:
+- BFS
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
+
 # 无权图-BFS
 
 ```python
@@ -44,7 +59,7 @@ print(dist)
 
 # 有权图-Dijkstra算法
 
-![Dijkstra](images/%E5%8D%95%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84-Dijkstra%E7%AE%97%E6%B3%95/20191106152114798.jpg)
+![Dijkstra](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191106152114798.jpg)
 
 
 ```python

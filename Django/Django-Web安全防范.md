@@ -1,4 +1,17 @@
-﻿@[toc]
+﻿---
+title: Django migration
+categories:
+- Django
+tags:
+- SQL
+- XSS
+- CSRF
+date: 2019/8/1 20:00:09
+updated: 2020/12/10 12:00:09
+---
+
+@[toc]
+
 # sql注入攻击
 
 在直接采用sql语句或者不通过re验证
@@ -36,4 +49,4 @@ cookie方法下，假设当用户没有关闭标签页A，这是就会在用户�
 
 就算使用POST方法，黑客照样可以在链接中插入一个新的表单
 
-django在网页表单中csrf_token是一次的，每次提交form表单时都会带上{% csrf_token %}
+django在网页表单中csrf_token是一次的，每次提交form表单时都会带上`{% csrf_token %}`

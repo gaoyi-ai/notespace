@@ -1,4 +1,17 @@
-﻿@[toc]
+﻿---
+title: BST
+categories:
+- DSA
+- DS
+tags:
+- BST
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
 
 # Binary Search Tree (BST)
 

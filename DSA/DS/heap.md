@@ -1,4 +1,17 @@
-﻿@[toc]
+﻿---
+title: Heap
+categories:
+- DSA
+- DS
+tags:
+- heap
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
 
 # 最大堆
 
@@ -14,14 +27,14 @@
 如果 2i + 2 > n – 1 ，它无右子节点
 
 # 添加
-![在这里插入图片描述](images/heap/20200716171918175.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716171918175.png)
 ◼ 循环执行以下操作（图中的 80 简称为 node）
 如果 node ＞ 父节点
 ✓ 与父节点交换位置
 如果 node ≤ 父节点，或者 node 没有父节点
 ✓ 退出循环
 
-![在这里插入图片描述](images/heap/20200716172214968.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716172214968.png)
 
 将新添加节点备份，确定最终位置才摆放上去
 
@@ -44,7 +57,7 @@
 相当于添加：即在添加之前,前面的就已经是最大堆,在其基础上添加
 
 ## 自上而下的下滤
-![在这里插入图片描述](images/heap/20200716172802535.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716172802535.png)
 
 有点分治思想
 73和34所在的子树分别形成局部最大堆
@@ -52,7 +65,7 @@
 类似于删除,要进行根节点下滤
 
 ## 效率对比
-![在这里插入图片描述](images/heap/20200716172852352.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200716172852352.png)
 
 - 上滤：越到后面节点数越多，非常多的节点在做工作量比较大的事情，需要上滤logn
 

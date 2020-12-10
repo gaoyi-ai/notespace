@@ -1,4 +1,16 @@
-﻿![warshall算法](images/warshall%E7%AE%97%E6%B3%95/20191026215014783.png)
+﻿---
+title: Warshall
+categories:
+- Discrete Mathematics
+tags:
+- warshall 算法
+date: 2019/8/1 20:00:05
+updated: 2020/12/10 12:00:05
+---
+
+
+
+![warshall算法](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191026215014783.png)
 
 **Python代码实现**
 ```python

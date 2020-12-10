@@ -1,4 +1,14 @@
-﻿```python
+﻿---
+title: 计算排序
+categories:
+- DSA
+- Algorithm
+- Sort
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+```python
 def CountingSort(seq):
     """
     进行一次累加操作之后，
@@ -25,4 +35,4 @@ def CountingSort(seq):
 ```
 CountingSort( [5,8,3,8,10,7,9] )
 res： [3, 5, 7, 8, 8, 9, 10]
-   
+

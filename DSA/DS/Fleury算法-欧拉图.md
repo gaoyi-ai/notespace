@@ -1,11 +1,25 @@
-﻿@[toc]
+﻿---
+title: euler graph
+categories:
+- DSA
+- DS
+- Graph
+tags:
+- euler graph
+- Fleury
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+@[toc]
+
 ### 欧拉图
 **欧拉图：所有节点度数均为偶数**
 **欧拉路：仅有2个奇度数节点**
 **欧拉图(eular graph)：经过每个边仅一次走完图**
 **桥：删去此边，图就不连通**
 
-![eular](images/Fleury%E7%AE%97%E6%B3%95-%E6%AC%A7%E6%8B%89%E5%9B%BE/20191122183826793.jpg)
+![eular](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191122183826793.jpg)
 
 ```python
 def isEulerGraph(graph):

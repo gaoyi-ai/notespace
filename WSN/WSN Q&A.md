@@ -1,3 +1,15 @@
+---
+title: WSN Q&A
+categories:
+- WSN
+tags:
+- WSN
+date: 2019/8/1 20:00:10
+updated: 2020/12/10 12:00:10
+---
+
+
+
 ## 无线传感器网络知识点
 
 **Q：TPSN时间同步协议的设计过程。**

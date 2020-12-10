@@ -1,3 +1,15 @@
+---
+title: Convention Over Conguration
+categories:
+- SE
+tags:
+- CoC
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
 # Convention Over Conguration
 
 Convention is at the heart of Maven. Convention over configuration is a popular aphorism these days, and Maven fully embraces this concept. Convention over configuration is at the central philosophy of frameworks such as Ruby on Rails, and more recently, the EJB3 specification. In its most basic sense it means that, while configuration is certainly necessary, the majority of users will never utilize such edge-cases those complex configurations provide. Although a powerful framework certainly needs to have the power to configure when necessary, it is certainly reasonable to create defaults to allow the 95% of similar use-cases to work without defining anything at all... the system can assume these defaults. In other words, the system has its own convention. Because of this, the monstrous configurations required of build tools like Ant (where a majority of Ant scripts are cut-and-pasted from existing projects) are non-existent for those projects that follow Maven's conventions.

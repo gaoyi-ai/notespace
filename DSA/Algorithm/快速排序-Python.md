@@ -1,4 +1,18 @@
-﻿@[toc]
+﻿---
+title: QuickSort
+categories:
+- DSA
+- Algorithm
+- Sort
+tags:
+- Divide and conquer
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
 
 **快速排序由于递归十分占用时间，对大规模数据排序更好**
 

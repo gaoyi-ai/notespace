@@ -1,4 +1,15 @@
-﻿
+﻿---
+title: Floyd
+categories:
+- DSA
+- Algorithm
+- Graph
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
 ### Floyd算法-Python实现
 
  - **dist表示为从i到j的最短路径，但是只经过编号小于等于k的路径**
@@ -13,7 +24,7 @@
 **如果k在从i到j的最短路径中，从i到j一定经过k，则该路径必然由两条路径组成，
 从i到k再从k到j的路径，而从i到k和从k到j都不经过k即它们被确定最小**
 
-![Floyd](images/%E5%A4%9A%E6%BA%90%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84-Floyd%E7%AE%97%E6%B3%95/20191109095539825.jpg)
+![Floyd](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191109095539825.jpg)
 
 ```python
 graph = {

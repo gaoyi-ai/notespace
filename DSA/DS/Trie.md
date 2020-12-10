@@ -1,8 +1,20 @@
-﻿
+﻿---
+title: Trie
+categories:
+- DSA
+- DS
+tags:
+- trie
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
 @[toc]
 
 # Trie
-![Trie](images/Trie/20191204183139435.jpg)
+![Trie](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191204183139435.jpg)
 
 ◼ Trie 的优点：搜索前缀的效率主要跟前缀的长度有关
 ◼ Trie 的缺点：需要耗费大量的内存，因此还有待改进

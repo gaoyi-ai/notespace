@@ -1,4 +1,15 @@
-﻿@[toc]
+﻿---
+title: DNA
+categories:
+- DSA
+- Algorithm
+tags:
+- dp
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+@[toc]
 
 # 题目描述
 DNA can be modeled as a string consisting of letters A,T,G and C, denoting the four diﬀerent nitrogen bases. To measure genetic similarity, we want to identify non-overlapping substrings that match given non-empty sequences, each of which carries a value, such that the total value of these sequences is maximized.
@@ -24,7 +35,7 @@ print(recursive("AGGCTAC", [("AGG", 2), ("TAC", 2), ("GCTA", 3)])) # 4
 ```
 
 # 动态规划
- 
+
 ```python
 def recursive(dna: str, sequences:list):
 

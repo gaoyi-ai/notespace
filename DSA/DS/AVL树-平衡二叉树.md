@@ -1,4 +1,17 @@
-﻿@[toc]
+﻿---
+title: AVL Tree
+categories:
+- DSA
+- DS
+tags:
+- AVL
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
+@[toc]
 
 # AVL树
 ◼ 平衡因子（Balance Factor）：某结点的左右子树的高度差
@@ -8,19 +21,19 @@
 搜索、添加、删除的时间复杂度是 O(logn)
 
 # 平衡对比
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710081102482.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710081102482.png)
 # 添加导致的失衡
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710081127742.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710081127742.png)
 # LL 右旋转
 - LL ：使g失衡的是g.left.left
 
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710081303736.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710081303736.png)
 # RR 左旋转
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710081336122.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710081336122.png)
 # LR - RR左旋转 LL右旋转
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710081425297.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710081425297.png)
 # RL - LL右旋转 RR左旋转
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710081454618.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710081454618.png)
 
 # 删除导致的失衡
 - 删除导致的失衡**只会导致一个节点的失衡**
@@ -28,7 +41,7 @@
 意味着长的那一边路径是没有发生变化的,意味着高度不变
 意味着父结点的平衡因子不会变，继续向上也不会变
 
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710082139110.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710082139110.png)
 - 对于失衡的父结点，对其进行恢复平衡，
 整棵树有没有平衡，还要继续向上，观察有没有节点失衡
 有没有失衡取决于本身这颗子树高度有没有发生变化
@@ -45,7 +58,7 @@
 那么就又会判断父结点为LL、RR等情况进行旋转
 继续向上···
 
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710082827100.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710082827100.png)
 # 总结
 ■添加
 口可能会导致所有祖先节点都失衡
@@ -64,7 +77,7 @@ a<b<c<d<e<f<g
 所以只要确定abcdefg
 a,g可以不处理,因为位置没有变化
 
-![在这里插入图片描述](images/AVL%E6%A0%91-%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91/20200710083312205.png)
+![在这里插入图片描述](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20200710083312205.png)
 ```java
 	private void rotate(
 			Node<E> r, // 子树的根节点

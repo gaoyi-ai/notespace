@@ -1,12 +1,27 @@
-﻿
+﻿---
+title: 拓扑排序
+categories:
+- DSA
+- Algorithm
+- Sort
+tags:
+- graph
+- topSort
+date: 2019/8/1 20:00:14
+updated: 2020/12/10 12:00:14
+---
+
+
+
 ### 拓扑排序- TopSort
+
 **拓扑序：
 如果图中从V到W有一条有向路径，则V一定排在W之前**
 
 **AOV(Activity On Vertex)
 如果有合理的拓扑序，则一定是有向无环图(Directed Acyclic Graph, DAG）**
-![DAG](images/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Python/20191108141234483.jpg)
-![TopSort](images/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Python/20191108141115515.jpg)
+![DAG](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191108141234483.jpg)
+![TopSort](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191108141115515.jpg)
 
 ```python
 graph = {
