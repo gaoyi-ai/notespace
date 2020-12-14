@@ -5,7 +5,7 @@ categories:
 tags:
 - reflection
 date: 2019/8/1 20:00:14
-updated: 2020/12/10 12:00:14
+updated: 2020/12/14 17:00:14
 ---
 
 # The Reflection API
@@ -69,4 +69,70 @@ One useful real-world use of reflection is when writing a framework that has to 
 As another example, JUnit used to use a trivial bit of reflection: it enumerates all methods in your class, assumes that all those called `testXXX` are test methods, and executes only those. But this can now be done better with annotations instead, and in fact JUnit 4 has largely moved to annotations instead.
 
 ---
+
+# 动态代理
+
+首先，它是一个**代理机制**。如果熟悉设计模式中的代理模式，代理可以看作是对调用目标的一个包装，这样对目标代码的调用不是直接发生的，而是通过代理完成。其实很多动态代理场景，可以看作是装饰器（Decorator）模式的应用
+
+通过代理可以让调用者与实现者之间**解耦**。比如进行 RPC 调用，框架内部的寻址、序列化、反序列化等，对于调用者往往是没有太大意义的，通过代理，可以提供更加友善的界面。
+
+ JDK 动态代理的一个简单例子。下面只是加了一句 print，在生产系统中，可以轻松扩展类似逻辑进行诊断、限流等。
+
+```java
+public class MyDynamicProxy {
+    public static  void main (String[] args) {
+        HelloImpl hello = new HelloImpl();
+        MyInvocationHandler handler = new MyInvocationHandler(hello);
+        // 构造代码实例
+        Hello proxyHello = (Hello) Proxy.newProxyInstance(HelloImpl.class.getClassLoader(), HelloImpl.class.getInterfaces(), handler);
+        // 调用代理方法
+        proxyHello.sayHello();
+    }
+}
+interface Hello {
+    void sayHello();
+}
+class HelloImpl implements  Hello {
+    @Override
+    public void sayHello() {
+        System.out.println("Hello World");
+    }
+}
+ class MyInvocationHandler implements InvocationHandler {
+    private Object target;
+    public MyInvocationHandler(Object target) {
+        this.target = target;
+    }
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args)
+            throws Throwable {
+        System.out.println("Invoking sayHello");
+        Object result = method.invoke(target, args);
+        return result;
+    }
+}
+ 
+```
+
+上面的 JDK Proxy 例子，非常简单地实现了动态代理的构建和代理操作。首先，实现对应的 InvocationHandler；然后，以接口 Hello 为纽带，为被调用目标构建代理对象，进而应用程序就可以使用代理对象间接运行调用目标的逻辑，代理为应用插入额外逻辑（这里是 println）提供了便利的入口。
+
+从 API 设计和实现的角度，这种实现仍然有局限性，因为它是以接口为中心的，相当于添加了一种对于被调用者没有太大意义的限制。实例化的是 Proxy 对象，而不是真正的被调用类型，这在实践中还是可能带来各种不便和能力退化。
+
+如果被调用者没有实现接口，而还是希望利用动态代理机制，那么可以考虑其他方式。Spring AOP 支持两种模式的动态代理，JDK Proxy 或者 cglib，如果我们选择 cglib 方式，你会发现对接口的依赖被克服了。
+
+cglib 动态代理采取的是创建目标类的子类的方式，因为是子类化，可以达到近似使用被调用者本身的效果。在 Spring 编程中，框架通常会处理这种情况，当然也可以[显式指定](http://cliffmeyers.com/blog/2006/12/29/spring-aop-cglib-or-jdk-dynamic-proxies.html)。
+
+简单对比下两种方式各自优势。
+
+JDK Proxy 的优势：
+
+- 最小化依赖关系，减少依赖意味着简化开发和维护，JDK 本身的支持，可能比 cglib 更加可靠。
+- 平滑进行 JDK 版本升级，而字节码类库通常需要进行更新以保证在新版 Java 上能够使用。
+- 代码实现简单。
+
+基于类似 cglib 框架的优势：
+
+- 有的时候调用目标可能不便实现额外接口，从某种角度看，限定调用者实现接口是有些侵入性的实践，类似 cglib 动态代理就没有这种限制。
+- 只操作所关心的类，而不必为其他相关类增加工作量。
+- 高性能。
 
