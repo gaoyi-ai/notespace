@@ -7,16 +7,56 @@ categories:
 tags:
 - MST
 date: 2019/8/1 20:00:14
-updated: 2020/12/10 12:00:14
+updated: 2020/12/17 12:00:14
 ---
 
 
 
 ![Kruskal](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191108130835450.jpg)
 
-### Kruskal算法
-**更为直接地贪心，每次从图中找：
-没有收录的 不会构成回路的 权重最小的边**
+# Kruskal
+
+更为直接地贪心，每次从图中找：没有收录的，不会构成回路的，权重最小的边
+
+◼ 按照边的权重顺序（从小到大）将边加入生成树中，直到生成树中含有 V – 1 条边为止（ V 是顶点数量）
+若加入该边会与生成树形成环，则不加入该边
+从第3条边开始，可能会与生成树形成环
+
+◼ 时间复杂度： O(ElogE）
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201217160144780.png" alt="image-20201217160144780" style="zoom:80%;" />
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201217160205678.png" alt="image-20201217160205678" style="zoom:80%;" />
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201217160223700.png" alt="image-20201217160223700" style="zoom:80%;" />
+
+### OOP Solution
+
+```java
+    private Set<EdgeInfo<V, E>> kruskal() {
+        int edgeSize = vertices.size() - 1;
+        if (edgeSize == -1) return null;
+        Set<EdgeInfo<V, E>> edgeInfos = new HashSet<>();
+        MinHeap<Edge<V, E>> heap = new MinHeap<>(edges, edgeComparator);
+        UnionFind<Vertex<V, E>> uf = new UnionFind<>();
+        vertices.forEach((V v, Vertex<V, E> vertex) -> {
+            uf.makeSet(vertex);
+        });
+        while (!heap.isEmpty() && edgeInfos.size() < edgeSize) {
+            Edge<V, E> edge = heap.remove();
+            // 如果本来就是同一个并查集
+            if (uf.isSame(edge.from, edge.to)) continue;
+            edgeInfos.add(edge.info());
+            // 将边的两个顶点合并为一个集合
+            uf.union(edge.from, edge.to);
+        }
+        return edgeInfos;
+    }
+```
+
+
+
+### 链表实现
 
 ```python
 class Edge:
@@ -104,6 +144,7 @@ def Kruskal(graph):
     return TotalWeight
 ```
 
+```
 各邻接点:
 6 - 7
 1 - 4
@@ -114,4 +155,5 @@ def Kruskal(graph):
 MST : 集合根结点为4,树规模为7
 [3, 3, 3, -7, 3, 3, 3]
 树的权重: 16
+```
 
