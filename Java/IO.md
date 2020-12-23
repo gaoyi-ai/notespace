@@ -23,6 +23,192 @@ java.io 包的好处是代码比较简单、直观，缺点则是 IO 效率和�
 
 很多时候，人们也把 java.net 下面提供的部分网络 API，比如 Socket、ServerSocket、HttpURLConnection 也归类到同步阻塞 IO 类库，因为网络通信同样是 IO 行为。
 
+## InputStream / OutputStream
+
+FileInputStream没有任何读入数值类型的方法，DataInputStream也没有任何从文件中获取数据的方法。
+
+Java使用了一种灵巧的机制来分离这两种职责。某些输入流（例如FileInputStream和由URL类的openStream方法返回的输入流）可以从文件和其他更外部的位置上获取字节，而其他的输入流（例如DataInputstream)可以将字节组装到更有用的数据类型中。Java程序员必须对二者进行组合。
+
+例如，为了从文件中读人数字，首先需要创建一个FileInputStream,然后将其传递DataInputStream的构造器：
+
+```java
+FileInputStrean fin = new FileInputStream("employee.dat");
+DataInputStream din = new DataInputStream(fin);
+double x=din.readDouble();
+```
+
+## Reader / Writer
+
+在存储文本字符串时，需要考虑字符编码（character encoding)方式。在Java内部使用的UTF-16编码方式中，字符串“1234”编码为00 31 00 32 00 33 00 34十六进制）。
+
+# Serializable
+
+Serializable接口没有任何方法，因此你不需要对这些类做任何改动。
+
+```java
+	ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("employee.dat"));
+    Employee harry = new Employee("Harry Hacker", 50000, 1989, 10, 1); 
+    Manager boss = new Manager("Carl Cracker", 80000, 1987, 12, 15); 
+    out.writeObject(harry); 
+    out.writeObject(boss);  
+```
+
+在幕后，是0bjectoutputstream在浏览对象的所有域，并存储它们的内容。例如，当写出一个Employee对象时，其名字、日期和薪水域都会被写出到输出流中。
+
+但是，有一种重要的情况需要考虑：当一个对象被多个对象共享，作为它们各自状态的一部分时，会发生什么呢？
+
+现在每个Manager对象都包含一个表示秘书的Employee对象的引用，当然，两个经理可以共用一个秘书，正如图2-5和下面的代码所示的那样：
+
+```java
+    harry = new Employee("Harry Hacker", . . .); 
+    Manager carl = new Manager("Carl Cracker", . . .); 
+    carl.setSecretary(harry); 
+      Manager tony = new Manager("Tony Tester", . . .); 
+    tony.setSecretary(harry);  
+```
+
+保存这样的对象网络是一种挑战，在这里我们当然不能去保存和恢复秘书对象的内存地址，因为当对象被重新加载时，它可能占据的是与原来完全不同的内存地址。
+
+与此不同的是，每个对象都是用一个序列号（serial number)保存的，这就是这种机制之所以称为对象序列化的原因。下面是其算法：
+
+- 对你遇到的每一个对象引用都关联一个序列号（如图2-6所示）。
+
+- 对于每个对象，当第一次遇到时，保存其对象数据到输出流中。
+
+- 如果某个对象之前已经被保存过，那么只写出“与之前保存过的序列号为x的对象相同”。
+
+- 在读回对象时，整个过程是反过来的。
+
+    对于对象输入流中的对象，在第一次遇到其序列号时，构建它，并使用流中数据来初始化它，然后记录这个顺序号和新对象之间的关联。
+
+- 当遇到“与之前保存过的序列号为x的对象相同”标记时，获取与这个顺序号相关联的对象引用。
+
+## 修改默认的序列化机制
+
+某些数据域是不可以序列化的，例如，只对本地方法有意义的存储文件句柄或窗口句柄的整数值，这种信息在稍后重新加载对象或将其传送到其他机器上时都是没有用处的。事实上，这种域的值如果不恰当，还会引起本地方法崩溃。
+
+Java拥有一种很简单的机制来防止这种域被序列化，那就是将它们标记成是transient的。如果这些域属于不可序列化的类你也需要将它们标记成transient的。瞬时的域在对象被序列化时总是被跳过的。
+序列化机制为单个的类提供了一种方式，去向默认的读写行为添加验证或任何其他想要的行为。可序列化的类可以定义具有下列签名的方法：
+
+```java
+    private void readObject(ObjectInputStream in) 
+          throws IOException, ClassNotFoundException; 
+    private void writeObject(ObjectOutputStream out) 
+          throws IOException;  
+```
+
+之后，数据域就再也不会被自动序列化，取而代之的是调用这些方法。
+
+下面是一个典型的示例。在java.awt.geom包中有大量的类都是不可序列化的，例如
+Point2D.Double。现在假设你想要序列化一个LabeledPoint类，它存储了一个String和一个Point2D.Double。首先，你需要将Point2D.Double标记成transient,以避免抛出NotSerializableException。
+
+```java
+public class LabeledPoint implements Serializable{
+	private String label;
+	private transient Point2D.Double point;
+}
+```
+
+在writeObject方法中，我们首先通过调用defaultWriteObject方法写出对象描述符和String域label,这是0bjectoutputstream类中的一个特殊的方法，它只能在可序列化类的writeobject方法中被调用。然后，我们使用标准的DataOutput调用写出点的坐标。
+
+```java
+    private void writeObject(ObjectOutputStream out) 
+          throws IOException 
+    { 
+          out.defaultWriteObject(); 
+          out.writeDouble(point.getX()); 
+          out.writeDouble(point.getY()); 
+    }  
+```
+
+在readObject方法中，我们反过来执行上述过程：
+
+```java
+    private void readObject(ObjectInputStream in) 
+          throws IOException 
+    { 
+          in.defaultReadObject(); 
+          double x = in.readDouble(); 
+          double y = in.readDouble(); 
+          point = new Point2D.Double(x, y); 
+    }  
+```
+
+### 对包含冗余对象信息的序列化
+
+另一个例子是java.util.Date类，它提供了自己的readobject和write0bject方法，这些方法将日期写出为从纪元（UTC时间1970年1月1日0点）开始的毫秒数。Date类有一个复杂的内部表示，为了优化查询，它存储了一个Calendar对象和一个毫秒计数值。Calendar的状态是沉余的，因此并不需要保存。
+readobject和writeobject方法**只需要保存和加载它们的数据域**，而**不需要关心超类数据和任何其他类信息**。
+
+除了让序列化机制来保存和恢复对象数据，类还可以定义它自己的机制。为了做到这一点，这个类必须实现Externalizable接口
+
+与前面一节描述的readobject和writeobject不同，这些方法**对包括超类数据在内的整个对象的存储和恢复负全责**。在写出对象时，序列化机制在输出流中仅仅只是记录该对象所属的类。在读人可外部化的类时，对象输入流将用无参构造器创建一个对象，然后调用readExternal方法。下面展示了如何为Employee类实现这些方法：
+
+```java
+public void readExternal(ObjectInput s) 
+      throws IOException  
+          { 
+                  name = s.readUTF(); 
+                  salary = s.readDouble(); 
+                  hireDay = new Date(s.readLong()); 
+          }  
+public void writeExternal(ObjectOutput s) 
+      throws IOException 
+          { 
+                s.writeUTF(name); 
+                s.writeDouble(salary); 
+                s.writeLong(hireDay.getTime()); 
+          }  
+```
+### 对单例的序列化
+
+序列化单例和类型安全的枚举
+
+在序列化和反序列化时，如果目标对象是唯一的，那么你必须加倍当心，这通常会在实现**单例**和类型安全的枚举时发生。
+
+如果你使用Java语言的enum结构，那么你就不必担心序列化，它能够正常工作。但是，假设你在维护遗留代码，其中包含下面这样的枚举类型：
+
+```java
+    public class Orientation 
+    { 
+          public static final Orientation HORIZONTAL = new Orientation(1); 
+          public static final Orientation VERTICAL = new Orientation(2);  
+          private int value;  
+          private Orientation(int v) { value = v; } 
+      }  
+```
+
+当类型安全的枚举实现Serializable接口时，你必须牢记存在着一种重要的变化，此时，默认的序列化机制是不适用的。假设我们写出一个Orientation类型的值，并再次将其读回：
+
+```java
+    Orientation original = Orientation.HORIZONTAL; 
+    ObjectOutputStream out = . . .; 
+    out.write(original); 
+    out.close(); 
+    ObjectInputStream in = . . .; 
+    Orientation saved = (Orientation) in.read();  
+// Now the test 
+    if (saved == Orientation.HORIZONTAL) . . .  
+```
+
+test将失败。事实上，saved的值是Orientation类型的一个全新的对象，它与任何预定义的常量都不等同。即使构造器是私有的，序列化机制也可以创建新的对象！
+
+为了解决这个问题，你需要定义另外一种称为readResolve的特殊序列化方法。如果定义了readResolve方法，在对象被序列化之后就会调用它。它必须返回一个对象，而该对象之后会成为readobject的返回值。在上面的情况中，readResolve方法将检查value域并返回恰当的枚举常量：
+
+```java
+    protected Object readResolve() throws ObjectStreamException 
+    { 
+          if (value == 1) return Orientation.HORIZONTAL; 
+          if (value == 2) return Orientation.VERTICAL; 
+          return null; // this shouldn't happen 
+    }  
+```
+
+请记住向遗留代码中所有类型安全的枚举以及向所有支持**单例**设计模式的类中添加readResolve方法。
+
+
+
+
+
 ## java.nio
 
 首先，熟悉一下 NIO 的主要组成部分：

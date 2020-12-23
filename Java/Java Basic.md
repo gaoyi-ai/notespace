@@ -311,3 +311,12 @@ class Range implements Iterable<Integer>, Iterator<Integer> {
 }
 
 ```
+
+# char
+
+char 类型的值可以表示为十六进制值，其范围从 \u0000 到 \Uffff。
+
+Note:
+
+ Unicode 转义序列会在解析代码之前得到处理。 例如，"\u0022+\u0022 ” 并不是一个由引号（U+0022) 包围加号构成的字符串。实际上，\u0022 会在解析之前转换为 "，这会 得 到 也 就 是 一 个 空 串。更隐秘地，一定要当心注释中的 \u。注释// \u00A0 is a newline会产生一个语法错误，因为读程序时 \u00A0 会替换为一个换行符
+
