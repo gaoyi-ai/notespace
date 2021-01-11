@@ -5,14 +5,12 @@ categories:
 tags:
 - pythonic
 date: 2019/8/1 20:00:14
-updated: 2020/12/10 12:00:14
+updated: 2021/1/11 12:00:14
 ---
 
-
-
-@[toc]
-
 # zip & map & filter
+
+## zip
 
 zip() 采用惰性计算，返回的是一个对象。如需展示列表，需手动 list() 转换。
 
@@ -43,10 +41,14 @@ pascal(4) #  [[1], [1, 1], [1, 2, 1], [1, 3, 3, 1]]
 
 当x=2时，zip([0] + lastRow, lastRow + [0]) = 前面[0,1,1] + 后面[1,1,0]
 
+## map
+
 ```python
 result8 = list(map(lambda x: x + "ing", ["play", "talk", "walk", "teach"]))
 print(result8) # ['playing', 'talking', 'walking', 'teaching']
 ```
+
+## filter
 
 ```python
 result11 = list(filter(lambda x: len(x) < 5, ["play", "talk", "walk", "teach"]))
@@ -436,15 +438,6 @@ class Weekday(Enum):
 
 既可以用成员名称引用枚举常量，又可以直接根据value的值获得枚举常量。
 
-# f-string
-
-`{}`中间可以是表达式
-
-```python
-some = "World"
-print(f"Hello {some}") # Hello World
-```
-
 # 解包
 
 ```python
@@ -539,3 +532,13 @@ scientists =({'name':'Alan Turing', 'age':105, 'gender':'male'},
 grouped = {item[0]:list(item[1])
            for item in itertools.groupby(scientists, lambda x: x['gender'])}
 ```
+
+# remove
+
+当序列在循环中被修改时会有一个微妙的问题（这只可能发生于可变序列例如列表中）。 **会有一个内部计数器被用来跟踪下一个要使用的项，每次迭代都会使计数器递增。** 当计数器值达到序列长度时循环就会终止。 <u>这意味着如果语句体从序列中删除了当前（或之前）的一项，下一项就会被跳过（因为其标号将变成已被处理的当前项的标号）。 类似地，如果语句体在序列当前项的前面插入一个新项，当前项会在循环的下一轮中再次被处理。</u> 这会导致麻烦的程序错误，避免此问题的办法是对整个序列使用切片来创建一个临时**副本**，例如
+
+```python
+for x in a[:]:
+    if x < 0: a.remove(x)
+```
+
