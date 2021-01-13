@@ -21,7 +21,7 @@ updated: 2020/12/17 12:00:14
 
 ◼ 标准的AOV网必须是一个有向无环图（Directed Acyclic Graph，简称 DAG）
 
-![image-20201217155042009](images/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Python/image-20201217155042009.png)
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20201217155042009.png)
 
 ◼ B依赖于A
 ◼ C依赖于B
@@ -42,7 +42,7 @@ updated: 2020/12/17 12:00:14
 
 
 
-![DAG](images/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Python/20191108141234483.jpg)
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191108141234483.jpg)
 
 ◼ 可以使用卡恩算法（Kahn于1962年提出）完成拓扑排序
 
@@ -52,7 +52,7 @@ updated: 2020/12/17 12:00:14
 如果此时 L 中的元素个数和顶点总数相同，说明拓扑排序完成
 如果此时 L 中的元素个数少于顶点总数，说明原图中存在环，无法进行拓扑排序
 
-![TopSort](images/%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F-Python/20191108141115515.jpg)
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20191108141115515.jpg)
 
 ### OOP Solution
 
@@ -114,20 +114,13 @@ graph = {
     14:[],
     15:[],
 }
-def flatten(a):
-    if not isinstance(a, (list, )):
-        return [a]
-    else:
-        b = []
-        for item in a:
-            b += flatten(item)
-    return b
+from itertools import chain
 from collections import Counter
 from collections import deque
 def TopSort(graph):
     # 遍历图，得到InDegree
     cnt = Counter() # 使用Python内置的计数器
-    for val in flatten(list(graph.values())): 
+    for val in list(chain.from_iterable(graph.values())):
     # 拿到所有的邻接点因为是每一个结点的邻接点是List存储，所以要展平
         cnt[val] += 1
     InDegree = {node: cnt[node] for node in graph}
