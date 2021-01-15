@@ -1,4 +1,5 @@
 ---
+top: true
 title: Repo
 date: 2021/1/1 00:00:00
 updated: 2021/1/13 21:00:00
@@ -162,15 +163,17 @@ updated: 2021/1/13 21:00:00
 │   │   ├── tree.jpg
 │   │   ├── 决策树 full version.pdf
 │   │   ├── 决策树 原理源码.ipynb
-│   │   ├── 决策树 原理结果.html
 │   │   ├── 决策树 案例源码.ipynb
-│   │   ├── 决策树 案例结果.html
 │   │   └── 决策树原理.pdf
-│   └── 02随机森林
-│       ├── digit recognizor.zip
-│       ├── 随机森林 full version.pdf
-│       ├── 随机森林 源码.html
-│       └── 随机森林 源码.ipynb
+│   ├── 02随机森林
+│   │   ├── digit recognizor.zip
+│   │   ├── 随机森林 full version.pdf
+│   │   └── 随机森林 源码.ipynb
+│   ├── 03数据预处理和特征工程
+│   │   ├── 数据预处理与特征工程 full version.pdf
+│   │   ├── 数据预处理与特征工程.ipynb
+│   │   └── 数据预处理和特征工程 - 数据.zip
+│   └── R^2.md
 ├── Network
 │   ├── OSPF与RIP协议对比.md
 │   └── WebServer.md
@@ -298,7 +301,7 @@ updated: 2021/1/13 21:00:00
     ├── WSN Q&A.md
     └── WSN.md
 
-68 directories, 222 files
+69 directories, 223 files
 ```
 
 
