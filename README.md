@@ -2,7 +2,7 @@
 top: true
 title: Repo
 date: 2021/1/1 00:00:00
-updated: 2021/1/13 21:00:00
+updated: 2021/1/20 21:00:00
 ---
 
 
@@ -148,6 +148,7 @@ updated: 2021/1/13 21:00:00
 │   ├── JavaReference.md
 │   ├── Reflection.md
 │   ├── ServiceLoader.md
+│   ├── Servlet,MVC,page.pdf
 │   ├── String.md
 │   ├── Understanding Network Class Loaders.md
 │   ├── oop.md
@@ -173,6 +174,32 @@ updated: 2021/1/13 21:00:00
 │   │   ├── 数据预处理与特征工程 full version.pdf
 │   │   ├── 数据预处理与特征工程.ipynb
 │   │   └── 数据预处理和特征工程 - 数据.zip
+│   ├── 04主成分分析PCA与奇异值分解SVD
+│   │   ├── Digit Recognizor.ipynb
+│   │   ├── PCA SVD.ipynb
+│   │   ├── digit recognizor.csv
+│   │   └── 降维算法 full version.pdf
+│   ├── 05逻辑回归与评分卡
+│   │   ├── ScoreData.csv
+│   │   ├── model_data.csv
+│   │   ├── rankingcard.csv
+│   │   ├── vali_data.csv
+│   │   ├── 评分卡模型.ipynb
+│   │   ├── 逻辑回归.ipynb
+│   │   └── 逻辑回归.pdf
+│   ├── 06聚类算法Kmeans
+│   │   ├── 聚类算法KMeans EDU version.pdf
+│   │   └── 聚类算法与Kmeans.ipynb
+│   ├── 07支持向量机上
+│   │   ├── SVM (上) full version.pdf
+│   │   └── SVM1.ipynb
+│   ├── 08支持向量机下
+│   │   ├── SVM (下) full version.pdf
+│   │   ├── SVM 2 - 案例源码.ipynb
+│   │   ├── SVM 2 - 理论源码.ipynb
+│   │   ├── weather.zip
+│   │   └── weatherAUS5000.csv
+│   ├── Decision-Tree.md
 │   └── R^2.md
 ├── Network
 │   ├── OSPF与RIP协议对比.md
@@ -301,7 +328,7 @@ updated: 2021/1/13 21:00:00
     ├── WSN Q&A.md
     └── WSN.md
 
-69 directories, 223 files
+74 directories, 245 files
 ```
 
 
