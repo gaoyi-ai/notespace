@@ -110,23 +110,9 @@ updated: 2021/1/20 21:00:00
 ├── ErrorCorrectCode
 │   ├── HMCode.md
 │   └── error-correct-code
-│       ├── ErrorCorrectCode.iml
 │       ├── LICENSE
 │       ├── README.en.md
 │       ├── README.md
-│       ├── out
-│       │   └── production
-│       │       └── ErrorCorrectCode
-│       │           └── algorithm
-│       │               ├── Data.class
-│       │               ├── HMData.class
-│       │               ├── Parity.class
-│       │               ├── ParityType.class
-│       │               ├── Receiver.class
-│       │               ├── Transceiver.class
-│       │               ├── Transmitter.class
-│       │               ├── Transmitting.class
-│       │               └── Utils.class
 │       └── src
 │           └── algorithm
 │               ├── Data.java
@@ -194,13 +180,28 @@ updated: 2021/1/20 21:00:00
 │   │   ├── SVM (上) full version.pdf
 │   │   └── SVM1.ipynb
 │   ├── 08支持向量机下
+│   │   ├── Cityclimate.csv
 │   │   ├── SVM (下) full version.pdf
 │   │   ├── SVM 2 - 案例源码.ipynb
 │   │   ├── SVM 2 - 理论源码.ipynb
+│   │   ├── cityll.csv
+│   │   ├── samplecity.csv
 │   │   ├── weather.zip
 │   │   └── weatherAUS5000.csv
+│   ├── 09回归大家族：线性回归，岭回归，Lasso与多项式回归
+│   │   ├── 线性回归 - 代码.ipynb
+│   │   └── 线性回归大家族 full version.pdf
+│   ├── 10朴素贝叶斯
+│   │   ├── Naive Bayes源码.ipynb
+│   │   └── 朴素贝叶斯 full version.pdf
+│   ├── 11XGBoost
+│   │   ├── XGBoost full version.pdf
+│   │   └── xgboost code.ipynb
+│   ├── 12神经网络
+│   │   └── 12期-神经网络.pdf
 │   ├── Decision-Tree.md
-│   └── R^2.md
+│   ├── R^2.md
+│   └── neural network.md
 ├── Network
 │   ├── OSPF与RIP协议对比.md
 │   └── WebServer.md
@@ -215,7 +216,6 @@ updated: 2021/1/20 21:00:00
 │   ├── Observer
 │   │   ├── Java 观察者模式讲解和代码示例.pdf
 │   │   ├── observer
-│   │   │   ├── gupaoedu-vip-pattern-observer.iml
 │   │   │   ├── pom.xml
 │   │   │   └── src
 │   │   │       ├── main
@@ -257,7 +257,6 @@ updated: 2021/1/20 21:00:00
 │   ├── Strategy
 │   │   ├── Java 策略模式讲解和代码示例.pdf
 │   │   ├── delegate
-│   │   │   ├── gupaoedu-vip-pattern-delegate.iml
 │   │   │   ├── pom.xml
 │   │   │   └── src
 │   │   │       ├── main
@@ -281,7 +280,6 @@ updated: 2021/1/20 21:00:00
 │   │   │       └── test
 │   │   │           └── java
 │   │   ├── strategy
-│   │   │   ├── gupaoedu-vip-pattern-strategy.iml
 │   │   │   ├── pom.xml
 │   │   │   └── src
 │   │   │       ├── main
@@ -327,8 +325,6 @@ updated: 2021/1/20 21:00:00
 └── WSN
     ├── WSN Q&A.md
     └── WSN.md
-
-74 directories, 245 files
 ```
 
 
