@@ -164,55 +164,6 @@ class D(B,C):
 
 > [Python面向对象中super用法与MRO机制](https://www.cnblogs.com/chenhuabin/p/10058594.html)
 
-# sort()
-
-由于 **list.sort()** 函数在排序时，使用的是小于号对比，所以自定义的数据类型需要 **override __lt__** 函数才能实现排序。
-
-```python
-class Element:  
-    def __init__(self,id):  
-        self.id=id  
-    def __lt__(self, other): # override < 操作符  
-        if self.id<other.id:  
-            return True  
-        return False
-```
-
-如果非要将列表里不同类型相比较，可以考虑如下方法:
-
-```python
-l = [-1, -3, 1, 0, 3, 'a', 'b', 'c']
-l.sort(key = str)
-```
-
-```python
-a=['delphi', 'Delphi', 'python', 'Python', 'golang', 'Golang', 'c++', 'C++', 'c', 'C']
-#按字典序升序排序
-a.sort() 
-#先按字符串长度升序排序，长度相同按字典序升序排序
-a.sort(key=lambda x:(len(x),x)) 
-#先按字符串长度升序排序，长度相同按字典序降序排序
-a.sort(key=lambda x:(len(x),list(map(lambda c:-ord(c),x)))) 
-#先按字符串长度降序排序，长度相同按字典序升序排序
-a.sort(key=lambda x:(-len(x),x))
-```
-
-再举一例：
-
-```python
-a=[[1,3],[3,2],[2,4],[1,2],[1,5],[2,5]]
-#先按第一个元素升序排序，第一个元素相同按第二个元素升序排序
-a.sort()
-#先按第一个元素升序排序，第一个元素相同则保持原来的顺序
-a=[[1,3],[3,2],[2,4],[1,2],[1,5],[2,5]]
-a.sort(key=lambda x:x[0])
-#先按第二个元素升序排序，第二个元素相同则保持原来的顺序
-a=[[1,3],[3,2],[2,4],[1,2],[1,5],[2,5]]
-a.sort(key=lambda x:x[1])
-#先按第二个元素升序排序，第二个元素相同按第一个元素降序排序
-a.sort(key=lambda x:(x[1],-x[0]))
-```
-
 # decorator
 
 函数对象有一个`__name__`属性，可以拿到函数的名字：
@@ -334,70 +285,6 @@ def log(text):
 ```
 
 `import functools`是导入`functools`模块。**现在，只需记住在定义`wrapper()`的前面加上`@functools.wraps(func)`即可。**
-
-# @property
-
-在绑定属性时，如果我们直接把属性暴露出去，虽然写起来很简单，但是，没办法检查参数，导致可以把成绩随便改：
-
-```python
-s = Student()
-s.score = 9999
-```
-
-这显然不合逻辑。为了限制score的范围，可以通过一个`set_score()`方法来设置成绩，再通过一个`get_score()`来获取成绩，这样，在`set_score()`方法里，就可以检查参数
-
-装饰器（decorator）可以给函数动态加上功能吗，对于类的方法，装饰器一样起作用。Python内置的`@property`装饰器就是负责把一个方法变成属性调用的：
-
-```python
-class Student(object):
-
-    @property
-    def score(self):
-        return self._score
-
-    @score.setter
-    def score(self, value):
-        if not isinstance(value, int):
-            raise ValueError('score must be an integer!')
-        if value < 0 or value > 100:
-            raise ValueError('score must between 0 ~ 100!')
-        self._score = value
-```
-
-`@property`的实现比较复杂，我们先考察如何使用。把一个getter方法变成属性，只需要加上`@property`就可以了，此时，`@property`本身又创建了另一个装饰器`@score.setter`，负责把一个setter方法变成属性赋值，于是，我们就拥有一个可控的属性操作：
-
-```python
->>> s = Student()
->>> s.score = 60 # OK，实际转化为s.set_score(60)
->>> s.score # OK，实际转化为s.get_score()
-60
->>> s.score = 9999
-Traceback (most recent call last):
-  ...
-ValueError: score must between 0 ~ 100!
-```
-
-注意到这个神奇的`@property`，我们在对实例属性操作的时候，就知道该属性很可能不是直接暴露的，而是通过getter和setter方法来实现的。
-
-还可以定义只读属性，只定义getter方法，不定义setter方法就是一个只读属性：
-
-```python
-class Student(object):
-
-    @property
-    def birth(self):
-        return self._birth
-
-    @birth.setter
-    def birth(self, value):
-        self._birth = value
-
-    @property
-    def age(self):
-        return 2015 - self._birth
-```
-
-上面的`birth`是可读写属性，而`age`就是一个*只读*属性，因为`age`可以根据`birth`和当前时间计算出来。
 
 # 枚举类
 
