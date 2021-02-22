@@ -1,6 +1,7 @@
 ﻿---
 title: Warshall
 categories:
+- Math
 - Discrete Mathematics
 tags:
 - warshall 算法

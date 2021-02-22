@@ -1,6 +1,7 @@
 ﻿---
 title: Truth Table
 categories:
+- Math
 - Discrete Mathematics
 tags:
 - 后缀表达式
