@@ -4,7 +4,7 @@ categories:
 - DB
 - MySQL
 tags:
-- MySQL
+- SQL
 date: 2020/12/27 20:00:17
 updated: 2021/1/7 12:00:17
 ---
