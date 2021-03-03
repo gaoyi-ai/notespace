@@ -3,6 +3,8 @@ title: Neural Network
 categories:
 - DL
 - Neural Network
+tags:
+- neural network
 date: 2021/2/1 10:00:00
 updated: 2021/2/2 16:00:00
 ---
@@ -175,16 +177,36 @@ y_sigm == y_and
 
 我们可以使用以下表达式来表示它：
 
-<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210205213311605.png" alt="image-20210205213311605" style="zoom:50%;" />
-
+$$
+g(z)=y=\left\{\begin{aligned}
+1 & \text { if } z>0 \\
+0 & \text { if } z=0 \\
+-1 & \text { if } z<0
+\end{aligned}\right.
+$$
 由于函数的取值是间断的，符号函数也被称为“阶跃函数”，表示在0的两端，函数的结果y是从-1直接阶跃到了1。在这里，我们使用y而不是g(z)来表示输出的结果，是因为输出结果直接是0、1、-1这样的类别。对于sigmoid函数而言，g(z)返回的是0~1之间的概率值，如果我们希望获取最终预测出的类别，还需要将概率转变成0或1这样的数字才可以。但符号函数可以直接返回类别，因此我们可以认为符号函数输出的结果就是最终的预测结果y。在二分类中，符号函数也可以忽略中间z=0的时候，直接分为0和1两类，用如下式子表示：
 
-![image-20210205213426584](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210205213426584.png)
-
+$$
+y=\left\{\begin{array}{ll}
+1 & \text { if } z>0 \\
+0 & \text { if } z \leq 0
+\end{array}\right.
+$$
 等号被并在上方或下方都可以。这个式子可以很容易被转化为下面的式子：
 
-<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210205213614434.png" alt="image-20210205213614434" style="zoom:67%;" />
-
+$$
+\begin{array}{l}
+\because  z=w_{1} x_{1}+w_{2} x_{2}+b \\
+\therefore y=\left\{\begin{array}{ll}
+1 & \text { if } w_{1} x_{1}+w_{2} x_{2}+b>0 \\
+0 & \text { if } w_{1} x_{1}+w_{2} x_{2}+b \leq 0 
+\end{array}\right. \\
+\therefore y=\left\{\begin{array}{ll}
+1 & \text { if } w_{1} x_{1}+w_{2} x_{2}>-b \\
+0 & \text { if } w_{1} x_{1}+w_{2} x_{2} \leq-b
+\end{array}\right.
+\end{array}
+$$
 此时，$-b$就是一个國值，我们可以使用任意字母来替代它，比较常见的是字母。当然，不把它当做间值，依然保留w1x1+w2x2+b与0进行比较的关系也没有任何问题。和sigmoid一样，我们也可以使用阶跃函数来处理”与门“的数据：
 
 ```python
