@@ -2,6 +2,7 @@
 title: 有限差分法
 categories:
 - Math
+- Calculus
 tags:
 - Derivative
 - Taylor's theorem
