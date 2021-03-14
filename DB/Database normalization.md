@@ -66,20 +66,6 @@ Codd introduced the concept of normalization and what is now known as the [first
 
 Informally, a relational database relation is often described as "normalized" if it meets third normal form.[[7]](#cite_note-DateIntroDBSys-7) Most 3NF relations are free of insertion, update, and deletion anomalies.
 
-The normal forms (from least normalized to most normalized) are:
-
-*   UNF: [Unnormalized form](/wiki/Unnormalized_form "Unnormalized form")
-*   1NF: [First normal form](/wiki/First_normal_form "First normal form")
-*   2NF: [Second normal form](/wiki/Second_normal_form "Second normal form")
-*   3NF: [Third normal form](/wiki/Third_normal_form "Third normal form")
-*   EKNF: [Elementary key normal form](/wiki/Elementary_key_normal_form "Elementary key normal form")
-*   BCNF: [Boyce–Codd normal form](/wiki/Boyce%E2%80%93Codd_normal_form "Boyce–Codd normal form")
-*   4NF: [Fourth normal form](/wiki/Fourth_normal_form "Fourth normal form")
-*   ETNF: [Essential tuple normal form](/w/index.php?title=Essential_tuple_normal_form&action=edit&redlink=1 "Essential tuple normal form (page does not exist)")
-*   5NF: [Fifth normal form](/wiki/Fifth_normal_form "Fifth normal form")
-*   DKNF: [Domain-key normal form](/wiki/Domain-key_normal_form "Domain-key normal form")
-*   6NF: [Sixth normal form](/wiki/Sixth_normal_form "Sixth normal form")
-
 Example of a step by step normalization
 ---------------------------------------
 
@@ -178,7 +164,9 @@ Now, every record is unambiguously identified by a [superkey](/wiki/Superkey "Su
 
 <table><caption>Supplier - Book - Franchisee</caption><tbody><tr><th><u>Supplier ID</u></th><th><u>Title</u></th><th><u>Franchisee ID</u></th></tr><tr><td>1</td><td>Beginning MySQL Database Design and Optimization</td><td>1</td></tr><tr><td>2</td><td>The Relational Model for Database Management: Version 2</td><td>2</td></tr><tr><td>3</td><td>Learning SQL</td><td>3</td></tr></tbody></table>
 
-这个表是[4NF](/wiki/Fourth_normal_form "第四正态形式")，但供应商ID等于其投影的连接。**{{Supplier ID，Book}，{Book，Franchisee ID}，{Franchisee ID，Supplier ID}}.**该联接依赖的任何组件都不是[superkey](/wiki/Superkey "超级键")（唯一的[超级键](/wiki/Superkey "超级键")是整个标题），所以该表不满足ETNF，可以进一步分解：
+```
+这个表是4NF，但供应商ID等于其投影的连接。{{Supplier ID，Book}，{Book，Franchisee ID}，{Franchisee ID，Supplier ID}}.该联接依赖的任何组件都不是superkey (唯一的超级键是整个标题),所以该表不满足ETNF，可以进一步分解：
+```
 
 <table><tbody><tr><td><table><caption>Supplier - Book</caption><tbody><tr><th><u>Supplier ID</u></th><th><u>Title</u></th></tr><tr><td>1</td><td>Beginning MySQL Database Design and Optimization</td></tr><tr><td>2</td><td>The Relational Model for Database Management: Version 2</td></tr><tr><td>3</td><td>Learning SQL</td></tr></tbody></table></td><td><table><caption>Book - Franchisee</caption><tbody><tr><th><u>Title</u></th><th><u>Franchisee ID</u></th></tr><tr><td>Beginning MySQL Database Design and Optimization</td><td>1</td></tr><tr><td>The Relational Model for Database Management: Version 2</td><td>2</td></tr><tr><td>Learning SQL</td><td>3</td></tr></tbody></table></td><td><table><caption>Franchisee - Supplier</caption><tbody><tr><th><u>Supplier ID</u></th><th><u>Franchisee ID</u></th></tr><tr><td>1</td><td>1</td></tr><tr><td>2</td><td>2</td></tr><tr><td>3</td><td>3</td></tr></tbody></table></td></tr></tbody></table>
 
