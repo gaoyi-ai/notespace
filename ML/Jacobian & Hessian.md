@@ -141,4 +141,4 @@ $$x_{n+1}=x_n–[Hf(x_n)]–1∇f(x_n),n≥0$$
 >$$
 >{\displaystyle \mathbf {H} (\mathbf {x} )\mathbf {v} ={\frac {1}{r}}{\Bigl [}\nabla f(\mathbf {x} +r\mathbf {v} )-\nabla f(\mathbf {x} ){\Bigr ]}+{\mathcal {O}}(r)}
 >$$
->因此，如果梯度已经计算出来了，那么近似的Hessian 可以通过线性（以梯度的大小）的标量运算来计算。(虽然编程简单，但这种近似方案在数值上并不稳定，因为r必须做得很小，以防止由于{\displaystyle {\mathcal {O}}(r)}{\displaystyle {\mathcal {O}}(r)}项引起的错误，但减少它就会失去第一项的精度。[6])
+>因此，如果梯度已经计算出来了，那么近似的Hessian 可以通过线性（以梯度的大小）的标量运算来计算。(虽然编程简单，但这种近似方案在数值上并不稳定，因为r必须做得很小，以防止由于${\displaystyle {\mathcal {O}}(r)}$项引起的错误，但减少它就会失去第一项的精度。[6])
