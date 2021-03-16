@@ -1,21 +1,32 @@
 ---
 top: true
 title: Repo
-date: 2021/1/1 00:00:00
-updated: 2021/1/20 21:00:00
+date: 2021/3/12 00:00:00
+updated: 2021/3/16 21:00:00
 ---
 
-
-
 ```
+_posts
 ├── Assembly
 │   ├── Assembly-Lab 8.md
 │   └── Assembly-Lab 9.md
 ├── BuildTools
 │   └── Maven.md
 ├── DB
-│   └── MySQL
-│       └── MySQL.md
+│   ├── Boyce-Codd Normal Form (BCNF).md
+│   ├── Boyce–Codd normal form.md
+│   ├── Database normalization description.md
+│   ├── Database normalization.md
+│   ├── Functional Dependency and Attribute Closure.md
+│   ├── Lossless join decomposition.md
+│   ├── MySQL
+│   │   └── MySQL.md
+│   ├── PostgreSQL
+│   │   └── PostgreSQL.md
+│   ├── What is Normalization_ 1NF, 2NF, 3NF, BCNF Database Example.md
+│   ├── 如何理解关系型数据库的常见设计范式？.md
+│   ├── 数据库范式那些事.md
+│   └── 来做一道题加深对2NF与3NF界线的理解吧.md
 ├── DSA
 │   ├── Algorithm
 │   │   ├── 0-1背包.md
@@ -99,11 +110,6 @@ updated: 2021/1/20 21:00:00
 │   │   └── 并查集-Python.md
 │   └── Visualization
 │       └── AlgorithmAnimation.md
-├── Discrete Mathematics
-│   ├── Truth Table.md
-│   ├── warshall算法.md
-│   ├── 一元多项式相加.md
-│   └── 后缀表达式.md
 ├── Django
 │   ├── Django-Web安全防范.md
 │   └── Django-model操作.md
@@ -113,6 +119,19 @@ updated: 2021/1/20 21:00:00
 │       ├── LICENSE
 │       ├── README.en.md
 │       ├── README.md
+│       ├── out
+│       │   └── production
+│       │       └── ErrorCorrectCode
+│       │           └── algorithm
+│       │               ├── Data.class
+│       │               ├── HMData.class
+│       │               ├── Parity.class
+│       │               ├── ParityType.class
+│       │               ├── Receiver.class
+│       │               ├── Transceiver.class
+│       │               ├── Transmitter.class
+│       │               ├── Transmitting.class
+│       │               └── Utils.class
 │       └── src
 │           └── algorithm
 │               ├── Data.java
@@ -199,12 +218,79 @@ updated: 2021/1/20 21:00:00
 │   │   └── xgboost code.ipynb
 │   ├── 12神经网络
 │   │   └── 12期-神经网络.pdf
+│   ├── Algorithm
+│   │   ├── 01k-近邻算法
+│   │   │   ├── digits
+│   │   │   │   ├── testDigits
+│   │   │   │   └── trainingDigits
+│   │   │   ├── k-近邻算法.pdf
+│   │   │   └── k-近邻算法（完整版）.ipynb
+│   │   ├── 02决策树
+│   │   │   ├── 02决策树.pdf
+│   │   │   └── 决策树（完整版）.ipynb
+│   │   ├── 03朴素贝叶斯
+│   │   │   ├── 03朴素贝叶斯.pdf
+│   │   │   ├── Kaggle.zip
+│   │   │   ├── email
+│   │   │   │   ├── ham
+│   │   │   │   └── spam
+│   │   │   └── 朴素贝叶斯（完整版）.ipynb
+│   │   ├── 04Logistic 回归
+│   │   │   ├── 04Logistic回归.pdf
+│   │   │   ├── Social_Network_Ads.csv
+│   │   │   ├── bank-full.csv
+│   │   │   ├── data_dict.xlsx
+│   │   │   └── 逻辑回归（完整版）.ipynb
+│   │   └── 05支持向量机
+│   │       ├── 05支持向量机.pdf
+│   │       ├── SVM(完整版).ipynb
+│   │       └── digits
+│   │           ├── testDigits
+│   │           └── trainingDigits
+│   ├── DataProcess.md
 │   ├── Decision-Tree.md
+│   ├── Gauss-Newton.md
+│   ├── Gradient descent with momentum.md
+│   ├── Guass-Newton & Levenberg–Marquardt求解非线性最小二乘问题.pdf
+│   ├── Jacobian & Hessian.md
+│   ├── Linear and Nonlinear Least Squares.md
+│   ├── Nesterov accelerated gradient.md
+│   ├── Neural Network Non-linear Hypotheses.md
+│   ├── Newton Method.md
+│   ├── Newton's method in optimization - Wikipedia.md
+│   ├── Perceptron Definition.md
+│   ├── Quasi-Newton.md
 │   ├── R^2.md
-│   └── neural network.md
+│   ├── Stochastic Gradient Descent Algorithm With Python and NumPy.md
+│   ├── Stochastic Gradient Descent Definition.md
+│   ├── What is Perceptron.md
+│   ├── gradient descent &newton's method求解最小值.pdf
+│   ├── gradient-descent.md
+│   ├── neural network.md
+│   ├── 从感知机到深度神经网络，带你入坑深度学习.md
+│   └── 最优化问题中，牛顿法为什么比梯度下降法求解需要的迭代次数更少？.md
+├── Math
+│   ├── Calculus
+│   │   ├── 泰勒级数.md
+│   │   └── 泰勒级数.pdf
+│   ├── Discrete Mathematics
+│   │   ├── Truth Table.md
+│   │   ├── warshall算法.md
+│   │   └── 后缀表达式.md
+│   ├── Linear Algebra
+│   │   ├── Linear Algebra.md
+│   │   ├── Overdetermined-system.md
+│   │   └── 二次型.pdf
+│   ├── Statistic
+│   │   └── Maximum-Likelihood-Estimation.md
+│   └── finite-difference.md
 ├── Network
 │   ├── OSPF与RIP协议对比.md
 │   └── WebServer.md
+├── OS
+│   ├── Deadlock, Starvation, and Livelock.md
+│   ├── Deadlock.md
+│   └── Livelock_ What is, Example, Difference with Deadlock.md
 ├── Pattern
 │   ├── Factory
 │   │   ├── Java 工厂方法模式讲解和代码示例.pdf
@@ -312,6 +398,7 @@ updated: 2021/1/20 21:00:00
 ├── Programming Paradigm
 │   └── FourInLine - Functional Programming.md
 ├── Python
+│   ├── Magic Method in Python.md
 │   ├── Pythonic.md
 │   ├── 协程.md
 │   ├── 贪吃蛇-‘AI’锁头-Python.md
@@ -325,6 +412,8 @@ updated: 2021/1/20 21:00:00
 └── WSN
     ├── WSN Q&A.md
     └── WSN.md
+
+99 directories, 306 files
 ```
 
 
