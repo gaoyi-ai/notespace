@@ -207,6 +207,8 @@ PS. 要是遇上了顽固的贝叶斯派，认为 $ P(\theta = 0.5) = 1 $ ，那
 
 ---
 
+# MLE
+
 >在统计学中，**最大概率估计（MLE）**是一种通过[最大化](https://en.wikipedia.org/wiki/Mathematical_optimization)概率[函数](https://en.wikipedia.org/wiki/Likelihood_function)来[估计](https://en.wikipedia.org/wiki/Estimation_theory)[概率分布](https://en.wikipedia.org/wiki/Probability_distribution)[参数](https://en.wikipedia.org/wiki/Statistical_parameter)的方法，因此在假定的[统计模型](https://en.wikipedia.org/wiki/Statistical_model)下[，观测到的数据](https://en.wikipedia.org/wiki/Realization_(probability))最有可能。[参数空间](https://en.wikipedia.org/wiki/Parameter_space)中最大化可能性函数的[点](https://en.wikipedia.org/wiki/Point_estimate)称为最大可能性估计值。
 
 ## 什么是参数？

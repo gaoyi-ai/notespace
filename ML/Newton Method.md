@@ -3,7 +3,7 @@ title: Newton method
 categories:
 - Optimization
 tags:
-- newton
+- Newton
 date: 2021/3/15 10:00:00
 updated: 2021/3/15 16:00:00
 ---
@@ -106,3 +106,13 @@ $$x_{n+1}=x_n–[Hf(x_n)]–1∇f(x_n),n≥0$$
 其中 H 是 Hessian 矩阵, 定义见上. 
 
 高维情况依然可以用牛顿迭代求解, 但是问题是 Hessian 矩阵引入的复杂性, 使得牛顿迭代求解的难度大大增加, 但是已经有了解决这个问题的办法就是 Quasi-Newton method, 不再直接计算 hessian 矩阵, 而是每一步的时候使用梯度向量更新 hessian 矩阵的近似.
+
+## Newton’s Method for Maximum Likelihood Estimation
+
+在许多统计建模应用中，我们有一个似然函数$L$，它是由我们假设产生数据的概率分布引起的。这个似然函数通常由一个向量$θ$作为参数，最大化$L(θ)$可以为我们提供最大似然估计值*(MLE)。在实践中，最大化对数似然函数，或$ℓ(θ)$更有意义，在许多常见的应用中，它相当于求解$θ$的次方程$ℓ′(θ)=0$。
+
+牛顿法可以应用于生成一个收敛到MLE $\hat{\theta}$的序列。如果我们假设θ是一个k×1的向量，我们可以迭代$\theta_{n+1} = \theta_n - \ell^{\prime\prime}(\theta_n)^{-1}\ell^\prime(\theta_n)$，其中ℓ’‘是对数似然函数的Hessian。
+
+请注意，上面的公式计算的是k×k矩阵的逆，这应该是一个直接的警告信号，说明这不是算法的实现方式。在实践中，解方程组$[\ell^{\prime\prime}(\theta_n)]\theta_{n+1} = [\ell^{\prime\prime}(\theta_n)]\theta_n-\ell^\prime(\theta_n).$可能更有意义，而不是在每次迭代时直接反转ℓ′′(θn)。
+
+然而，在算法的最后再求$\ell^{\prime\prime}(\theta)$得逆，得到观察到的信息矩阵$-\ell^{\prime\prime}(\hat{\theta})$，可能是有意义的。这个观察到的信息矩阵可以用来获得$\hat{\theta}$的渐进标准误差，以便对$\theta$进行推理。
