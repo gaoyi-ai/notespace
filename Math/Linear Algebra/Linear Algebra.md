@@ -30,6 +30,14 @@ updated: 2021/2/22 21:00:00
 
 <img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210222213841347.png" alt="image-20210222213841347" style="zoom:67%;" />
 
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210319165243503.png" alt="image-20210319165243503" style="zoom:67%;" />
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210319165304448.png" alt="image-20210319165304448" style="zoom:67%;" />
+
+用行视角来看的话，最终得到的结果，每一个结果就是一个元素，这个元素不需要再做任何运算，不需要进行加法运算，可以直接放到结果矩阵中的那个对应的位置。
+
+如果把前面的矩阵看成一列一列的，后面的矩阵看成一行一行的。每次从前面取出一列，然后取出后面对应的那一行，进行乘法。这个乘法的结果是一个mx n 的矩阵，总共可以得到k 个这样的矩阵，把这k 个矩阵加在一起，得到的是结果矩阵。
+
 ## 矩阵表示空间
 
 **一个矩阵乘以一个向量。可以把看作是把这个向量扔进由这个矩阵所定义的新的空间中，看这个向量所代表的点在这个新的空间中。所对应的那个位置。而对于这个新的空间，它的坐标轴是由这个矩阵的列向量所定义的。**
@@ -71,3 +79,140 @@ updated: 2021/2/22 21:00:00
 - 主元所在列的其他元素均为 0
 
 <img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210223213351777.png" alt="image-20210223213351777" style="zoom:67%;" />
+
+## 求解矩阵的逆
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210319104935466.png" alt="image-20210319104935466" style="zoom:67%;" />
+
+转为求解线性系统
+
+唯一解：对应的逆矩阵
+无解：没有逆矩阵
+无数解：不会出现此情况
+
+这些命题是等价的，这些命题的否命题也是等价的
+
+对于方阵 A，
+
+- 矩阵 A 可逆 (A 是非奇异矩阵 )
+- 线性系统 Ax=0 只有唯一解， x=0
+- rref (A) = I
+- A 可以表示成一系列列初等矩阵的乘积
+- Ax=b 只有唯一解
+- 方阵A的列向量线性无关
+- 方阵A的列向量可以生成n维空间
+
+## 矩阵的 LU 分解
+
+在数值分析和线性代数中，LU分解或因式化将一个矩阵分解为一个下三角矩阵和一个上三角矩阵的乘积。这个乘积有时也包括一个换元矩阵。LU分解可以看作是高斯消除的矩阵形式。计算机通常用LU分解来求解线性方程的方程组，在对矩阵进行反演或计算矩阵的行列式时，它也是一个关键步骤。
+
+高斯消元法的过程，通过初等变换，把一个矩阵变成了上三角矩阵
+
+$E_p ⋅...⋅E_3 ⋅E_2 ⋅E_1 ⋅ A = U$
+$L = E_1^{−1} ⋅E_2^{−1} ⋅E_3^{−1} ⋅...⋅E_p^{−1}$
+
+## 线性组合
+
+矩阵和向量的乘法，可以看做是矩阵的列向量的一个线性组合
+$$
+\left(\begin{array}{ll}
+1 & 2 \\
+4 & 5
+\end{array}\right) \cdot\left(\begin{array}{l}
+x \\
+y
+\end{array}\right)=\left(\begin{array}{c}
+x+2 y \\
+4 x+5 y
+\end{array}\right)=\left(\begin{array}{l}
+1 \\
+4
+\end{array}\right) x+\left(\begin{array}{c}
+2 \\
+5
+\end{array}\right) y \quad \text { 列视角 }
+$$
+
+### 线性相关的重要性质
+
+$$
+\vec{u}=\left(\begin{array}{c}
+-3 \\
+1
+\end{array}\right), \vec{v}=\left(\begin{array}{c}
+1 \\
+-1 / 3
+\end{array}\right)
+$$
+是否线性相关?
+是否存在k1, k2不全为0, 满足: $k_{1} \cdot \vec{u}+k_{2} \cdot \vec{v}=k_{1} \cdot\left(\begin{array}{c}-3 \\ 1\end{array}\right)+k_{2} \cdot\left(\begin{array}{c}1 \\ -1 / 3\end{array}\right)=0$
+
+转化为齐次线性方程组求解 $\left(\begin{array}{cc}-3 & 1 \\ 1 & -1 / 3\end{array}\right) \cdot\left(\begin{array}{l}k_{1} \\ k_{2}\end{array}\right)=0 \quad$ 是否只有唯一零解（线性无关）?
+
+在二维平面中两个向量不共线，则这两个向量线性无关
+在三维空间中，三个向量不共面，则这三个向量线性无关
+
+如果V1,V2,V3,…，Vn线性相关→其中一个向量可以写成其他向量的线性组合
+如果V1,V2,V3,…，Vn线性无关→没有一个向量可以写成其他向量的线性组合
+
+## 生成空间的基
+
+n个n维向量v1,v2,ν3,…,vn,若他们是这个n维空间的基 <=> 
+1)v1,v2,v3,…,vn 生成整个n维空间
+2)v1,v2,v3,…,vn 线性无关
+
+## 广义向量空间
+
+所有的多项式,构成一个向量空间。
+$$
+a_px^p+a_{p-1}x^{p-1}+…+a_1x+a_0
+$$
+加法:多项式加法;数量乘法:多项式乘以一个数
+
+## 子空间
+
+一个空间的子空间，这个子空间一定包含这个原来空间所对应的零向量。
+
+对于三维空间来说
+过原点的一个平面,是三维空间的一个子空间
+过原点的一个直线,是三维空间的一个子空间
+原点本身,是三维空间的一个子空间!
+
+对于n维空间来说，过原点的一个m维空间(m<n),是n维空间的一个子空间
+
+## 行空间
+
+高斯消元法结果的每一行其实就是原来矩阵中各行的一个线性组合。
+
+如果进行高斯消元法，一共有m 行的话，那么下面假设一共有x 行都为零行，这意味着什么？
+这就意味着这x 行所对应的那些行向量，其实都可以表示成上面的那m-x 行这些行向量的线性组合。所以这x 个为零向量的向量都可以删去。
+
+最终的结果那个零行就意味着这一行的向量可以表示成其他向量的线性组合。所以就可以把这些向量删去。那么剩下的这个非零行的个数，就是这p个n维向量相应的生成空间的基，也是这p个n 维向量所对应的这个生成空间的维度。
+
+被向量$ \mathrm{u}=(2,0,0) ; \mathrm{v}=(-1,0,0) ; \mathrm{w}=(0,0,1) $ 生成的空间,维度是多少  -2
+$$
+\begin{aligned}
+
+&\left(\begin{array}{c}
+\vec{u} \\
+\bar{v} \\
+\bar{w}
+\end{array}\right)=\left(\begin{array}{ccc}
+2 & 0 & 0 \\
+-1 & 0 & 0 \\
+0 & 0 & 1
+\end{array}\right)=\left(\begin{array}{ccc}
+1 & 0 & 0 \\
+-1 & 0 & 0 \\
+0 & 0 & 1
+\end{array}\right)=\left(\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 0 & 0 \\
+0 & 0 & 1
+\end{array}\right)=\left(\begin{array}{ccc}
+1 & 0 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 0
+\end{array}\right)
+\end{aligned}
+$$
