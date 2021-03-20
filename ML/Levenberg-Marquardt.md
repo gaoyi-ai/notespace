@@ -1,5 +1,5 @@
 ---
-title: Quasi-Newton
+title: Levenberg-Marquardt
 categories:
 - Optimization
 tags:
@@ -56,7 +56,7 @@ $$
 
 在 Newton 法中，所有的因变量都是等量加权的，除此之外，可以使用一个加权的矩阵对因变量进行加权。
 
-例如，当测量矢量 x 满足一个协方差矩阵为![](http://latex.codecogs.com/gif.latex?%7b%5cSigma_x%7d)的高斯分布，且希望最小化 Mahalanobis 距离$||x-f(p)|{|_\Sigma}$
+例如，当测量矢量 x 满足一个协方差矩阵为${\Sigma_x}$的高斯分布，且希望最小化 Mahalanobis 距离$||x-f(p)|{|_\Sigma}$
 
 当这个协方差矩阵可以是对角的，则表示 x 各坐标之间相互独立。
 
