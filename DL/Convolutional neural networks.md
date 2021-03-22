@@ -1,5 +1,5 @@
 ---
-title: CNN
+title: CNN Diagram
 categories:
 - DL
 - CNN
@@ -166,8 +166,9 @@ Notice how this has the effect of reducing the dimensions of the output feature 
 
 You can calculate the dimensions of a feature map according to the following formula
 
-$$ \left({\frac{{{n_{width}} - {f_{width}} + 2{p_{width}}}}{{{s_{width}}}} + 1,\frac{{{n_{height}} - {f_{height}} + 2{p_{height}}}}{{{s_{height}}}} + 1} \right) $$
-
+$$
+\left({\frac{n_{width - f_{width} + 2 p_{width}}}{s_{width}} + 1,\frac{n_{height} - f_{height} + 2 p_{height}}{s_{height}} + 1} \right)
+$$
 where $n$ is the input dimension, $f$ is the filter size, $p$ is the padding, $s$ is the stride length.
 
 ### Putting it all together
