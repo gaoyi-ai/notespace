@@ -53,3 +53,35 @@ We can generalise this to multiple regression involving *p* parameters and covar
 ---
 
 假设现在有一个总体｛1,2,3,4,5,6,7,8,9｝，其均值为 5，我们从这个总体中抽取了一个样本｛3，6，4，7，9｝根据这个样本的均值来估计总体的均值。但样本的均值为 5.8，明显高于实际的总体的均值。要想我们抽出的样本达到理想的效果，我们应当是抽取了 9，就应当抽取 1，抽取了 2，就抽取了 8。但在我们前面抽取的样本中抽了一个 9，却没有 1，我们可以重新抽取剩下的个体，让它们中的一个个体值为 1，这样我们就有 4 次机会修正样本与总体不符的问题，这个时候，我们的自由度就是 4。
+
+## Why Do Critical Values Decrease While DF Increase?
+
+Let’s take a look at the t-score formula in a hypothesis test:
+$$
+t = \frac{\bar{x}-\mu_0}{s / \sqrt{n}}
+$$
+当n增加时，t分数上升。 这是由于分母的平方根：随着分母的平方根变大，分数s /√n变小，t分数（另一个分数的结果）变大。 由于自由度在上面被定义为n-1，因此您会认为[t-critical值](https://www.statisticshowto.com/probability-and-statistics/find-critical-values/t-critical-value/)也应该变大，但它们不会变大：它们变小。 这似乎违反直觉。
+
+但是，请**考虑一下t检验的实际用途**。 之所以使用t检验，是因为您不知道总体的标准偏差，因此也不知道图形的形状。 它可能有短的[胖尾巴](https://www.statisticshowto.com/fat-tail-distribution/)。 它可能有长长的瘦尾巴。 你只是不知道。 自由度会影响t分布中图的形状； 随着df变大，分布尾部的面积变小。 当df接近无穷大时，t分布将看起来像正态分布。 发生这种情况时，您可以确定自己的标准偏差（在正态分布上为1）。
+
+假设您是从四个人中重复取样的权重，这些人是从标准偏差未知的总体中得出的。 您测量它们的权重，计算样本对之间的平均差，然后一遍又一遍地重复该过程。 极小的样本数量4将导致t分布带有肥尾。 粗尾巴告诉您，您的样本中更有可能具有极高的价值。 您以5％的alpha水平测试假设，从而**切断了分布的最后5％** 。下图显示了5％截止的t分布。 得出的临界值为2.6。（**注意**：这里我以假设的t分布为例-CV不准确）。
+
+![sample size and t dist shape](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/sample-size-and-t-dist-shape.png)
+
+现在来看正态分布。 对于正态分布，获得极值的机会较小。 5％Alpha水平在CV为2时会降低。
+
+Back to the original question “Why Do Critical Values Decrease While DF Increases?” Here’s the short answer:
+
+自由度与样本大小（n-1）有关。 如果df增加，则也表明样本量正在增加；如果df增加，则表明样本量正在增加。 t分布图的尾巴更细，将临界值推向均值。
+
+---
+
+## Degrees of Freedom in Regression Analysis
+
+[regression](https://statisticsbyjim.com/glossary/regression-analysis/)中的自由度稍微复杂一些，我会保持简单。 在回归模型中，每个项都是使用一个自由度的估计参数。 在下面的回归输出中，您可以看到每个术语如何需要DF。 有28个观察值，两个[independent variables](https://statisticsbyjim.com/glossary/predictor-variables/)总共使用两个自由度。 输出显示“错误”中剩余的26个自由度。
+
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/df_regr.png)
+
+错误的自由度是可用于估计[系数](https://statisticsbyjim.com/glossary/regression-coefficient/)的独立信息。 对于回归中的精确[系数估计和强大的假设检验](https://statisticsbyjim.com/regression/interpret-coefficients-p-values-regression/), you must have many error degrees of freedom, which equates to having many observations for each model term.
+
+当您向模型中添加项时，误差的自由度会降低。 您可用于估计系数的信息较少。 这种情况降低了估计的精度和测试的能力。 当剩余自由度太少时，您将无法相信回归结果。 如果您使用所有自由度，则该过程将无法计算p值。
