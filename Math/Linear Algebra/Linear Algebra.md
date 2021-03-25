@@ -362,3 +362,99 @@ $$
 也就是我们的 $Ax=b$ ，方程组无解。  
 
 *   采取投影的方法来拟合这条曲线。 $A^TA\hat{x}=A^Tb$ 有解，于是我们将原是两边同时乘以 $A^T$ 后得到的新方程组是有解的， $A^TA\hat{x}=A^Tb$ 也是最小二乘法的核心方程。
+
+## 线性变换
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325104310578.png" alt="image-20210325104310578" style="zoom:50%;" />
+
+那么这种空间转换一个非常重要的应用就是压缩。比如在二维空间中=有五个数据点。那么对这五个数据点每个数据就必须要用两个数来表示，分别是在x 轴的位置和在y 轴的位置，如果是用红色的这组坐标轴，用红色的这组基来表示的话，这组数据就产生了一个特点。就是这些数据点在这个红色坐标系的y轴的位置所对应的那个值都特别的小。换句话说这些数据在这个红色的坐标系下，在y 轴这个方向上的。信息量是非常低的，主要的信息量呢都在这个红色的坐标轴的这个x 方向上。那么这就为进一步压缩数据提供了基础。
+
+## 行列式
+
+一个二维平面空间来说，可以使用两个二维向量就可以作为这个空间的一组基，就可以来描述这个空间。所谓的描述这个空间就是这个空间中的任何一个向量都可以被这两个二维向量线性表示出来。
+
+那么行列式描述的就是n 个n 维向量所对应的这样的一个n 维体所对应的体积。行列式表示向量组在空间中形成的**有向**体积。当然在二维空间中就是面积。
+
+![image-20210325111411550](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325111411550.png)
+$$
+\begin{array}{l}
+\operatorname{det}\left(\begin{array}{ll}
+a & b \\
+c & d
+\end{array}\right) \\
+=(a+c)(b+d)-2 b c-c d-a b \\
+=a b+c b+a d+c d-2 b c-c d-a b \\
+=b c+a d-2 b c \\
+=a d-b c
+\end{array}
+$$
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325110736016.png" alt="image-20210325110736016" style="zoom:67%;" />
+
+由于行列式的结果就是一个数字一个值，所以它的方向只有两个或正或负，这和向量不一样。向量在n 维空间中可以指向无数个方向，但是现在行列式的结果就是一个数值，也可以理解成是在一维空间中的，方向只有可能是正或者是负这两种情况。
+
+那么具体在二维空间中，这个有向面积其实相对还是比较好理解的。可以简单的理解成，看这个四边形永远是从逆时针的方方向去看的，或者由于绘制这个二维平面的坐标轴，横轴是x 纵轴是y 所以习惯从x 轴向y 轴这样的一个逆时针的方向去看。如果给出的这两个向量，从x 轴向y 轴这个角度顺过去的话，先看到第一个向量，再看到第二个向量。那么对应的这个面积呢就是正的。如果顺着这个方向看过去，先看到了第二个向量，再看到了第一个向量，得到的这个面积呢就是一个负数。
+
+或者可以想成，如果这个平行四边形它是一个纸片的话，对于这个纸片如果分正反面的话，那么这个第二种情况呢，相当于是把这个纸片在这个二维平面中翻过来放置了。所以需要在这个屏幕的另外一侧才能看到这个纸片的正面。那么在这个屏幕的这一侧呢，看到的是这个纸片的反面，所以它对应的这个面积呢，让它是一个负数。
+
+![image-20210325111624281](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325111624281.png)
+
+简单说，在行列式中，向量排列的顺序是有意义的。交换两行，则行列式的值取反。
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325145024861.png" alt="image-20210325145024861" style="zoom: 67%;" />
+$$
+\operatorname{det}(A)=\operatorname{det}\left(A^{T}\right) \\
+证明: \\
+\begin{array}{l}
+\operatorname{det}(A)=\operatorname{det}\left(P L U P^{\prime}\right)=\operatorname{det}(P) \cdot \operatorname{det}(L) \cdot \operatorname{det}(U) \cdot \operatorname{det}\left(P^{\prime}\right) \\
+任意A可以分解成PLUP' \\
+\operatorname{det}\left(A^{T}\right)=\operatorname{det}\left(\left(P L U P^{\prime}\right)^{T}\right)=\operatorname{det}\left(P^{\prime T} U^{T} L^{T} P^{T}\right) \\
+=\operatorname{det}\left(P^{\prime T}\right) \operatorname{det}\left(U^{T}\right) \operatorname{det}\left(L^{T}\right) \operatorname{det}\left(P^{T}\right)
+\end{array}
+$$
+
+## 特征值 特征向量
+
+$\boldsymbol{A} \vec{u} = \lambda \vec{u}$，即仅改变向量模的大小，而没有改变方向。
+
+$\lambda$称为A的特征值（eigenvalue)
+$\vec{u}$称为A对应于$\lambda$的特征向量（eigenvector)
+
+求解特征值和特征向量 $\boldsymbol{A} \vec{u} = \lambda \vec{u}, \boldsymbol{A} = \left(\begin{array}{ll}
+4 & -2 \\
+1 & 1
+\end{array}\right)$ 
+$$
+\begin{aligned}
+A \vec{u}=\lambda \vec{u} & & A \vec{u}-\lambda \vec{u}=0 & \\
+& & A \vec{u}-\lambda I \vec{u}=0 & \\
+& &(A-\lambda I) \vec{u}=0 & \quad \text { 希望该方程有非零解。 }
+\end{aligned}
+$$
+即 $\operatorname{det}(A - \lambda \boldsymbol{I}) = 0$ , $\lambda = 2, \lambda = 3$，各自对应的特征向量有无数个。
+
+$\boldsymbol{A} \vec{u} = \lambda \vec{u}$，当$\lambda = 0$，$\boldsymbol{A} \vec{u} = 0$，由于特征向量不为零向量，即线性系统不仅有零解，即A不可逆。
+
+### 投影变换
+
+投影变换是不是一个线性变换？如果是一个线性变换，它就一定对应了一个矩阵。怎么看一个变换是不是一个线性变换呢？线性变换的定义：
+$T(u+v)=T(u)+T(v)$
+$T(cu)=cT(u), c \in R$
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325170902557.png" alt="image-20210325170902557" style="zoom:67%;" />
+
+通过几何的方式得到一个投影变换所对应的特征值和特征向量，当用几何的视角来研究这个问题的时候，先看特征向量是比较方便的。所谓的特征向量就是经过这种变换之后得到的结果向量和原向量还是在一条直线上，它们之间只相差某一个常数倍，这个常数就是特征值。
+
+不仅如此，在这个图中，其实还直接找到了这两个特征值所对应的特征空间。那么这个特征空间一个就是投影变换要投影到(2,1)这个向量所在的直线，这根直线是一个空间。这个空间中的所有向量都是这个投影变换对于$\lambda=1$的特征向量。另外一个特征空间则是和这根蓝色的直线相垂直的那个直线，它形成了一个特征空间，是投影变换对于$\lambda=0$这个特征值所对应的所有特征向量的集合。
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325170948027.png" alt="image-20210325170948027" style="zoom:67%;" />
+
+对于矩阵$\left(\begin{array}{ll}
+0 & 1 \\
+1 & 0
+\end{array}\right)$，它所对应的特征值和特征向量。
+
+这两个特征空间分别就是$y=x$，这根直线形成了一个空间是一个特征空间。另外一个就是和这根直线垂直的直线，这根直线形成了第二个特征空间。
+
+这个变换其实就是将所有的向量沿$y=x$ 直线做一次翻转.
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325170106133.png" alt="image-20210325170106133" style="zoom:67%;" />
