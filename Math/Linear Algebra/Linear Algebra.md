@@ -458,3 +458,83 @@ $T(cu)=cT(u), c \in R$
 这个变换其实就是将所有的向量沿$y=x$ 直线做一次翻转.
 
 <img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210325170106133.png" alt="image-20210325170106133" style="zoom:67%;" />
+
+## 相似矩阵
+
+如果矩阵A,B满足$A=P^{-1}BP$则称A和B相似。
+
+类比相似三角形，相似三角形可以理解成是从不同的视角来观察相同的内容。
+
+$A=P^{-1}BP$，即A变换是在P坐标系下观察的B变换，A和B这两个矩阵所表示的变换是同一个变换。只不过观察所在的坐标系是不同的。观察B这个变换就是在通常的标准坐标系下，而观察A的这个坐标系则是在P这个矩阵所定义的坐标系下，是在两个不同的坐标系下观察同一个变换得到的。结果是不同的得到的这两个结果就分别是矩阵A和矩阵B但是它们本质又是同一个变换。所以就称A和B是相似的。
+
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/image-20210326092807264.png" alt="image-20210326092807264" style="zoom:67%;" />
+
+上图即，一个P坐标系下的坐标，先转换到标准坐标系下，再给它进行B变换。进行完B变换之后得到的结果还在标准坐标系下，再转回P这个坐标系下再做成一个P的逆，最终的结果其实和在P这个坐标系下直接对这个坐标进行A变换得到的结果是一致的，这就说明了A和B这两个变换，它们本质是一个变换。只不过我们所观察的坐标系不同。
+
+关于$A=P^{-1}BP$ 和 $B=PAP^{-1}$，理解的方式就是这个等号的左右两边同时乘以一个坐标，关键是在有几何解释的时候乘以哪个坐标系下的坐标有意义。如果P在最后的话，最后肯定要乘以一个在P坐标系下的坐标才有意义。而如果$P^{-1}$在最后，最后相应的要乘以一个在标准坐标系下的坐标才有意义。
+
+那么现在A和B相似，它们本质是一个变换，什么相同呢？
+答案是特征方程相同，A和B的特征方程相同，就意味着A和B的特征值是相同的。
+证明：
+$$
+\begin{aligned}
+\operatorname{det}(A-\lambda I) &=\operatorname{det}\left(P^{-1} B P-\lambda I\right)=\operatorname{det}\left(P^{-1} B P-\lambda P^{-1} P\right)=\operatorname{det}\left(P^{-1} B P-P^{-1} \lambda P\right) \\
+&=\operatorname{det}\left(P^{-1}(B-\lambda I) P\right) \\
+&=\operatorname{det}\left(P^{-1}\right) \operatorname{det}(B-\lambda I) \operatorname{det}(P)=\operatorname{det}(B-\lambda I) \operatorname{det}\left(P^{-1} P\right) \\
+&=\operatorname{det}(B-\lambda I)
+\end{aligned}
+$$
+
+## 矩阵对角化
+
+如果A有n个线性无关的特征向量，则A和某个D相似。
+
+$A=PDP^{-1}$，D变换是P坐标系下观察到的A
+
+矩阵D为特征值组成的对角矩阵，P为特征向量组成的矩阵。
+
+## 对称矩阵
+
+对称矩阵的特征值一定是实数
+对称矩阵的多重特征值，其对应的特征空间的维度一定等于重数
+对称矩阵的几何重数等于代数重数 
+对称矩阵一定有n个线性无关的特征向量
+对称矩阵一定可以被对角化
+
+对称矩阵的所有不同的特征值对应的特征向量互相垂直
+证明：
+$$
+\begin{array}{l}
+\left(\lambda_{1} \vec{v}_{1}\right) \cdot \vec{v}_{2}=\left(\lambda_{1} v_{1}\right)^{T} v_{2}=\left(A v_{1}\right)^{T} v_{2}=v_{1}^{T} A^{T} v_{2}=v_{1}^{T} A v_{2} \\
+=v_{1}^{T} \lambda_{2} v_{2}=\lambda_{2} v_{1}^{T} v_{2}=\lambda_{2} \vec{v}_{1} \vec{v}_{2} \\
+=\left(\lambda_{1}-\lambda_{2}\right)\left(\vec{v}_{1} \cdot \vec{v}_{2}\right)=0 \\
+=\vec{v}_{1} \cdot \vec{v}_{2}=0
+\end{array}
+$$
+
+A是对称矩阵 ⇿ A可以被正交对角化$A=QDQ^T$，Q为标准正交矩阵
+
+## 奇异值
+
+若A是一个mxn的矩阵，则$A^TA$是一个n*n的方阵，且对称
+
+$A^{T}A$ 可以被正交对角化，拥有n个实数特征值 $\lambda_{1}, \lambda_{2}, \ldots, \lambda_{n}$ ; n个互相垂直的标准特征向量 $\vec{v}_{1}, \vec{v}_{2}, \ldots, \vec{v}_{n}$
+$$
+\left\|A \vec{v}_{i}\right\|^{2}=\lambda_{i} \\
+证明: \\
+\begin{aligned}
+\left\|A \vec{v}_{i}\right\|^{2}=\left(A \vec{v}_{i}\right) \cdot\left(A \vec{v}_{i}\right) &=\left(A v_{i}\right)^{T} \cdot\left(A v_{i}\right)=v_{i}^{T} A^{T} A v_{i} \\
+&=v_{i}^{T}\left(A^{T} A v_{i}\right)=v_{i}^{T}\left(\lambda_{i} v_{i}\right) \\
+&=\lambda_{i} v_{i}^{T} v_{i}=\lambda_{i}|| v_{i} \|^{2}=\lambda_{i}
+\end{aligned}
+$$
+即$A^{T} A$的特征值 $>=0$
+奇异值 (Singular Value)$\sigma_{i}=\sqrt{\lambda_{i}}$，奇异值就是 $A \vec{v}_{i}$ 的长度
+
+$\{ A \bar{v}_{i}\}$是A的列空间的一组正交基，$\lambda_{i} \neq 0$
+
+如果A有r个不为零的奇异值： $\left\{A \vec{v}_{1}, A \vec{v}_{2}, \ldots, A \vec{v}_{r}\right\} \quad$ 是A的列空间的一组正交基
+
+A的列空间的维度为r $; \operatorname{rank}(\mathrm{A})=\mathrm{r}$
+
+$\left\{\frac{A \vec{v}_{1}}{\sigma_{1}}, \frac{A \vec{v}_{2}}{\sigma_{2}}, \ldots, \frac{A \vec{v}_{k}}{\sigma_{r}}\right\}$ 是A的列空间的一组标准正交基
