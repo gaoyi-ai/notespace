@@ -155,22 +155,24 @@ As always, the definition for $l_{\infty}$-norm is
 
 ![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x+%5Cright+%5C%7C_%7B%5Cinfty%7D+%3D+%5Csqrt%5B%5Cinfty%5D%7B%5Csum_i+x_i%5E%7B%5Cinfty%7D%7D&bg=ffffff&fg=888888&s=0&c=20201002)
 
-Now this definition looks tricky again, but actually it is quite strait forward. Consider the vector $\boldsymbol{x}$, let’s say if $x_j$ is the highest entry in the vector  $\boldsymbol{x}$, by the property of the infinity itself, we can say that
+现在这个定义看起来又很棘手，但实际上很简单. Consider the vector $\boldsymbol{x}$, let’s say if $x_j$ is the highest entry in the vector  $\boldsymbol{x}$, by the property of the infinity itself, we can say that
 
-![](https://s0.wp.com/latex.php?latex=x_j%5E%7B%5Cinfty%7D%5Cgg+x_i%5E%7B%5Cinfty%7D&bg=ffffff&fg=888888&s=0&c=20201002) ![](https://s0.wp.com/latex.php?latex=%5Cforall+i+%5Cneq+j&bg=ffffff&fg=888888&s=0&c=20201002)
+$x_j^{\infty}\gg x_i^{\infty}, \forall i \neq j$
 
  then
 
-![](https://s0.wp.com/latex.php?latex=%5Csum_i+x_i%5E%7B%5Cinfty%7D+%3D+x_j%5E%7B%5Cinfty%7D&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\sum_i x_i^{\infty}=x_j^{\infty}
+$$
 then
-
-![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x+%5Cright+%5C%7C_%7B%5Cinfty%7D+%3D+%5Csqrt%5B%5Cinfty%5D%7B%5Csum_i+x_i%5E%7B%5Cinfty%7D%7D+%3D+%5Csqrt%5B%5Cinfty%5D%7Bx_j%5E%7B%5Cinfty%7D%7D+%3D+%5Cleft+%7C+x_j+%5Cright+%7C&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\left\|x\right \|_{\infty}=\sqrt[\infty]{\sum_i x_i^{\infty}}=\sqrt[\infty]{x_j^{\infty}}=\left| x_j\right |
+$$
 Now we can simply say that the $l_{\infty}$-norm is
 
-![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x+%5Cright+%5C%7C_%7B%5Cinfty%7D+%3D+max%28%5Cleft+%7C+x_i+%5Cright+%7C%29&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\left \|x\right \|_{\infty}=max(\left|x_i\right|)
+$$
 that is the maximum entries’ magnitude of that vector. That surely demystified the meaning of $l_{\infty}$-norm
 
 Now we have discussed the whole family of norm from $l_0$ to $l_{\infty}$, I hope that this discussion would help understanding the meaning of norm, its mathematical properties, and its real-world implication.
