@@ -223,13 +223,13 @@ serverBootstrap.option(ChannelOption.SO_RCVBUF, 10);
 >
 > * TCP 以一个段（segment）为单位，每发送一个段就需要进行一次确认应答（ack）处理，但如果这么做，缺点是包的往返时间越长性能就越差
 >
->   ![](images/Netty03-%E8%BF%9B%E9%98%B6/0049.png)
+>   ![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/0049.png)
 >
 > 
 >
 > * 为了解决此问题，引入了窗口概念，窗口大小即决定了无需等待应答而可以继续发送的数据最大值
 >
->   ![](images/Netty03-%E8%BF%9B%E9%98%B6/0051.png)
+>   ![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/0051.png)
 >
 > * 窗口实际就起到一个缓冲区的作用，同时也能起到流量控制的作用
 >
@@ -255,7 +255,7 @@ serverBootstrap.option(ChannelOption.SO_RCVBUF, 10);
 >   * TCP 在传递大量数据时，会按照 MSS 大小将数据进行分割发送
 >   * MSS 的值在三次握手时通知对方自己 MSS 的值，然后在两者之间选择一个小值作为 MSS
 >
->   <img src="images/Netty03-%E8%BF%9B%E9%98%B6/0031.jpg" style="zoom:50%;" />
+>   <img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/0031.jpg" style="zoom:50%;" />
 
 
 
@@ -1086,7 +1086,7 @@ channel.writeInbound(s2);
 
 解读
 
-![](images/Netty03-%E8%BF%9B%E9%98%B6/0013.png)
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/0013.png)
 
 
 

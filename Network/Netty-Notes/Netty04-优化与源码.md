@@ -1425,7 +1425,7 @@ protected void run() {
 
 参考下图
 
-<img src="images/Netty04-%E4%BC%98%E5%8C%96%E4%B8%8E%E6%BA%90%E7%A0%81/0032.png"  />
+<img src="https://gitee.com/gaoyi-ai/image-bed/raw/master/images/0032.png"  />
 
 
 
