@@ -1,6 +1,7 @@
 ---
 title: Netty Basic
 categories:
+- Network
 - IO
 - Socket
 tags:

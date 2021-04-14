@@ -1,6 +1,7 @@
 ---
 title: Netty Source & RPC
 categories:
+- Network
 - IO
 - Socket
 tags:
