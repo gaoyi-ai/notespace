@@ -1,6 +1,7 @@
 ---
 title: ChatRoom with NIO
 categories:
+- Network
 - IO
 - Socket
 tags:
