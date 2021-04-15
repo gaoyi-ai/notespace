@@ -56,8 +56,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
     1699260  rows processed
-
-
 ```
 
 It took around 1 min 35 seconds and 169 MB of data was sent from the database back to the client (roughly 100 bytes per row, on average). Interestingly, the rough row length estimate from data dictionary stats shows that an average row size ought to be 119 bytes (116 plus 3 bytes for the row header, lock byte & column count):
@@ -69,8 +67,6 @@ SQL> SELECT COUNT(*),SUM(avg_col_len) FROM dba_tab_columns
   COUNT(*) SUM(AVG_COL_LEN)
 ---------- ----------------
         16              116
-
-
 ```
 
 The above table has only 16 columns, now let’s just select 3 columns that my application needs:
@@ -95,8 +91,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
     1699260  rows processed
-
-
 ```
 
 So, selecting only 3 columns out of 16 has given me over 2x better query response time (1m 35sec vs 43 sec). The sqlplus _Elapsed_ metric includes the time it took to execute the query on the DB server _and_ to fetch all its records from to the client side, so the network latency, throughput and TCP send buffer configuration will affect it.
@@ -124,8 +118,6 @@ Statistics
           1  sorts (memory)
           0  sorts (disk)
     1699260  rows processed
-
-
 ```
 
 The test above is a `SELECT *` again, sorted by a few VARCHAR2 columns that were 10-40 bytes (max) size, with lots of repetitive values. Only about 65 MB were sent by the server after its SQL*Net protocol-level deduplication. Note that the **SQL*Net roundtrips to/from client** value is the same for all test runs above, this is because my fetch `arraysize` has been set to 100 in my application. The arraysize controls how many fetch calls you end up sending over the network for data retrieval, every fetch after the 1st one requests arraysize-ful of rows to be returned regardless of how wide they are:
@@ -150,8 +142,6 @@ SPOOL customers.txt
 SELECT * FROM soe_small.customers;
 SPOOL OFF
 EXIT
-
-
 ```
 
 `selectsome.sql`: Select 3 columns:
@@ -162,8 +152,6 @@ SPOOL customers.txt
 SELECT customer_id, credit_limit, customer_since FROM soe_small.customers;
 SPOOL OFF
 EXIT
-
-
 ```
 
 So, let’s run `selectstar` locally:
@@ -174,8 +162,6 @@ $ time sqlplus -s system/oracle @selectstar
 real   1m21.056s
 user   1m3.053s
 sys    0m15.736s
-
-
 ```
 
 When adding user+sys CPU together, we get around 1m 19 seconds of CPU time, out of 1m 21s of total wall-clock elapsed time, meaning that sqlplus spent very little time sleeping, waiting for more results to arrive from the pipe. So my “application” spent 99% of its runtime in _application think time_ on the client side, burning CPU when processing the retrieved data.
@@ -196,8 +182,6 @@ Sampling /proc/syscall, stat, wchan for 5 seconds... finished.
       95 |        0.95 | (sqlplus) | Running (ON CPU) | [running] | 0         
        2 |        0.02 | (sqlplus) | Running (ON CPU) | [running] | pipe_wait 
        2 |        0.02 | (sqlplus) | Running (ON CPU) | read      | 0         
-
-
 ```
 
 Since practically all the time is spent on the client application side, there’s not much “tuning” that I can do on the database, adding indexes or increasing various database buffers won’t help as the database time is only 1% of my total runtime.
@@ -210,8 +194,6 @@ $ time sqlplus -s system/oracle @selectsome
 real   0m4.047s
 user   0m2.752s
 sys    0m0.349s
-
-
 ```
 
 Only 4 seconds total runtime, with about 3.1 seconds of it spent on CPU. Better performance, lower CPU usage!
@@ -226,8 +208,6 @@ $ time sqlplus -fast -s system/oracle @selectstar
 real	0m16.046s
 user	0m11.851s
 sys	0m1.718s
-
-
 ```
 
 The select _star_ script now runs in only 16 seconds instead of 1 min 21 sec.
@@ -240,8 +220,6 @@ $ time sqlplus -m "csv on" -fast -s system/oracle @selectstar
 real	0m12.048s
 user	0m10.144s
 sys	0m0.447s
-
-
 ```
 
 _The fast CSV unloader written by Oracle has finally arrived!_
@@ -265,8 +243,6 @@ SELECT * FROM soe_small.customers
 |  0 | SELECT STATEMENT  |           |      1 |   1699K| 00:00.57 | 28475 |
 |  1 |  TABLE ACCESS FULL| CUSTOMERS |      1 |   1699K| 00:00.57 | 28475 |
 ---------------------------------------------------------------------------
-
-
 ```
 
 The above `select *` had to scan the table to get all its columns. Total runtime 0.57 seconds and 28475 blocks read. Now let’s just select a couple of columns that happen to be covered by a single multi-column index:
@@ -282,8 +258,6 @@ SELECT customer_id, dob FROM soe_small.customers
 |   0 | SELECT STATEMENT     |                   |      1 |   1699K| 00:00.21 |  5915 |
 |   1 |  INDEX FAST FULL SCAN| IDX_CUSTOMER_DOB2 |      1 |   1699K| 00:00.21 |  5915 |
 ---------------------------------------------------------------------------------------
-
-
 ```
 
 The above query switched from `table access full` to `index fast full scan` and as a result had to read only 5915 index blocks and ran in 0.21 seconds instead of 0.57 seconds.
@@ -301,8 +275,6 @@ SELECT o.owner FROM u, o WHERE u.username = o.owner
 |   0 | SELECT STATEMENT  |      |      1 |  61477 |    1346 |
 |   1 |  TABLE ACCESS FULL| O    |      1 |  61477 |    1346 |
 --------------------------------------------------------------
-
-
 ```
 
 Wait, what? Only one table is actually accessed according to the execution plan above? This is Oracle’s [Join Elimination](https://oracle-base.com/articles/misc/join-elimination) transformation in action. This query can be satisfied by accessing just the child table from the parent-child relationship as we want records from O that have a corresponding record in U - and the foreign key constraint guarantees that to be true!
@@ -320,8 +292,6 @@ Plan hash value: 3411128970
 |   0 | SELECT STATEMENT  |      |      1 |  61477 |    1346 |
 |   1 |  TABLE ACCESS FULL| O    |      1 |  61477 |    1346 |
 --------------------------------------------------------------
-
-
 ```
 
 We _still_ don’t have to go to the table U despite selecting a column from it - it’s because this column is guaranteed to be exactly the same as `o.owner` thanks to the `WHERE u.username = o.owner` join condition. Oracle is smart enough to avoid doing the join as it knows it’s a logically valid shortcut.
@@ -341,8 +311,6 @@ SELECT o.owner,u.username,u.created FROM u, o WHERE u.username = o.owner
 --------------------------------------------------------------------------
 
    1 - access("U"."USERNAME"="O"."OWNER")
-
-
 ```
 
 Now we see both tables accessed and joined as there are no valid shortcuts (optimizations) to take.
@@ -367,8 +335,6 @@ Plan hash value: 2792773903
 |   1 |  SORT ORDER BY     |           |      1 |   1699K|00:00:02.31 |  232M (0)|
 |   2 |   TABLE ACCESS FULL| CUSTOMERS |      1 |   1699K|00:00:00.24 |          |
 ----------------------------------------------------------------------------------
-
-
 ```
 
 232 MB of memory was used for the sort above. The `(0)` indicates a zero-pass operation, we didn’t have to spill any temporary results to disk, the whole sort fit in memory.
@@ -387,8 +353,6 @@ Plan hash value: 2792773903
 |   1 |  SORT ORDER BY     |           |      1 |   1699K|00:00:00.59 |   67M (0)|
 |   2 |   TABLE ACCESS FULL| CUSTOMERS |      1 |   1699K|00:00:00.13 |          |
 ----------------------------------------------------------------------------------
-
-
 ```
 
 Memory usage dropped from 232 MB to 67 MB. The query still had to scan through the entire Customers table and processed 1699k rows as before, but it ran 4x faster as it did’t spend so much CPU time on the sorting phase. Narrower records not only use less memory in the buffers, but also are also CPU cache-friendly and require moving less bytes around ([RAM access is slow](https://tanelpoder.com/2015/08/09/ram-is-the-new-disk-and-how-to-measure-its-performance-part-1/)).
@@ -429,8 +393,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
         100  rows processed
-
-
 ```
 
 2004 recursive calls for `SELECT *` (for data dictionary access, can be verified using SQL*Trace). I recreated the table again and ran just a two column select next:
@@ -453,8 +415,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
         100  rows processed
-
-
 ```
 
 Only 5 recursive calls for the hard parse. See, asking Oracle to do more work (“please check, evaluate & extract 1000 columns instead of 2”) has performance consequences. Ok, this may not be a too big deal assuming that your shared pool is big enough to keep all the column (and their stats/histograms) info in dictionary cache, you wouldn’t have all these recursive SQLs with a nice warm cache. Let’s see how much _time_ the hard parse phase takes when everything’s nicely cached in dictionary cache. I’m using my [Session Snapper](https://tanelpoder.com/snapper/) in a separate Oracle session to report metrics from the hard parsing tests in another session (1136):
@@ -478,8 +438,6 @@ Sampling SID 1136 with interval 5 seconds, taking 1 snapshots...
    1136, SYSTEM    , TIME, DB time                            ,         89616
 
 --  End of Stats snap 1, end=2020-11-24 19:31:49, seconds=5
-
-
 ```
 
 The hard parse/optimization/compilation phase took 78 milliseconds (all CPU time) for this very simple query that was selecting all 1000 columns, even with all the table metadata and column stats & histograms already cached. Oracle had to do analysis & typechecking for all 1000 columns. Now let’s run another query on the same table, selecting only 2 columns:
@@ -496,8 +454,6 @@ SQL> SELECT id,col1 FROM widetable /* test2 */;
    1136, SYSTEM    , TIME, DB CPU                             ,          2281
    1136, SYSTEM    , TIME, sql execute elapsed time           ,           376
    1136, SYSTEM    , TIME, DB time                            ,          2128
-
-
 ```
 
 The hard parse took just ~1 millisecond! The SQL is structurally identical, on the same exact table, with just less columns selected.
@@ -521,8 +477,6 @@ SQL> SELECT * FROM widetable /* test3 */;
    1136, SYSTEM    , TIME, DB CPU                             ,         37899
    1136, SYSTEM    , TIME, sql execute elapsed time           ,          5770
    1136, SYSTEM    , TIME, DB time                            ,         37807
-
-
 ```
 
 Now, hard parsing takes 30 milliseconds for the 1000 column query, apparently it enumerates/maps histograms for all columns involved in the query, including the columns that are just projected (and not used in any filters or joins, where histograms are actually used for plan optimization).
@@ -539,8 +493,6 @@ SHARABLE_MEM SQL_ID        CHILD_NUMBER SQL_TEXT
 ------------ ------------- ------------ -------------------------------------
        19470 b98yvssnnk13p            0 SELECT id,col1 FROM widetable
       886600 c4d3jr3fjfa3t            0 SELECT * FROM widetable
-
-
 ```
 
 The 2-column cursor takes 19 kB and the 1000-column one takes 886 kB of memory in shared pool!
@@ -582,8 +534,6 @@ TOTAL_SIZE   AVG_SIZE     CHUNKS ALLOC_CL CHUNK_TYPE STRUCTURE            FUNCTI
 ...
 
 53 rows selected.
-
-
 ```
 
 The 1000-column `SELECT *` cursor has plenty of internal allocations (allocated inside the _cursor heaps_) where the count of internal chunks is 1000 or close to a multiple of 1000, so one (or two) for each column in the compiled cursor. These structures are needed for executing the plan (like what Oracle kernel’s C function needs to be called, when the field #3 needs to be passed up the execution plan tree). For example if column #77 happens to be a DATE and it’s later compared to a TIMESTAMP column #88 in a separate step of the plan, there would need to be an additional _opcode_ somewhere that instructs Oracle to execute an additional datatype conversion function for one of the columns at that plan step. An execution plan is a tree of such dynamically allocated structures and opcodes within them. Apparently, even a simple select from a single table without any further complexity, requires plenty of such internal allocations to be in place.
@@ -619,8 +569,6 @@ TOTAL_SIZE   AVG_SIZE     CHUNKS ALLOC_CL CHUNK_TYPE STRUCTURE            FUNCTI
        192         96          2 freeabl           0                      qosdUpdateExprM      qosdUpdateExprM      00000001AF2B75D0
        184        184          1 freeabl           0                      237.kggec            237.kggec            00000001AF2B75D0
 ...
-
-
 ```
 
 Indeed we don’t see thousands of internal allocation chunks anymore (only 2 `kccdef`s for example, compared to previous 1000).
@@ -645,8 +593,6 @@ SQL> INSERT INTO tl SELECT rownum, dummy, dummy, dummy FROM dual CONNECT BY LEVE
 SQL> COMMIT;
 
 Commit complete.
-
-
 ```
 
 Let’s only select the 2 normal columns first:
@@ -674,8 +620,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
        1000  rows processed
-
-
 ```
 
 Fetching 2 normal columns was very fast (0.04 seconds) and took only 11 SQL*Net roundtrips (with arraysize 100).
@@ -702,8 +646,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
        1000  rows processed
-
-
 ```
 
 It took 5.5 seconds and 2002 SQL*Net roundtrips due to the “breaking” nature of LOB retrieval. By default, any row with a non-NULL LOB column is sent back immediately (just one row in the fetched array) and instead of the LOB column value, a _LOB locator_ is sent back, causing the client to issue a separate [LOBREAD](https://tanelpoder.com/2011/03/20/lobread-sql-trace-entry-in-oracle-11-2/) database call just to fetch the single LOB column value. And this gets worse when you’re selecting multiple LOB columns:
@@ -728,8 +670,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
        1000  rows processed
-
-
 ```
 
 Now it takes over 9 seconds instead of previous 5.5 with just a single LOB column. We have ~3000 roundtrips, one for each row (because LOB item retrieval breaks the array fetching) and one two LOB item fetch roundtrips for each row.
@@ -758,8 +698,6 @@ Statistics
           0  sorts (memory)
           0  sorts (disk)
        1000  rows processed
-
-
 ```
 
 Now we are down to ~1000 roundtrips again, because my LOB values were small, both of them were bundled within each row’s fetch result. But Oracle still ended up fetching just one row at a time, despite my arraysize = 100 value.
@@ -778,8 +716,6 @@ SELECT
 FROM (
     SELECT * FROM tl
 )
-
-
 ```
 
 Oracle is smart enough to propagate the projection from top level SELECT into the inline view and only get the two required columns from it.
@@ -790,8 +726,6 @@ Or, this would also be fine:
 SELECT * FROM (
     SELECT id, a FROM tl
 )
-
-
 ```
 
 The goal is not to avoid a `*` in your _SQL text_, but to select only the columns that you actually need.
@@ -799,10 +733,3 @@ The goal is not to avoid a `*` in your _SQL text_, but to select only the column
 #### Summary
 
 When I look at a performance problem (something is taking too much time), I think about how to _**do it less**_. The other option is to add more hardware (and there are no guarantees that it will help). One way to “do it less” is to make sure that you ask _exactly what you want_ from your database, no more, no less. Selecting only the columns you actually need is one part of that approach.
-
-Thanks for reading, I sense more blog entries coming! :-)
-
-*   [Twitter discussion](https://twitter.com/TanelPoder/status/1331441487863754755)
-*   [HackerNews discussion](https://news.ycombinator.com/item?id=25812320)
-
-Also, you can still sign up for my [Advanced Oracle SQL Tuning training](https://tanelpoder.com/seminar) starting on 30. Nov!

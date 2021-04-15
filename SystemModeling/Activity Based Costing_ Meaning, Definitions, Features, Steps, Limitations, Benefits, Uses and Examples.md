@@ -1,5 +1,5 @@
 ---
-title: Activity Based Costing: Meaning, Definitions, Objectives, Features
+title: Activity Based Costing - Meaning, Definitions, Objectives, Features
 categories:
 - System Modeling
 - Analysis
