@@ -1,5 +1,5 @@
 ---
-title: Activity Based Costing: Meaning, Definitions, Objectives, Features, Factors, Steps, Cost Pool and Cost Drivers, Advantages, Benefits, Uses, Limitations and Examples
+title: Activity Based Costing: Meaning, Definitions, Objectives, Features
 categories:
 - System Modeling
 - Analysis
