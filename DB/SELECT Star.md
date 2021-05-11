@@ -1,8 +1,8 @@
 ---
-title: "SELECT * "效率低的原因及场景
+title: SELECT * 效率低的原因及场景
 categories:
 - DB
-- Optimization 
+- Optimization
 tags:
 - select
 date: 2021/4/14 20:00:14
