@@ -14,9 +14,9 @@ updated: 2021/5/10 20:00:13
 
 1. 若论两种关系表示的强弱程度，Composition 应该更强一些，这也是为什么在图中会以一个实心菱形来代表。反之，聚合使用的是空心菱形。见下图.
 
-![](images/Composition(%E7%BB%84%E5%90%88)%20%E4%B8%8E%20Aggregation(%E8%81%9A%E5%90%88)%20%E7%9A%84%E5%8C%BA%E5%88%AB/20130426171010963)  
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20130426171010963)  
 
-![](images/Composition(%E7%BB%84%E5%90%88)%20%E4%B8%8E%20Aggregation(%E8%81%9A%E5%90%88)%20%E7%9A%84%E5%8C%BA%E5%88%AB/20130426171100149)  
+![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/20130426171100149)  
 
 2. Composition 表示的是'Part-of'的关系， 以图 1 为例，Engine 是 Car 的一部分。脱离 Car 的 Engine 是没有实在意义的；而 Aggregation 表示的是'Has-a'的关系，以图 2 为例，Person 有一个 Address，但是 Addess 的存在是不依赖 Person 的，换句话说，地址本身就有其独立存在的意义，有没有人都是没有关系的。
 

@@ -53,7 +53,7 @@ that is a total number of non-zero elements in a vector.
 
 Many application, including Compressive Sensing, try to minimise the $l_0$-norm of a vector corresponding to some constraints, hence called “$l_0$-minimisation”. A standard minimisation problem is formulated as:
 
-![](https://s0.wp.com/latex.php?latex=min+%5Cleft+%5C%7C+x+%5Cright+%5C%7C_0&bg=ffffff&fg=888888&s=0&c=20201002) subject to ![](https://s0.wp.com/latex.php?latex=Ax+%3D+b&bg=ffffff&fg=888888&s=0&c=20201002)
+$min \left \| x \right \|_0$ subject to $Ax=b$
 
 但是，这样做并非易事。 由于缺乏$ l_0 $-范数的数学表示，因此计算机科学家将$ l_0 $ -minimization视为NP难题，只是说这太复杂了，几乎无法解决。
 
@@ -61,67 +61,66 @@ In many case, $l_0$-minimisation problem is relaxed to be higher-order norm prob
 
 **l1-norm**
 
-Following the definition of norm, $l_1$-norm of $x$ is defined as
-
-![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x+%5Cright+%5C%7C_1+%3D+%5Csum_%7Bi%7D+%5Cleft+%7C+x_i+%5Cright+%7C&bg=ffffff&fg=888888&s=0&c=20201002)
+Following the definition of norm, $l_1$-norm of $x$ is defined as$\left \| x \right \|_1 = \sum_{i} \left | x_i \right |$
 
 This norm is quite common among the norm family. It has many name and many forms among various fields, namely _Manhattan norm_ is it’s nickname. If the $l_1$-norm is computed for a difference between two vectors or matrices, that is
-
-![](https://s0.wp.com/latex.php?latex=SAD%28x_1%2Cx_2%29+%3D+%5Cleft+%5C%7C+x_1-x_2+%5Cright+%5C%7C_1+%3D+%5Csum+%5Cleft+%7C+x_%7B1_i%7D-x_%7B2_i%7D+%5Cright+%7C&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+SAD(x_1,x_2) = \left \| x_1-x_2 \right \|_1 = \sum \left | x_{1_i}-x_{2_i} \right |
+$$
 it is called _Sum of Absolute Difference (SAD)_ among computer vision scientists.
 
 In more general case of signal difference measurement, it may be scaled to a unit vector by:
 
-![](https://s0.wp.com/latex.php?latex=MAE%28x_1%2Cx_2%29+%3D+%5Cfrac%7B1%7D%7Bn%7D+%5Cleft+%5C%7C+x_1-x_2+%5Cright+%5C%7C_1+%3D+%5Cfrac+%7B1%7D+%7Bn%7D+%5Csum+%5Cleft+%7C+x_%7B1_i%7D+-+x_%7B2_i%7D+%5Cright+%7C&bg=ffffff&fg=888888&s=0&c=20201002) where $n$ is a size of $x$.
+$MAE(x_1,x_2)=\frac{1}{n} \left \| x_1-x_2 \right \|_1 =\frac{1}{n} \sum \left | x_{1_i} - x_{2_i} \right |$ where $n$ is a size of $x$.
 
 which is known as _Mean-Absolute Error (MAE)_.
 
 **l2-norm**
 
 The most popular of all norm is the $l_2$-norm. It is used in almost every field of engineering and science as a whole. Following the basic definition, $l_2$-norm is defined as
-
-![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x+%5Cright+%5C%7C_2+%3D+%5Csqrt%7B%5Csum_%7Bi%7Dx_i%5E2%7D&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\left \| x \right \|_2 = \sqrt{\sum_{i}x_i^2}
+$$
 $l_2$-norm is well known as a _Euclidean_ norm, which is used as a standard quantity for measuring a vector difference. As in $l_1$-norm, if the Euclidean norm is computed for a vector difference, it is known as a _Euclidean distance_:
-
-![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x_1-x_2+%5Cright+%5C%7C_2+%3D+%5Csqrt%7B%5Csum_i+%28x_%7B1_i%7D-x_%7B2_i%7D%29%5E2%7D+&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\left \| x_1-x_2 \right \|_2 = \sqrt{\sum_i (x_{1_i}-x_{2_i})^2}
+$$
 or in its squared form, known as a _Sum of Squared Difference (SSD)_ among Computer Vision scientists:
-
-![](https://s0.wp.com/latex.php?latex=SSD%28x_1%2Cx_2%29+%3D+%5Cleft+%5C%7C+x_1-x_2+%5Cright+%5C%7C_2%5E2+%3D+%5Csum_i+%28x_%7B1_i%7D-x_%7B2_i%7D%29%5E2&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+SSD(x_1,x_2) = \left \| x_1-x_2 \right \|_2^2=\sum_i (x_{1_i}-x_{2_i})^2
+$$
 It’s most well known application in the signal processing field is the _Mean-Squared Error (MSE)_ measurement, which is used to compute a similarity, a quality, or a  correlation between two signals. MSE is
 
-![](https://s0.wp.com/latex.php?latex=MSE%28x_1%2Cx_2%29+%3D+%5Cfrac%7B1%7D%7Bn%7D+%5Cleft+%5C%7C+x_1-x_2+%5Cright+%5C%7C_2%5E2+%3D+%5Cfrac%7B1%7D%7Bn%7D+%5Csum_i+%28x_%7B1_i%7D-x_%7B2_i%7D%29%5E2&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+MSE(x_1,x_2) = \frac{1}{n} \left \| x_1-x_2 \right \|_2^2 = \frac{1}{n} \sum_i (x_{1_i}-x_{2_i})^2
+$$
 As previously discussed in $l_0$-optimisation section, because of many issues from both a computational view and a mathematical view, many $l_0$-optimisation problems relax themselves to become $l_1$– and $l_2$-optimisation instead. Because of this, we will now discuss about the optimisation of $l_2$.
 
 **l2-optimisation**
 
 As in $l_0$-optimisation case, the problem of minimising $l_2$-norm is formulated by
 
-![](https://s0.wp.com/latex.php?latex=min+%5Cleft+%5C%7C+x+%5Cright+%5C%7C_2&bg=ffffff&fg=888888&s=0&c=20201002) subject to ![](https://s0.wp.com/latex.php?latex=Ax+%3D+b&bg=ffffff&fg=888888&s=0&c=20201002)
+$min \left \| x \right \|_2$ subject to $Ax=b$
 
 假设约束矩阵$ A $满秩，这个问题现在是一个有着无穷的解决方案underdertermined系统。 在这种情况下，目标是从这些无限多个解决方案中得出最佳解决方案，即具有最低的$ l_2 $-范数。 如果直接进行计算，这可能是一件非常繁琐的工作。 幸运的是，这是一个数学技巧，可以对我们的工作有所帮助。
 
 By using a trick of Lagrange multipliers, we can then define a Lagrangian
-
-![](https://s0.wp.com/latex.php?latex=%5Cmathfrak%7BL%7D%28%5Cboldsymbol%7Bx%7D%29+%3D+%5Cleft+%5C%7C+%5Cboldsymbol%7Bx%7D+%5Cright+%5C%7C_2%5E2%2B%5Clambda%5E%7BT%7D%28%5Cboldsymbol%7BAx%7D-%5Cboldsymbol%7Bb%7D%29&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\mathfrak{L}(\boldsymbol{x}) = \left \| \boldsymbol{x} \right \|_2^2 \lambda^{T}(\boldsymbol{Ax}-\boldsymbol{b})
+$$
 where $\lambda$ is the introduced Lagrange multipliers. Take derivative of this equation equal to zero to find a optimal solution and get
 
-![](https://s0.wp.com/latex.php?latex=%5Chat%7B%5Cboldsymbol%7Bx%7D%7D_%7Bopt%7D+%3D+-%5Cfrac%7B1%7D%7B2%7D+%5Cboldsymbol%7BA%7D%5E%7BT%7D+%5Clambda&bg=ffffff&fg=888888&s=0&c=20201002)
+$\hat{\boldsymbol{x}}_{opt} = -\frac{1}{2} \boldsymbol{A}^{T} \lambda$
 
 plug this solution into the constraint to get
 
-![](https://s0.wp.com/latex.php?latex=%5Cboldsymbol%7BA%7D%5Chat%7B%5Cboldsymbol%7Bx%7D%7D_%7Bopt%7D+%3D+-%5Cfrac%7B1%7D%7B2%7D%5Cboldsymbol%7BAA%7D%5E%7BT%7D%5Clambda%3D%5Cboldsymbol%7Bb%7D&bg=ffffff&fg=888888&s=0&c=20201002)
+$\boldsymbol{A}\hat{\boldsymbol{x}}_{opt} = -\frac{1}{2}\boldsymbol{AA}^{T}\lambda=\boldsymbol{b}$
 
-![](https://s0.wp.com/latex.php?latex=%5Clambda%3D-2%28%5Cboldsymbol%7BAA%7D%5E%7BT%7D%29%5E%7B-1%7D%5Cboldsymbol%7Bb%7D&bg=ffffff&fg=888888&s=0&c=20201002)
+$\lambda=-2(\boldsymbol{AA}^{T})^{-1}\boldsymbol{b}$
 
 and finally
 
-![](https://s0.wp.com/latex.php?latex=%5Chat%7B%5Cboldsymbol%7Bx%7D%7D_%7Bopt%7D%3D%5Cboldsymbol%7BA%7D%5E%7BT%7D+%28%5Cboldsymbol%7BAA%7D%5E%7BT%7D%29%5E%7B-1%7D+%5Cboldsymbol%7Bb%7D%3D%5Cboldsymbol%7BA%7D%5E%7B%2B%7D+%5Cboldsymbol%7Bb%7D&bg=ffffff&fg=888888&s=0&c=20201002)
+$\hat{\boldsymbol{x}}_{opt}=\boldsymbol{A}^{T} (\boldsymbol{AA}^{T})^{-1} \boldsymbol{b}=\boldsymbol{A}^{+} \boldsymbol{b}$
 
 By using this equation, we can now instantly compute an optimal solution of the $l_2$-optimisation problem. This equation is well known as the _Moore-Penrose Pseudoinverse_ and the problem itself is usually known as _Least Square_ problem, Least Square regression, or Least Square optimisation.
 
@@ -135,7 +134,7 @@ In contrary, the $l_1$-optimisation can provide much better result than this sol
 
 As usual, the $l_1$-minimisation problem is formulated as
 
-![](https://s0.wp.com/latex.php?latex=min+%5Cleft+%5C%7C+x+%5Cright+%5C%7C_1&bg=ffffff&fg=888888&s=0&c=20201002) subject to ![](https://s0.wp.com/latex.php?latex=Ax+%3D+b&bg=ffffff&fg=888888&s=0&c=20201002)
+$min \left \| x \right \|_1$ subject to $Ax=b$
 
 Because the nature of $l_1$-norm is not smooth as in the $l_2$-norm case, the solution of this problem is much better and more unique than the $l_2$-optimisation.
 
@@ -152,9 +151,9 @@ Now that we have discussed many members of norm family, starting from $l_0$-norm
 **l-infinity norm**
 
 As always, the definition for $l_{\infty}$-norm is
-
-![](https://s0.wp.com/latex.php?latex=%5Cleft+%5C%7C+x+%5Cright+%5C%7C_%7B%5Cinfty%7D+%3D+%5Csqrt%5B%5Cinfty%5D%7B%5Csum_i+x_i%5E%7B%5Cinfty%7D%7D&bg=ffffff&fg=888888&s=0&c=20201002)
-
+$$
+\left \| x \right \|_{\infty}= \sqrt[\infty]{\sum_i x_i^{\infty}}
+$$
 现在这个定义看起来又很棘手，但实际上很简单. Consider the vector $\boldsymbol{x}$, let’s say if $x_j$ is the highest entry in the vector  $\boldsymbol{x}$, by the property of the infinity itself, we can say that
 
 $x_j^{\infty}\gg x_i^{\infty}, \forall i \neq j$
