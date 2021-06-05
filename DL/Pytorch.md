@@ -94,7 +94,7 @@ from torch import optim
 from torch.nn import functional as F
 from torch.utils.data import DataLoader, TensorDataset
 import torchvision
-import torchvision, transforms as transform
+import torchvision.transforms as transform
 
 #确定数据、确定超参数
 lr = 0.15
