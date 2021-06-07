@@ -1,6 +1,7 @@
 ---
 title: State Estimation
 categories:
+- Probabilistic Robotics
 - State Estimation
 tags:
 - state estimation

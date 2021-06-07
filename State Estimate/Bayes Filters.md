@@ -1,8 +1,9 @@
 ---
 title: Bayes Filters
 categories:
-- State Estimation
 - Probabilistic Robotics
+- State Estimation
+- Bayes Filter
 tags:
 - bayes filters
 date: 2021/6/3 20:00:09
