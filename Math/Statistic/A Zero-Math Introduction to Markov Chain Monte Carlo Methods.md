@@ -1,3 +1,14 @@
+---
+title: A Zero-Math Introduction to Markov Chain Monte Carlo Methods
+categories:
+- Math
+- Statistic
+tags:
+- Markov Chain Monte Carlo Methods
+date: 2021/6/6 10:00:00
+updated: 2021/6/6 16:00:00
+---
+
 # A Zero-Math Introduction to Markov Chain Monte Carlo Methods
 
 For many of us, Bayesian statistics is voodoo magic at best, or completely subjective nonsense at worst. Among the trademarks of the Bayesian approach, Markov chain Monte Carlo methods are especially mysterious. They’re math-heavy and computationally expensive procedures for sure, but the basic reasoning behind them, like so much else in data science, can be made intuitive. That is my goal here.

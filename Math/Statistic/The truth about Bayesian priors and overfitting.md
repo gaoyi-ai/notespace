@@ -1,3 +1,16 @@
+---
+title: The truth about Bayesian priors and overfitting
+categories:
+- Math
+- Statistic
+tags:
+- Bayesian priors and overfitting
+date: 2021/6/6 10:00:00
+updated: 2021/6/6 16:00:00
+---
+
+
+
 # The truth about Bayesian priors and overfitting
 
 Have you ever thought about how strong a prior is compared to observed data? It’s not an entirely easy thing to conceptualize. In order to alleviate this trouble I will take you through some simulation exercises. These are meant as a fruit for thought and not necessarily a recommendation. However, many of the considerations we will run through will be directly applicable to your everyday life of applying Bayesian methods to your specific domain. We will start out by creating some data generated from a known process. The process is the following.
