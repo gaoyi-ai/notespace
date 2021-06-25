@@ -33,7 +33,7 @@ $$
 
 我们可以看到，我们的目的是计算$x_t$的后验概率，如果$\operatorname{bel}\left(x_{t}\right)$是任意分布，我们需要在$x_t$的所有可能取值点上，计算该取值的概率，这在计算上是难于实现的。这一计算问题可以有多种方法来近似，比如利用采样的方法，就是后面要讲的粒子滤波和无迹Kalman滤波。
 
-这节要说的近似方法是，当假设$\operatorname{bel}\left(x_{t}\right)$服从Gauss分布，那么我们只需要分布的均值和方差就可以完全描述$\operatorname{bel}\left(x_{t}\right)$，而无需在$x_t$的每个可能取值点上进行概率计算。这也是用高斯分布来近似$\operatorname{bel}\left(x_{t}\right)$的好处，因为我们在每一个时刻，只需要计算均值μtμt和方差ΣtΣt这两个数值，就可以对$\operatorname{bel}\left(x_{t}\right)$完全描述，所以我们就可以推导出这两个数值的递推公式，从而在每个时刻由这两个数值的递推公式完全获得状态估计，这就是The Kalman Filter的基本思想。
+这节要说的近似方法是，当假设$\operatorname{bel}\left(x_{t}\right)$服从Gauss分布，那么我们只需要分布的均值和方差就可以完全描述$\operatorname{bel}\left(x_{t}\right)$，而无需在$x_t$的每个可能取值点上进行概率计算。这也是用高斯分布来近似$\operatorname{bel}\left(x_{t}\right)$的好处，因为我们在每一个时刻，只需要计算均值μt和方差Σt这两个数值，就可以对$\operatorname{bel}\left(x_{t}\right)$完全描述，所以我们就可以推导出这两个数值的递推公式，从而在每个时刻由这两个数值的递推公式完全获得状态估计，这就是The Kalman Filter的基本思想。
 
 #### 1.2 正态分布(Guassian Distribution)
 
