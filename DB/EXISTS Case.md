@@ -1,14 +1,11 @@
 ---
-title: 业务EXISTS实例 和 EXISTS,IN,NOT EXISTS, NOT IN 比较 
+title: EXISTS, IN, NOT EXISTS, NOT IN 比较 
 categories:
 - DB 
 tags:
 - EXISTS
-date: 2021/4/15 20:00:14
-updated: 2021/4/15 12:00:14
+date: 2021/4/15
 ---
-
-
 
 # EXISTS Case
 
@@ -28,6 +25,8 @@ ALTER TABLE appointment
 ALTER TABLE appointment
     ADD CONSTRAINT chk_appointment_period CHECK (start_date <= end_date);
 ```
+
+## 问题
 
 Write an SQL query which returns for all current employees the start of their current period of continuous employment. That is, we are asking for the oldest date X such that the employee had one or more appointments on every day since X. E.g. if table appointment is populated as follows:
 
@@ -51,6 +50,26 @@ emp_id start_date
 1      2012-04-01
 2      2014-01-01
 ```
+
+## 分析
+
+- 统计的都是现在职人员的信息，所以查询都要 join current_employees
+
+- 薪水都是年薪，年底发，一年一发，只发从年初到年底的。
+
+- 职员可能会有多个职位，薪水叠加。某些职位可能只工作一段时间，只要没离职，这段时间的薪水也是年底发。
+
+- 统计的是在职人员中，连续工作（从某个时间点一直到现在都在工作(职位不限)）的最早时间节点，通俗点说就是想看看现在这些人最早都是什么时间跟着公司打拼并且一直没闲着。
+
+    注意：现在职人员不都是一直在职的，可能会有中间离职又回来入职的情况(或者可能是没离职但是中间没干活)，这种情况只算最后一次入职的时间点。
+
+基本方案就是 对于每一个工作安排 a ，查询是否存在如下安排 b , 满足`b.start_date < a.start_date`并且 `b.end_date+1 >= a.start_date` 或者 `b.end_date is null` ，也就说，是否存在一个和当前 a 交叉、重叠或者正好衔接的工作安排 b 并且比 a 早，如果是这样，那么 `a.start_date` 就不能作为一个题目中要求的连续工作时间的起点，否则 a 就是一个合理的 start_date，把每个在职员工的所有这种工作片段都检索出来。
+
+上述工作可以用 query a not exist ( subquery b) 来实现
+
+但是这样可能会检索出多个片段，因为可能有前边提到的离职了又回来的情况(或者可能是没离职但是中间没干活)，显然这就违反了一直没停工作到现在的条件，所以，最后需要根据 `emp_id` 分组然后取最新的那个片段。
+
+上述可以用 `max(start_date)`配合 `group by emp_id` 来实现。
 
 Hint: First construct a subquery to compute appointments for current employees that do not overlap with (or are adjacent to) appointments (for the same employee) starting earlier then select for each employee the latest start-date of such appointments.
 

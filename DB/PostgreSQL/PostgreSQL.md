@@ -5,8 +5,7 @@ categories:
 - PostgreSQL
 tags:
 - SQL
-date: 2021/2/27 20:00:17
-updated: 2021/3/1 12:00:17
+date: 2021/2/27
 ---
 
 # PostgreSQL
