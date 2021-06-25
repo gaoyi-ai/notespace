@@ -1,3 +1,14 @@
+---
+title: What is Reactive Programming?
+categories:
+- Reactive Programming
+tags:
+- reactive programming
+date: 2021/6/25
+---
+
+
+
 # What is Reactive Programming?
 
 I enjoyed reading this question on Stack Overflow: [What is (functional) reactive programming](http://stackoverflow.com/questions/1028250)? I thought I'd take a stab at an explanation of what reactive programming means to me. Let me take you to the future.

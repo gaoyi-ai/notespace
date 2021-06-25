@@ -1,4 +1,16 @@
+---
+title: The introduction to Reactive Programming you've been missing
+categories:
+- Reactive Programming
+tags:
+- reactive programming
+date: 2021/6/25
+---
+
+
+
 ## The introduction to Reactive Programming you've been missing
+
 ### This tutorial as a series of videos
 
 **If you prefer to watch video tutorials with live-coding, then check out this series I recorded with the same contents as in this article: [Introduction to Reactive Programming](https://app.egghead.io/playlists/introduction-to-reactive-programming).**

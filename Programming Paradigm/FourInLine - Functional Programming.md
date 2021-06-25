@@ -4,8 +4,7 @@ categories:
 - Functional Paradigm
 tags:
 - Java Functional Paradigm
-date: 2019/8/1 20:00:14
-updated: 2020/12/10 12:00:14
+date: 2019/8/1
 ---
 
 
@@ -654,5 +653,4 @@ public abstract class Player {
 
 }
 ```
-
 
