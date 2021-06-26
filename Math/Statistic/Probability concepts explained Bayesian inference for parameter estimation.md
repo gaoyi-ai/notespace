@@ -1,12 +1,11 @@
 ---
-title: Probability concepts explained: Bayesian inference for parameter estimation.
+title: Probability concepts explained- Bayesian inference for parameter estimation
 categories:
 - Math
 - Statistic
 tags:
 - Bayesian inference
-date: 2021/6/6 10:00:00
-updated: 2021/6/6 16:00:00
+date: 2021/6/6
 ---
 
 
