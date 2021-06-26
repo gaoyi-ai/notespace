@@ -1,5 +1,5 @@
 ---
-title: Auto-Correct: A Real-World Application
+title: Auto-Correct - A Real-World Application
 categories:
 - DSA
 - Algorithm

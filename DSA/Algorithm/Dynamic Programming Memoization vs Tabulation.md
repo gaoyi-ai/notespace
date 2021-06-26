@@ -1,5 +1,5 @@
 ---
-title: Dynamic Programming: Memoization vs Tabulation
+title: Dynamic Programming - Memoization vs Tabulation
 categories:
 - DSA
 - Algorithm
