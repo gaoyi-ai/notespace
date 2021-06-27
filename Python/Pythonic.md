@@ -505,3 +505,24 @@ class A:
         print(A.a)
         print(cls().foo2(name))
 ```
+
+# Return self
+
+Returning self from a method simply means that your method returns a reference to the instance object on which it was called. This can sometimes be seen in use with object oriented APIs that are designed as a fluent interface that encourages method cascading.
+从方法返回self只是意味着您的方法返回对调用该方法的实例对象的引用。 有时可以将其与面向对象的API一起使用，这些对象被设计为鼓励方法级联的流畅接口。
+
+```python
+class Foo:
+
+   def __init__(self):
+     self.myattr = 0
+     
+   def bar(self):
+     self.myattr += 1
+     return self
+
+f = Foo()
+f.bar().bar().bar()
+print(f.myattr) # 3
+```
+

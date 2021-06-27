@@ -1,7 +1,7 @@
 ---
 title: Maven
 categories:
-- BuildTool
+- Build Tools
 tags:
 - maven
 date: 2019/8/1 20:00:02
