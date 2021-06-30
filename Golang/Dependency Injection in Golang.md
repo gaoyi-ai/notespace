@@ -1,5 +1,5 @@
 ---
-title: "Dependency Injection" in Golang
+title: Dependency Injection in Golang
 categories:
 - Golang
 tags:

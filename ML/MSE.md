@@ -53,9 +53,9 @@ You should remember this equation from your school days, **_y=Mx+B_**, where **M
 We want to find M ([slope](https://en.wikipedia.org/wiki/Slope)) and B ([y-intercept](https://en.wikipedia.org/wiki/Y-intercept)) that **minimizes** the squared error!
 
 Let’s define a mathematical equation that will give us the mean squared error for all our points.
-
-![](https://cdn-media-1.freecodecamp.org/images/hmZydSW9YegiMVPWq2JBpOpai3CejzQpGkNG)
-
+$$
+\mathrm{MSE}=\frac{1}{n} \sum_{i=1}^{n}\left(y_{i}-\tilde{y}_{i}\right)^{2}
+$$
 General formula for mean squared error.
 
 Let’s analyze what this equation actually means.
@@ -78,13 +78,13 @@ But what is y’, and how do we calculate it? We do not have it as part of the d
 But we do know that, in order to calculate y’, we need to use our line equation, y=mx+b, and put the x in the equation.
 
 From here we get the following equation:
-
-![](https://cdn-media-1.freecodecamp.org/images/wSige6ZLxM-QaVt3fRWXIAzsHvX7wdcJ4XOy)
-
+$$
+M S E=\left(y_{1}-\left(m x_{1}+b\right)\right)^{2}+\left(y_{2}-\left(m x_{2}+b\right)\right)^{2}+\ldots+\left(y_{\mathrm{n}}-\left(m x_{\mathrm{n}}+b\right)\right)^{2}
+$$
 Let’s rewrite this expression to simplify it.
-
-![](https://cdn-media-1.freecodecamp.org/images/JFi5pzT7YtJ-0Fkx59jP0hCNHzc8tvsrXgPg)
-
+$$
+M S E=y_{1}^{2}-2 y_{1}\left(m x_{1}+b\right)+\left(m x_{1}+b\right)^{2}+\ldots+y_{\mathrm{n}}^{2}-2 y_{\mathrm{n}}\left(m x_{\mathrm{n}}+b\right)+\left(m x_{\mathrm{n}}+b\right)^{2}
+$$
 Let’s begin by opening all the brackets in the equation. I colored the difference between the equations to make it easier to understand.
 
 ![](https://cdn-media-1.freecodecamp.org/images/vWLTze9HzNDSg4LRM5dbpkYUpkXkhTW6TnRl)
@@ -98,73 +98,87 @@ At this point we’re starting to be messy, so let’s take the mean of all squa
 Let’s define, for each one, a new character which will represent the mean of all the squared values.
 
 Let’s see an example, let’s take all the y values, and divide them by n since it’s the mean, and call it y(HeadLine).
-
-![](https://cdn-media-1.freecodecamp.org/images/L3NWDFs1LUKgQU223EAFXXUXX3OTFWR0gLtE)
-
+$$
+\frac{y_{1}^{2}+y_{2}^{2}+\ldots+y_{n}^{2}}{n}=\overline{y^{2}}
+$$
 If we multiply both sides of the equation by n we get:
-
-![](https://cdn-media-1.freecodecamp.org/images/jyiOt9MVCg460395d6mkHlrmK9ssfr8nQGJC)
-
+$$
+y_{1}^{2}+y_{2}^{2}+\ldots+y_{\mathrm{n}}^{2}=\overline{y^{2}} n
+$$
 Which will lead us to the following equation:
-
-![](https://cdn-media-1.freecodecamp.org/images/bv3wucYBgHc3Zch115zMYjhH-zYe5VgwjMAH)
-
+$$
+M S E=n \overline{y^{2}}-2 m n \overline{x y}-2 b n \bar{y}+m^{2} n \overline{x^{2}}+2 m b n \bar{x}+n b^{2}
+$$
 If we look at what we got, we can see that we have a 3D surface. It looks like a glass, which rises sharply upwards.
 
 We want to find M and B that minimize the function. We will make a partial derivative with respect to M and a partial derivative with respect to B.
 
 Since we are looking for a minimum point, we will take the partial derivatives and compare to 0.
-
-![](https://cdn-media-1.freecodecamp.org/images/88voRjo799rIopVP8YjsHlNhrBSJ8REg26hY)
+$$
+\frac{\partial M S E}{\partial m}=\frac{\partial M S E}{\partial b}=0
+$$
 Partial derivatives formula
-
-![](https://cdn-media-1.freecodecamp.org/images/6t-4Uq4Y4GMGg9mYWPUUmHHsmaTvxuDPZCj3)Partial derivatives
+$$
+\begin{aligned}
+&\frac{\partial M S E}{\partial m} \Rightarrow-2 n \overline{x y}+2 n \overline{x^{2}} m+2 b n \bar{x} \Rightarrow-\overline{x y}+\overline{x^{2}} m+b \bar{x}=0 \\
+&\frac{\partial M S E}{\partial b} \Rightarrow-2 n \bar{y}+2 m n \bar{x}+2 b n \Rightarrow-\bar{y}+m \bar{x}+b=0
+\end{aligned}
+$$
+Partial derivatives
 
 Let’s take the two equations we received, isolating the variable b from both, and then subtracting the upper equation from the bottom equation.
-
-![](https://cdn-media-1.freecodecamp.org/images/-I3Ly2wOtJf9WiecfOjvFiY6U9DXB4PJBQ6t)
-
+$$
+\begin{aligned}
+&\text { First } \Rightarrow m \frac{\overline{x^{2}}}{\bar{x}}+b=\frac{\overline{x y}}{\bar{x}} \\
+&\text { Second } \Rightarrow m \bar{x}+b=\bar{y}
+\end{aligned}
+$$
 Different writing of the equations after the derivation by parts
 
 Let’s subtract the first equation from the second equation
-
-![](https://cdn-media-1.freecodecamp.org/images/6WzsJxr0jSG8XPYz-F2dSmINqnexxJLxWsxi)
-
+$$
+m\left(\bar{x}-\frac{\overline{x^{2}}}{\bar{x}}\right)=\bar{y}-\frac{\overline{x y}}{\bar{x}} \Rightarrow m=\frac{\bar{y}-\frac{\overline{x y}}{\bar{x}}}{\bar{x}-\frac{\overline{x^{2}}}{\bar{x}}}
+$$
 Merge two equations together
 
 Let’s get rid of the denominators from the equation.
-
-![](https://cdn-media-1.freecodecamp.org/images/Ac05NR92faqptoFE35F2XFcKjllJhJPdwGnE)
-
+$$
+m=\frac{\bar{y}-\frac{\overline{x y}}{\bar{x}}}{\bar{x}-\frac{\overline{x^{2}}}{\bar{x}}} \cdot \frac{(\bar{x})}{(\bar{x})}=\frac{\bar{x} \bar{y}-\overline{x y}}{(\bar{x})^{2}-\overline{x^{2}}}
+$$
 Final equation to find M.
 
 And there we go, this is the equation to find M, let’s take this and write down B equation.
-
-![](https://cdn-media-1.freecodecamp.org/images/pjxjeSICBJNckegf3WXCHtfrf7dyIxVfqbBB)
-
+$$
+m \bar{x}+b=\bar{y} \Rightarrow b=\bar{y}-m \bar{x}
+$$
 Final equation to find B.
 
 ### Equations for slope and y-intercept
 
 Let’s provide the mathematical equations that will help us find the required [slope](https://en.wikipedia.org/wiki/Slope) and [y-intercept](https://en.wikipedia.org/wiki/Y-intercept).
-
-![](https://cdn-media-1.freecodecamp.org/images/290zZ8roKAfKNCrfq1LN7QuTooJjbH19Isiv)
-
+$$
+m=\frac{\overline{x y}-\bar{x} \bar{y}}{\overline{x^{2}}-(\bar{x})^{2}} \quad b=\bar{y}-m \bar{x}
+$$
 Slope and y-intercept equations
 
 So you probably thinking to yourself, what the heck are those weird equations?
 
 They are actually simple to understand, so let’s talk about them a little bit.
-
-![](https://cdn-media-1.freecodecamp.org/images/KTFy4uhGXnGSrCoyInhSWfHH4VTEnAJyncpm)
-
-Sum of x divided by n![](https://cdn-media-1.freecodecamp.org/images/lQSFx0h7KiRB0uOcriwpFrmhsev3kt4cCUU5)
-
-Sum of x² divided by n![](https://cdn-media-1.freecodecamp.org/images/LYZL8LPc8vyZ0wPV2J2sp-pXiuCzvslY8EAQ)
-
+$$
+\frac{x_{1}+x_{2}+\ldots+x_{n}}{n}=\bar{x}
+$$
+Sum of x divided by n
+$$
+\frac{x_{1}^{2}+x_{2}^{2}+\ldots+x_{n}^{2}}{n}=\overline{x^{2}}
+$$
+Sum of x² divided by n
+$$
+\frac{x_1 y_1+x_2 y_2+\ldots+x_n y_n}{n}=\overline{x y}
+$$
 Sum of xy divided by n
-
-![](https://cdn-media-1.freecodecamp.org/images/0E27klUj208HeeecnRKR9Eokb2PmKfUNoO-O)
+$$
+\frac{y_{1}+y+\ldots+y_{n}}{n}=\bar{y}
+$$
 Sum of y divided by n
 
 Now that we understand our equations it’s time to get all things together and show some examples.
@@ -180,31 +194,37 @@ Let’s take 3 points, (1,2), (2,1), (4,3).
 ![](https://cdn-media-1.freecodecamp.org/images/IudmVD0mo4BMYqPEjFyETchb5GGsDv5ikxwB)Points on graph.
 
 Let’s find M and B for the equation y=mx+b.
-
-![](https://cdn-media-1.freecodecamp.org/images/KFDixcE4WidM6Pez8RNDwOgBorpnj1QuLw5S)
+$$
+\bar{x}=\frac{1+2+4}{3}=\frac{7}{3}
+$$
 Sum the x values and divide by n
-
-![](https://cdn-media-1.freecodecamp.org/images/Rqkh4dC9zZ11V4McMwJFspxv5UySTiI9Sv1L)
+$$
+\bar{y}=\frac{2+1+3}{3}=2
+$$
 Sum the y values and divide by n
-
-![](https://cdn-media-1.freecodecamp.org/images/tkUVYMlF-9qDaK69dWj0bFy1ApEK4DHw05vK)
+$$
+\overline{x y}=\frac{1 \cdot 2+2 \cdot 1+4 \cdot 3}{3}=\frac{16}{3}
+$$
 Sum the xy values and divide by n
-
-![](https://cdn-media-1.freecodecamp.org/images/80W3OcjPxF9ek2HIjv0VYnwCEhpzURavMAlj)
+$$
+\overline{x^{2}}=\frac{1^{2}+2^{2}+4^{2}}{3}=\frac{21}{3}=7
+$$
 Sum the x² values and divide by n
 
 After we’ve calculated the relevant parts for our M equation and B equation, let’s put those values inside the equations and get the [slope](https://en.wikipedia.org/wiki/Slope) and [y-intercept](https://en.wikipedia.org/wiki/Y-intercept).
-
-![](https://cdn-media-1.freecodecamp.org/images/Hri9luC8oVUAgZLnLoDgey4X0T6LEZwIFMav)
+$$
+m=\frac{\frac{7}{3} \cdot 2-\frac{16}{3}}{\left(\frac{7}{3}\right)^{2}-7}=\frac{\frac{14}{3}-\frac{16}{3}}{\frac{49}{9}-7}=\frac{-\frac{2}{3}}{-\frac{14}{9}}=\frac{3}{7}
+$$
 Slope calculation
-
-![](https://cdn-media-1.freecodecamp.org/images/H4Ss6UYBdSfJgx63lz93uXaubcE3-6e1niFS)
+$$
+b=2-\frac{3}{7} \cdot \frac{7}{3}=2-1=1
+$$
 y-intercept calculation
 
 Let’s take those results and set them inside the line equation y=mx+b.
-
-![](https://cdn-media-1.freecodecamp.org/images/S9EESO6mBvglt1o--YlQZQFqhNGPg4we6Kju)
-
+$$
+y=\frac{3}{7} x+1
+$$
 Now let’s draw the line and see how the line passes through the lines in such a way that it minimizes the squared distances.
 
 ![](https://cdn-media-1.freecodecamp.org/images/DlKy-Eekc0SdHpcOeQPGJobo7jYLfTh0pI8Q)
@@ -218,31 +238,37 @@ Let’s take 4 points, (-2,-3), (-1,-1), (1,2), (4,3).
 Points on graph.
 
 Let’s find M and B for the equation y=mx+b.
-
-![](https://cdn-media-1.freecodecamp.org/images/MqNv9HXhu7koehCq1WgBSH2Mje3VoHUM6Dsb)
+$$
+\bar{x}=\frac{(-2)+(-1)+1+4}{4}=\frac{1}{2}
+$$
 Sum the x values and divide by n
-
-![](https://cdn-media-1.freecodecamp.org/images/I8bZESRhxejhmNWbxMlusVlxfCgnrJPbn2En)
+$$
+\bar{y}=\frac{(-3)+(-1)+2+3}{4}=\frac{1}{4}
+$$
 Sum the y values and divide by n
-
-![](https://cdn-media-1.freecodecamp.org/images/YwF2k-wP1YkSiPUoZZ5kV99p5xpS4VeBtlxP)
+$$
+\overline{x y}=\frac{(-2) \cdot(-3)+(-1) \cdot(-1)+1 \cdot 2+3 \cdot 4}{4}=\frac{6+1+2+12}{4}=\frac{21}{4}
+$$
 Sum the xy values and divide by n
-
-![](https://cdn-media-1.freecodecamp.org/images/Sbo7-PaRePrfBM1sOME5du5GDQ-1r1ntdoD1)
+$$
+\overline{x^{2}}=\frac{4+1+1+16}{4}=\frac{11}{2}
+$$
 Sum the x² values and divide by n
 
 Same as before, let’s put those values inside our equations to find M and B.
-
-![](https://cdn-media-1.freecodecamp.org/images/LUideJM-zrCgulLv83Gh08ySgcChQXY6BpxC)
+$$
+m=\frac{\frac{21}{4}-\frac{1}{2} \cdot \frac{1}{4}}{\frac{11}{2}-\left(\frac{1}{2}\right)^{2}}=\frac{\frac{21}{4}-\frac{1}{8}}{\frac{11}{2}-\frac{1}{4}}=\frac{41}{42}
+$$
 Slope calculation
-
-![](https://cdn-media-1.freecodecamp.org/images/F9K53LF0Dp3kjIYYC3UJoLfGJqICCIhtqTMo)
+$$
+b=\frac{1}{4}-\frac{41}{42} \cdot \frac{1}{2}=-\frac{5}{21}
+$$
 y-intercept calculation
 
 Let’s take those results and set them inside line equation y=mx+b.
-
-![](https://cdn-media-1.freecodecamp.org/images/0o5OFw2QwtBJYntrz4vRJn9ywrdsumLxH5rg)
-
+$$
+y = \frac{41}{42}x - \frac{5}{21}
+$$
 Now let’s draw the line and see how the line passes through the lines in such a way that it minimizes the squared distances.
 
 ![](https://cdn-media-1.freecodecamp.org/images/yAMNsNJmTBdZ2MKPbD8JX-es3d-5Oj4OIHRl)

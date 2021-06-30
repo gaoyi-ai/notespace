@@ -26,3 +26,7 @@ zip3 "cat" "fish" "be"
 -- [('c','f','b'),('a','i','e')]
 ```
 
+---
+
+> [从“卷积”、到“图像卷积操作”、再到“卷积神经网络”，“卷积”意义的3次改变_哔哩哔哩_bilibili](https://www.bilibili.com/video/BV1VV411478E)
+

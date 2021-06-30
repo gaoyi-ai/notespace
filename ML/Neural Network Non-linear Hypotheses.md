@@ -75,13 +75,37 @@ $h_{\Theta }(x)=g(\Theta _{10}^{(2)}a_{0}^{(2)}+\Theta _{11}^{(2)}a_{1}^{(2)}+\T
 相对于使用循环来编码，利用向量化的方法会使得计算更为简便。以上面的神经网络为例，试着计算第二层的值：
 
 ![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/303ce7ad54d957fca9dbb6a992155111.png)
-
-![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/2e17f58ce9a79525089a1c2e0b4c0ccc.png)
-
+$$
+g\left(\left[\begin{array}{llll}
+\theta_{10}^{(1)} & \theta_{11}^{(1)} & \theta_{12}^{(1)} & \theta_{13}^{(1)} \\
+\theta_{20}^{(1)} & \theta_{21}^{(1)} & \theta_{22}^{(1)} & \theta_{23}^{(1)} \\
+\theta_{30}^{(1)} & \theta_{31}^{(1)} & \theta_{32}^{(1)} & \theta_{33}^{(1)}
+\end{array}\right] \times\left[\begin{array}{c}
+x_{0} \\
+x_{1} \\
+x_{2} \\
+x_{3}
+\end{array}\right]\right)=g\left(\left[\begin{array}{l}
+\theta_{10}^{(1)} x_{0}+\theta_{11}^{(1)} x_{1}+\theta_{12}^{(1)} x_{2}+\theta_{13}^{(1)} x_{3} \\
+\theta_{20}^{(1)} x_{0}+\theta_{21}^{(1)} x_{1}+\theta_{22}^{(1)} x_{2}+\theta_{23}^{(1)} x_{3} \\
+\theta_{30}^{(1)} x_{0}+\theta_{31}^{(1)} x_{1}+\theta_{32}^{(1)} x_{2}+\theta_{33}^{(1)} x_{3}
+\end{array}\right]\right)=\left[\begin{array}{c}
+a_{1}^{(2)} \\
+a_{2}^{(2)} \\
+a_{3}^{(2)}
+\end{array}\right]
+$$
 我们令 $z^{\left( 2 \right)}=\theta ^{\left( 1 \right)}x$，则 $a^{\left( 2 \right)}=g(z^{\left( 2 \right)})$ ，计算后添加 $a_{0}^{\left( 2 \right)}=1$。 计算输出的值为：
-
-![](https://gitee.com/gaoyi-ai/image-bed/raw/master/images/43f1cb8a2a7e9a18f928720adc1fac22.png)
-
+$$
+g\left(\left[\begin{array}{llll}
+\theta_{10}^{(2)} & \theta_{11}^{(2)} & \theta_{12}^{(2)} & \theta_{13}^{(2)}
+\end{array}\right] \times\left(\begin{array}{c}
+u_{0} \\
+a_{1}^{(2)} \\
+a_{2}^{(2)} \\
+a_{3}^{(2)}
+\end{array}\right]\right)=g\left(\theta_{10}^{(2)} a_{0}^{(2)}+\theta_{11}^{(2)} a_{1}^{(2)}+\theta_{12}^{(2)} a_{2}^{(2)}+\theta_{13}^{(2)} a_{3}^{(2)}\right)=h_{\theta}(x)
+$$
 我们令 $z^{\left( 3 \right)}=\theta^{\left( 2 \right)} a^{\left( 2 \right)}$，则 $h_\theta(x)=a^{\left( 3 \right)}=g(z^{\left( 3 \right)})$。
 这只是针对训练集中一个训练实例所进行的计算。如果我们要对整个训练集进行计算，我们需要将训练集特征矩阵进行转置，使得同一个实例的特征都在同一列里。即：
 $z^{\left( 2 \right)}=\Theta^{\left( 1 \right)}\times X^T $

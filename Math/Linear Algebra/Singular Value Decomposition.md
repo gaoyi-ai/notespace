@@ -208,8 +208,9 @@ I have used the term **rank** a lot in this article. In fact, through all the li
 ### Rank of a Matrix
 
 The rank of a matrix is the maximum number of linearly independent row (or column) vectors in the matrix. A vector **r** is said to be linearly independent of vectors **r1** and **r2** if it cannot be expressed as a linear combination of **r1** and **r2**.
-
-[![](https://cdn.analyticsvidhya.com/wp-content/uploads/2019/07/rank1.jpg.jpg)](https://cdn.analyticsvidhya.com/wp-content/uploads/2019/07/rank1.jpg.jpg)
+$$
+r \neq ar_1 + br_2
+$$
 
 > 矩阵的秩可以看作是矩阵所代表的唯一信息量的代表。级别越高，信息越丰富。
 
