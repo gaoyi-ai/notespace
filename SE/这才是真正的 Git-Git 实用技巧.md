@@ -139,6 +139,18 @@ git filter-branch --tree-filter 'rm -f passwords.txt' HEAD
 *   `git show-branch` 直观的展示多条分支间的关系。
 *   `git subtree` 拆分或合并仓库。
 
+# tips for projects and best practices
+
+- Never commit broken code to master(tests). This is a source of conflict in teams.
+- Use a common workflow, follow conventions(commit message text, branch naming)
+- Use descriptive commit messages that can also refer to issues in the tracker
+- Use database migration scripts to synchronize database state with code
+- Keep configuration files local (not on repo) (local configuration, IDE settings) using .gitignore files
+- Abstract out local settings(e.g. maven project file, python requirements.txt)
+- Use build tools to automatically test/build code to ensure master is always green (use continuous integration: travisCl )
+- Use environment variables for configuration(e.g. database connection strings on development and production environments)
+- Don't commit large files into your repository
+
 参考
 --
 
