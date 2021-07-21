@@ -7,8 +7,6 @@ tags:
 date: 2021/6/26
 ---
 
-
-
 # Bitwise Operators in C/C++
 
 In C, the following 6 operators are bitwise operators (work at bit-level)
