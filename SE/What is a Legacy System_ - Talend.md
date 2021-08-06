@@ -1,5 +1,11 @@
 ---
-
+title: What is a Legacy System
+categories:
+- SE
+- legacy system
+tags:
+- legacy system
+date: 2021/8/6
 ---
 
 

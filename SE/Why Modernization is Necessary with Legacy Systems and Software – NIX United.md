@@ -1,3 +1,15 @@
+---
+title: Why Modernization is Necessary with Legacy Systems and Software
+categories:
+- SE
+- legacy system
+tags:
+- legacy system
+date: 2021/8/6
+---
+
+
+
 >  [nix-united.com](https://nix-united.com/blog/what-is-a-legacy-system-and-legacy-software/)
 
 > Companies need to know that there are massive benefits available to businesses that modernize their l......

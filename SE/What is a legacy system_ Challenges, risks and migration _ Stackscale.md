@@ -1,3 +1,15 @@
+---
+title: What is a Legacy System - Challenges, risks and migration
+categories:
+- SE
+- legacy system
+tags:
+- legacy system
+date: 2021/8/6
+---
+
+
+
 > [www.stackscale.com](https://www.stackscale.com/blog/legacy-systems/)
 
 > A legacy system is an old or out-of-date system, technology or software application that continues to......

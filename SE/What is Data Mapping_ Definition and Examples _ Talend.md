@@ -1,3 +1,15 @@
+---
+title: What is Data Mapping
+categories:
+- SE
+- legacy system
+tags:
+- legacy system
+date: 2021/8/6
+---
+
+
+
 >  [www.talend.com](https://www.talend.com/resources/data-mapping/)
 
 > Data mapping is an essential part of data management that ensures data quality in integrations, migra......
