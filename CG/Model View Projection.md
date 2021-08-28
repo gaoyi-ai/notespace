@@ -26,7 +26,7 @@ v′=P⋅V⋅M⋅v
 
 A vertex position is transformed by a _model_ matrix, then a _view_ matrix, followed by a _projection_ matrix, hence the name _Model View Projection_, or _MVP_.
 
-[](#model-space)Model Space
+Model Space
 ---------------------------
 
 Models, geometry and meshes are some series of vertices defined in _model space_. For example, a cube geometry could be defined as 8 vertices: (1,1,1), (−1,−1,−1), (1,1,−1), and so on. This would result in a 2x2x2 cube, centered at (0,0,0).
@@ -46,7 +46,7 @@ v_{\text {world }} &=M \cdot v_{\text {model }}
 \end{aligned}
 $$
 
-[](#view)View
+View
 -------------
 
 _World space_ is the shared global 3D Cartesian coordinate system. Renderable objects, lights, and cameras all exist within this space, defined by their model matrix, all relative to the same (0,0,0) point.
@@ -54,6 +54,8 @@ _World space_ is the shared global 3D Cartesian coordinate system. Renderable ob
 As all renders are from some camera's perspective, all vertices must be defined relatively to the camera.
 
 _Camera space_ is the coordinate system defined as the camera at (0,0,0), facing down its -Z axis. The camera also has a model matrix defining its position in world space. The inverse of the camera's model matrix is the _view matrix_, and it transforms vertices from _world space_ to _camera space_, or _view space_.
+
+相机空间是定义为 (0,0,0) 处的相机的坐标系，面向 -Z 轴。 相机还有一个模型矩阵来定义它在世界空间中的位置。 相机模型矩阵的逆矩阵是视图矩阵，它将顶点从世界空间转换到相机空间或视图空间。
 
 ![](https://jsantell.com/model-view-projection/camera-space.png)A scene in camera space, where everything is relative to the camera, the origin.
 
@@ -67,10 +69,14 @@ v_{\text {camera }} &=V \cdot M \cdot v_{\text {model }}
 $$
 In an OpenGL system where the camera faces down -Z, any vertex that will be rendered must be in front of the camera, and in camera space, will have a negative Z value.
 
-[](#projection)Projection
+在相机面朝 -Z 的 OpenGL 系统中，将被渲染的任何顶点都必须在相机前面，并且在相机空间中，将具有负 Z 值。
+
+Projection
 -------------------------
 
 Once vertices are in _camera space_, they can finally be transformed into _clip space_ by applying a projection transformation. The projection matrix encodes how much of the scene is captured in a render by defining the extents of the camera's view. The two most common types of projection are _perspective_ and _orthographic_.
+
+一旦顶点在相机空间中，它们最终可以通过应用投影变换转换到裁剪空间。 投影矩阵通过定义相机视图的范围来对渲染中捕获的场景进行编码。 两种最常见的投影类型是透视和正交。
 
 Perspective projection results in the natural effect of things appearing smaller the further away they are from the viewer. Orthographic projections do not have this feature, which can be useful for technical schematics or architectural blueprints for example. Much like how different lenses in a traditional camera can drastically change the field of view or distortion, the projection matrix transforms the scene in a similar way.
 
@@ -97,6 +103,8 @@ $$
 
 At this point, the pipeline discards any vertices outside of a 2x2x2 cube with extents at (−1,−1,−1) and (1,1,1). The entire visible scene, defined by the projection matrix, is now collapsed into a cube, with frustum extents defining how much was squashed into that cube, with the near plane mapped to z=−1 and the far plane mapped to z=1.
 
+此时，管道会丢弃 2x2x2 立方体之外的所有顶点，范围为 (-1,-1,-1) 和 (1,1,1)。 由投影矩阵定义的整个可见场景现在被折叠成一个立方体，平截头体范围定义了该立方体被挤压的程度，近平面映射到 z=-1，远平面映射到 z=1。
+
 The model, view, and projection matrices transform vertices that start in _model space_, and then _world space_, _camera space_, and then _clip space_. The vertices are then transformed into _normalized device coordinates_ via implicit perspective division. Finally, during rasterization, a viewport transform is applied to interpolated vertex positions, resulting in a _window space_ position: an X and Y position of a texel in two dimensions, translating some point in 3D space relative to some viewer, into a specific pixel on a screen.
 
 $$
@@ -107,7 +115,7 @@ v_{\text {clip }} &=P \cdot V \cdot M \cdot v_{\text {model }}
 \end{aligned}
 $$
 
-[](#resources-%26-references)Resources & References
+Resources & References
 ---------------------------------------------------
 
 *   [Learn OpenGL: Coordinate Systems](https://learnopengl.com/Getting-started/Coordinate-Systems)

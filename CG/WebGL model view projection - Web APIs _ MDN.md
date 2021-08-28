@@ -140,54 +140,54 @@ gl_FragColor = color;
 
 With those settings included, it's time to directly draw to the screen using clip space coordinates.
 
->   ```
->   var box = new WebGLBox();
->   ```
-> 
-> First draw a red box in the middle.
-> 
->```
-> box.draw({
->top    : 0.5,             // x
-> bottom : -0.5,            // x
-> left   : -0.5,            // y
->  right  : 0.5,             // y
->  
->    depth  : 0,               // z
->   color  : [1, 0.4, 0.4, 1] // red
->  });
->    ```
->  
->    Next, draw a green box up top and behind the red box.
->    
->    ```
->    box.draw({
-> top    : 0.9,             // x
->    bottom : 0,               // x
->    left   : -0.9,            // y
->    right  : 0.9,             // y
->    
->   depth  : 0.5,             // z
-> color  : [0.4, 1, 0.4, 1] // green
->   });
-> ```
->   
->   Finally, for demonstration that clipping is actually going on, this box doesn't get drawn because it's entirely outside of clip space. The depth is outside of the -1.0 to 1.0 range.
-> 
->   ```
-> box.draw({
->   top    : 1,               // x
->   bottom : -1,              // x
->   left   : -1,              // y
->   right  : 1,               // y
-> 
->   depth  : -1.5,            // z
->   color  : [0.4, 0.4, 1, 1] // blue
->   });
-> ```
->   
+```
+var box = new WebGLBox();
+```
+
+First draw a red box in the middle.
+
+```
+box.draw({
+top    : 0.5,             // x
+bottom : -0.5,            // x
+left   : -0.5,            // y
+right  : 0.5,             // y
+
+depth  : 0,               // z
+color  : [1, 0.4, 0.4, 1] // red
+});
+```
+
+Next, draw a green box up top and behind the red box.
+
+```
+box.draw({
+top    : 0.9,             // x
+bottom : 0,               // x
+left   : -0.9,            // y
+right  : 0.9,             // y
+
+depth  : 0.5,             // z
+color  : [0.4, 1, 0.4, 1] // green
+});
+```
+
+Finally, for demonstration that clipping is actually going on, this box doesn't get drawn because it's entirely outside of clip space. The depth is outside of the -1.0 to 1.0 range.
+
+```
+box.draw({
+top    : 1,               // x
+bottom : -1,              // x
+left   : -1,              // y
+right  : 1,               // y
+
+depth  : -1.5,            // z
+color  : [0.4, 0.4, 1, 1] // blue
+});
+```
 
 #### The results
+
 [View on JSFiddle](https://jsfiddle.net/mff99yu5)
 
 ![The results of drawing to clip space using WebGL.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part1.png)
@@ -323,18 +323,19 @@ Then the vertex shader uses the 4 dimensional point passed in.
 >   });
 >   ```
 >   
-> 
-> 
->### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_2)
-> 
->[View on JSFiddle](https://jsfiddle.net/mff99yu)
-> 
->![The results of using homogeneous coordinates to move the boxes around in WebGL.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part2.png)
-> 
-> ### [Exercises](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercises)
-> 
-> - Play around with these values to see how it affects what is rendered on the screen. Note how the previously clipped blue box is brought back into range by setting its w component.
->   - Try creating a new box that is outside of clip space and bring it back in by dividing by w.
+
+
+
+### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_2)
+
+[View on JSFiddle](https://jsfiddle.net/mff99yu)
+
+![The results of using homogeneous coordinates to move the boxes around in WebGL.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part2.png)
+
+### [Exercises](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercises)
+
+- Play around with these values to see how it affects what is rendered on the screen. Note how the previously clipped blue box is brought back into range by setting its w component.
+    - Try creating a new box that is outside of clip space and bring it back in by dividing by w.
 
 ## [Model transform](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#model_transform)
 
@@ -373,382 +374,371 @@ this.transforms.model = MDN.multiplyArrayOfMatrices([
 In order to use this in the shader it must be set to a uniform location. The locations for the uniforms are saved in the `locations` object shown below:
 
 >```
-> this.locations.model = gl.getUniformLocation(webglProgram, 'model');
+>this.locations.model = gl.getUniformLocation(webglProgram, 'model');
 >```
-> 
-> And finally the uniform is set to that location. This hands off the matrix to the GPU.
->   
->   ```
->   gl.uniformMatrix4fv(this.locations.model, false, new Float32Array(this.transforms.model));
->   ```
->     
->  In the shader, each position vertex is first transformed into a homogeneous coordinate (a `vec4` object), and then multiplied against the model matrix.
->   
->    ```
->   gl_Position = model * vec4(position, 1.0);
-> ```
->  
->   **Note**: In JavaScript, matrix multiplication requires a custom function, while in the shader it is built into the language with the simple * operator.
 >
->   ### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_3)
->  
-> [View on JSFiddle](https://jsfiddle.net/5jofzgsh)
->   
->     ![Using a model matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part3.png)
->     
->     At this point the w value of the transformed point is still 1.0. The cube still doesn't have any perspective. The next section will take this setup and modify the w values to provide some perspective.
->     
->     ### [Exercises](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercises_2)
->   
->   - Shrink down the box using the scale matrix and position it in different places within clip space.
->   - Try moving it outside of clip space.
-> - Resize the window and watch as the box skews out of shape.
-> - Add a `rotateZ` matrix.
+>And finally the uniform is set to that location. This hands off the matrix to the GPU.
 >
-> ## [Divide by W](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#divide_by_w)
->
-> An easy way to start getting some perspective on our model of the cube is to take the Z coordinate and copy it over to the w coordinate. Normally when converting a cartesian point to homogeneous it becomes `(x,y,z,1)`, but we're going to set it to something like `(x,y,z,z)`. In reality we want to make sure that z is greater than 0 for points in view, so we'll modify it slightly by changing the value to `((1.0 + z) * scaleFactor)`. This will take a point that is normally in clip space (-1 to 1) and move it into a space more like (0 to 1) depending on what the scale factor is set to. The scale factor changes the final w value to be either higher or lower overall.
->
-> The shader code looks like this.
-> 
->   ```
->   // First transform the point
->   vec4 transformedPosition = model * vec4(position, 1.0);
->   
->   // How much effect does the perspective have?
-> float scaleFactor = 0.5;
->   
->   // Set w by taking the z value which is typically ranged -1 to 1, then scale
-> // it to be from 0 to some number, in this case 0-1.
-> float w = (1.0 + transformedPosition.z) * scaleFactor;
->
-> // Save the new gl_Position with the custom w component
->gl_Position = vec4(transformedPosition.xyz, w);
->   ```
->
-> 
->
-> ### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_4)
->
-> [View on JSFiddle](https://jsfiddle.net/vk9r8h2c)
->
-> ![Filling the W component and creating some projection.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part4.png)
-> 
->See that small dark blue triangle? That's an additional face added to our object because the rotation of our shape has caused that corner to extend outside clip space, thus causing the corner to be clipped away. See [Perspective projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#perspective_projection_matrix) below for an introduction to how to use more complex matrices to help control and prevent clipping.
-> 
->### [Exercise](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercise_2)
-> 
->If that sounds a little abstract, open up the vertex shader and play around with the scale factor and watch how it shrinks vertices more towards the surface. Completely change the w component values for really trippy representations of space.
-> 
->In the next section we'll take this step of copying Z into the w slot and turn it into a matrix.
-> 
-> ## [Simple projection](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#simple_projection)
-> 
-> The last step of filling in the w component can actually be accomplished with a simple matrix. Start with the identity matrix:
-> 
-> ```
-> var identity = [
->   1, 0, 0, 0,
->  0, 1, 0, 0,
->   0, 0, 1, 0,
-> 0, 0, 0, 1,
-> ];
-> 
-> MDN.multiplyPoint(identity, [2, 3, 4, 1]);
-> //> [2, 3, 4, 1]
-> ```
-> 
-> 
-> 
-> Then move the last column's 1 up one space.
-> 
-> ```
-> var copyZ = [
->   1, 0, 0, 0,
-> 0, 1, 0, 0,
->   0, 0, 1, 1,
->  0, 0, 0, 0,
->];
-> 
->MDN.multiplyPoint(copyZ, [2, 3, 4, 1]);
-> //> [2, 3, 4, 4]
 >```
-> 
-> 
-> 
->However in the last example we performed `(z + 1) * scaleFactor`:
-> 
+>gl.uniformMatrix4fv(this.locations.model, false, new Float32Array(this.transforms.model));
 >```
-> var scaleFactor = 0.5;
 >
-> var simpleProjection = [
->   1, 0, 0, 0,
->  0, 1, 0, 0,
->  0, 0, 1, scaleFactor,
->   0, 0, 0, scaleFactor,
->];
-> 
->MDN.multiplyPoint(simpleProjection, [2, 3, 4, 1]);
-> //> [2, 3, 4, 2.5]
-> ```
-> 
-> 
-> 
->Breaking it out a little further we can see how this works:
-> 
+>In the shader, each position vertex is first transformed into a homogeneous coordinate (a `vec4` object), and then multiplied against the model matrix.
+>
 >```
-> var x = (2 * 1) + (3 * 0) + (4 * 0) + (1 * 0)
->var y = (2 * 0) + (3 * 1) + (4 * 0) + (1 * 0)
-> var z = (2 * 0) + (3 * 0) + (4 * 1) + (1 * 0)
->var w = (2 * 0) + (3 * 0) + (4 * scaleFactor) + (1 * scaleFactor)
-> ```
->
-> 
->
-> The last line could be simplified to:
-> 
-> ```
-> w = (4 * scaleFactor) + (1 * scaleFactor)
-> ```
-> 
->
-> 
->Then factoring out the scaleFactor, we get this:
-> 
+>gl_Position = model * vec4(position, 1.0);
 >```
-> w = (4 + 1) * scaleFactor
->```
-> 
-> 
-> 
-> Which is exactly the same as the `(z + 1) * scaleFactor` that we used in the previous example.
-> 
-> In the box demo, an additional `computeSimpleProjectionMatrix()` method is added. This is called in the `draw()` method and has the scale factor passed to it. The result should be identical to the last example:
-> 
-> ```
-> CubeDemo.prototype.computeSimpleProjectionMatrix = function(scaleFactor) {
-> 	this.transforms.projection = [
-> 		1, 0, 0, 0,
-> 		0, 1, 0, 0,
-> 		0, 0, 1, scaleFactor,
-> 		0, 0, 0, scaleFactor
->	];
-> };
->```
-> 
 >
-> 
->Although the result is identical, the important step here is in the vertex shader. Rather than modifying the vertex directly, it gets multiplied by an additional **[projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#projection_matrix)**, which (as the name suggests) projects 3D points onto a 2D drawing surface:
-> 
->```
-> // Make sure to read the transformations in reverse order
->gl_Position = projection * model * vec4(position, 1.0);
-> ```
+>**Note**: In JavaScript, matrix multiplication requires a custom function, while in the shader it is built into the language with the simple * operator.
 >
-> 
+>### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_3)
 >
-> ### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_5)
+>[View on JSFiddle](https://jsfiddle.net/5jofzgsh)
 >
-> [View on JSFiddle](https://jsfiddle.net/zwyLLcbw)
-> 
-> ![A simple projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part5.png)
-> 
-> ## [The viewing frustum](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_viewing_frustum)
-> 
-> Before we move on to covering how to compute a perspective projection matrix, we need to introduce the concept of the **[viewing frustum](https://en.wikipedia.org/wiki/Viewing_frustum)** (also known as the **view frustum**). This is the region of space whose contents are visible to the user at the current time. It's the 3D region of space defined by the field of view and the distances specified as the nearest and farthest content that should be rendered.
-> 
-> While rendering, we need to determine which polygons need to be rendered in order to represent the scene. This is what the viewing frustum defines. But what's a frustum in the first place?
-> 
-> A [frustum](https://en.wikipedia.org/wiki/Frustum) is the 3D solid that results from taking any solid and slicing off two sections of it using two parallel planes. Consider our camera, which is viewing an area that starts immediately in front of its lens and extends off into the distance. The viewable area is a four-sided pyramid with its peak at the lens, its four sides corresponding to the extents of its peripheral vision range, and its base at the farthest distance it can see, like this:
-> 
-> ![A depiction of the entire viewing area of a camera. This area is a four-sided pyramid with its peak at the lens and its base at the world's maximum viewable distance.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/fullcamerafov.svg)
-> 
-> If we used this to determine the polygons to be rendered each frame, our renderer would need to render every polygon within this pyramid, all the way off into infinity, including also polygons that are very close to the lens—likely too close to be useful (and certainly including things that are so close that a real human wouldn't be able to focus on them in the same setting).
+>![Using a model matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part3.png)
 >
-> So the first step in reducing the number of polygons we need to compute and render, we turn this pyramid into the viewing frustum. The two planes we'll use to chop away vertices in order to reduce the polygon count are the **near clipping plane** and the **far clipping plane**.
-> 
-> In WebGL, the near and far clipping planes are defined by specifying the distance from the lens to the closest point on a plane which is perpendicular to the viewing direction. Anything closer to the lens than the near clipping plane or farther from it than the far clipping plane is removed. This results in the viewing frustum, which looks like this:
-> 
-> ![A depiction of the camera's view frustum; the near and far planes have removed part of the volume, reducing the polygon count.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/cameraviewfustum.svg)
-> 
-> The set of objects to be rendered for each frame is essentially created by starting with the set of all objects in the scene. Then any objects which are *entirely* outside the viewing frustum are removed from the set. Next, objects which partially extrude outside the viewing frustum are clipped by dropping any polygons which are entirely outside the frustum, and by clipping the polygons which cross outside the frustrum so that they no longer exit it.
-> 
-> Once that's been done, we have the largest set of polygons which are entirely within the viewing frustum. This list is usually further reduced using processes like [back-face culling](https://en.wikipedia.org/wiki/Back-face_culling) (removing polygons whose back side is facing the camera) and occlusion culling using [hidden-surface determination](https://en.wikipedia.org/wiki/Hidden-surface_determination) (removing polygons which can't be seen because they're entirely blocked by polygons that are closer to the lens).
-> 
-> ## [Perspective projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#perspective_projection_matrix)
-> 
-> Up to this point, we've built up our own 3D rendering setup, step by step. However the current code as we've built it has some issues. For one, it gets skewed whenever we resize our window. Another is that our simple projection doesn't handle a wide range of values for the scene data. Most scenes don't work in clip space. It would be helpful to define what distance is relevant to the scene so that precision isn't lost in converting the numbers. Finally it's very helpful to have a fine-tuned control over what points get placed inside and outside of clip space. In the previous examples the corners of the cube occasionally get clipped.
-> 
-> The **perspective projection matrix** is a type of projection matrix that accomplishes all of these requirements. The math also starts to get a bit more involved and won't be fully explained in these examples. In short, it combines dividing by w (as done with the previous examples) with some ingenious manipulations based on [similar triangles](https://en.wikipedia.org/wiki/Similarity_(geometry)). If you want to read a full explanation of the math behind it check out some of the following links:
+>At this point the w value of the transformed point is still 1.0. The cube still doesn't have any perspective. The next section will take this setup and modify the w values to provide some perspective.
 >
-> - [OpenGL Projection Matrix](https://www.songho.ca/opengl/gl_projectionmatrix.html)
+>### [Exercises](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercises_2)
+>
+>  - Shrink down the box using the scale matrix and position it in different places within clip space.
+>  - Try moving it outside of clip space.
+>- Resize the window and watch as the box skews out of shape.
+>- Add a `rotateZ` matrix.
+>
+
+
+
+## [Divide by W](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#divide_by_w)
+
+An easy way to start getting some perspective on our model of the cube is to take the Z coordinate and copy it over to the w coordinate. Normally when converting a cartesian point to homogeneous it becomes `(x,y,z,1)`, but we're going to set it to something like `(x,y,z,z)`. In reality we want to make sure that z is greater than 0 for points in view, so we'll modify it slightly by changing the value to `((1.0 + z) * scaleFactor)`. This will take a point that is normally in clip space (-1 to 1) and move it into a space more like (0 to 1) depending on what the scale factor is set to. The scale factor changes the final w value to be either higher or lower overall.
+
+在立方体模型上获得一些透视效果的一个简单方法是将Z坐标复制到w坐标上。通常，当把一个笛卡尔坐标点转换成齐次坐标点时，它会变成(x,y,z,1)但我们要把它设为(x,y,z,z)实际上，我们想要确保视图中的点的z大于0，因此我们将通过将值更改为((1.0 + z) * scaleFactor)来稍微修改它。这将取一个通常在剪辑空间(-1到1)的点，并将其移动到一个更像(0到1)的空间，这取决于缩放因子设置为什么。比例因子会改变最终的w值，使其总体上更高或更低。
+
+The shader code looks like this.
+
+```
+// First transform the point
+vec4 transformedPosition = model * vec4(position, 1.0);
+
+// How much effect does the perspective have?
+float scaleFactor = 0.5;
+
+// Set w by taking the z value which is typically ranged -1 to 1, then scale
+// it to be from 0 to some number, in this case 0-1.
+float w = (1.0 + transformedPosition.z) * scaleFactor;
+
+// Save the new gl_Position with the custom w component
+gl_Position = vec4(transformedPosition.xyz, w);
+```
+
+### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_4)
+
+[View on JSFiddle](https://jsfiddle.net/vk9r8h2c)
+
+![Filling the W component and creating some projection.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part4.png)
+
+See that small dark blue triangle? That's an additional face added to our object because the rotation of our shape has caused that corner to extend outside clip space, thus causing the corner to be clipped away. See [Perspective projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#perspective_projection_matrix) below for an introduction to how to use more complex matrices to help control and prevent clipping.
+
+### [Exercise](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercise_2)
+
+If that sounds a little abstract, open up the vertex shader and play around with the scale factor and watch how it shrinks vertices more towards the surface. Completely change the w component values for really trippy representations of space.
+
+In the next section we'll take this step of copying Z into the w slot and turn it into a matrix.
+
+## [Simple projection](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#simple_projection)
+
+The last step of filling in the w component can actually be accomplished with a simple matrix. Start with the identity matrix:
+
+```
+var identity = [
+  1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 0, 1, 0,
+  0, 0, 0, 1,
+];
+
+MDN.multiplyPoint(identity, [2, 3, 4, 1]);
+//> [2, 3, 4, 1]
+```
+
+Then move the last column's 1 up one space.
+
+```
+var copyZ = [
+  1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 0, 1, 1,
+  0, 0, 0, 0,
+];
+
+MDN.multiplyPoint(copyZ, [2, 3, 4, 1]);
+//> [2, 3, 4, 4]
+```
+
+However in the last example we performed `(z + 1) * scaleFactor`:
+
+```
+var scaleFactor = 0.5;
+
+var simpleProjection = [
+  1, 0, 0, 0,
+  0, 1, 0, 0,
+  0, 0, 1, scaleFactor,
+  0, 0, 0, scaleFactor,
+];
+
+MDN.multiplyPoint(simpleProjection, [2, 3, 4, 1]);
+//> [2, 3, 4, 2.5]
+```
+
+Breaking it out a little further we can see how this works:
+
+```
+var x = (2 * 1) + (3 * 0) + (4 * 0) + (1 * 0)
+var y = (2 * 0) + (3 * 1) + (4 * 0) + (1 * 0)
+var z = (2 * 0) + (3 * 0) + (4 * 1) + (1 * 0)
+var w = (2 * 0) + (3 * 0) + (4 * scaleFactor) + (1 * scaleFactor)
+```
+
+The last line could be simplified to:
+
+```
+w = (4 * scaleFactor) + (1 * scaleFactor)
+```
+
+Then factoring out the scaleFactor, we get this:
+
+```
+w = (4 + 1) * scaleFactor
+```
+
+Which is exactly the same as the `(z + 1) * scaleFactor` that we used in the previous example.
+
+In the box demo, an additional `computeSimpleProjectionMatrix()` method is added. This is called in the `draw()` method and has the scale factor passed to it. The result should be identical to the last example:
+
+```
+CubeDemo.prototype.computeSimpleProjectionMatrix = function(scaleFactor) {
+	this.transforms.projection = [
+		1, 0, 0, 0,
+		0, 1, 0, 0,
+		0, 0, 1, scaleFactor,
+		0, 0, 0, scaleFactor
+	];
+};
+```
+
+Although the result is identical, the important step here is in the vertex shader. Rather than modifying the vertex directly, it gets multiplied by an additional **[projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#projection_matrix)**, which (as the name suggests) projects 3D points onto a 2D drawing surface:
+
+```
+// Make sure to read the transformations in reverse order
+gl_Position = projection * model * vec4(position, 1.0);
+```
+
+### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_5)
+
+[View on JSFiddle](https://jsfiddle.net/zwyLLcbw)
+
+![A simple projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part5.png)
+
+## [The viewing frustum](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_viewing_frustum)
+
+Before we move on to covering how to compute a perspective projection matrix, we need to introduce the concept of the **[viewing frustum](https://en.wikipedia.org/wiki/Viewing_frustum)** (also known as the **view frustum**). This is the region of space whose contents are visible to the user at the current time. It's the 3D region of space defined by the field of view and the distances specified as the nearest and farthest content that should be rendered.
+
+While rendering, we need to determine which polygons need to be rendered in order to represent the scene. This is what the viewing frustum defines. But what's a frustum in the first place?
+
+A [frustum](https://en.wikipedia.org/wiki/Frustum) is the 3D solid that results from taking any solid and slicing off two sections of it using two parallel planes. Consider our camera, which is viewing an area that starts immediately in front of its lens and extends off into the distance. The viewable area is a four-sided pyramid with its peak at the lens, its four sides corresponding to the extents of its peripheral vision range, and its base at the farthest distance it can see, like this:
+
+![A depiction of the entire viewing area of a camera. This area is a four-sided pyramid with its peak at the lens and its base at the world's maximum viewable distance.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/fullcamerafov.svg)
+
+If we used this to determine the polygons to be rendered each frame, our renderer would need to render every polygon within this pyramid, all the way off into infinity, including also polygons that are very close to the lens—likely too close to be useful (and certainly including things that are so close that a real human wouldn't be able to focus on them in the same setting).
+
+So the first step in reducing the number of polygons we need to compute and render, we turn this pyramid into the viewing frustum. The two planes we'll use to chop away vertices in order to reduce the polygon count are the **near clipping plane** and the **far clipping plane**.
+
+In WebGL, the near and far clipping planes are defined by specifying the distance from the lens to the closest point on a plane which is perpendicular to the viewing direction. Anything closer to the lens than the near clipping plane or farther from it than the far clipping plane is removed. This results in the viewing frustum, which looks like this:
+
+![A depiction of the camera's view frustum; the near and far planes have removed part of the volume, reducing the polygon count.](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/cameraviewfustum.svg)
+
+The set of objects to be rendered for each frame is essentially created by starting with the set of all objects in the scene. Then any objects which are *entirely* outside the viewing frustum are removed from the set. Next, objects which partially extrude outside the viewing frustum are clipped by dropping any polygons which are entirely outside the frustum, and by clipping the polygons which cross outside the frustrum so that they no longer exit it.
+
+Once that's been done, we have the largest set of polygons which are entirely within the viewing frustum. This list is usually further reduced using processes like [back-face culling](https://en.wikipedia.org/wiki/Back-face_culling) (removing polygons whose back side is facing the camera) and occlusion culling using [hidden-surface determination](https://en.wikipedia.org/wiki/Hidden-surface_determination) (removing polygons which can't be seen because they're entirely blocked by polygons that are closer to the lens).
+
+## [Perspective projection matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#perspective_projection_matrix)
+
+Up to this point, we've built up our own 3D rendering setup, step by step. However the current code as we've built it has some issues. For one, it gets skewed whenever we resize our window. Another is that our simple projection doesn't handle a wide range of values for the scene data. Most scenes don't work in clip space. It would be helpful to define what distance is relevant to the scene so that precision isn't lost in converting the numbers. Finally it's very helpful to have a fine-tuned control over what points get placed inside and outside of clip space. In the previous examples the corners of the cube occasionally get clipped.
+
+The **perspective projection matrix** is a type of projection matrix that accomplishes all of these requirements. The math also starts to get a bit more involved and won't be fully explained in these examples. In short, it combines dividing by w (as done with the previous examples) with some ingenious manipulations based on [similar triangles](https://en.wikipedia.org/wiki/Similarity_(geometry)). If you want to read a full explanation of the math behind it check out some of the following links:
+
+>- [OpenGL Projection Matrix](https://www.songho.ca/opengl/gl_projectionmatrix.html)
 >- [Perspective Projection](http://ogldev.atspace.co.uk/www/tutorial12/tutorial12.html)
-> - [Trying to understand the math behind the perspective projection matrix in WebGL](https://stackoverflow.com/questions/28286057/trying-to-understand-the-math-behind-the-perspective-matrix-in-webgl/28301213#28301213)
-> 
-> One important thing to note about the perspective projection matrix used below is that it flips the z axis. In clip space the z+ goes away from the viewer, while with this matrix it comes towards the viewer.
-> 
-> The reason to flip the z axis is that the clip space coordinate system is a left-handed coordinate system (wherein the z-axis points away from the viewer and into the screen), while the convention in mathematics, physics and 3D modeling, as well as for the view/eye coordinate system in OpenGL, is to use a right-handed coordinate system (z-axis points out of the screen towards the viewer) . More on that in the relevant Wikipedia articles: [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system#Orientation_and_handedness), [Right-hand rule](https://en.wikipedia.org/wiki/Right-hand_rule).
-> 
-> Let's take a look at a `perspectiveMatrix()` function, which computes the perspective projection matrix.
-> 
-> ```
-> MDN.perspectiveMatrix = function(fieldOfViewInRadians, aspectRatio, near, far) {
->   var f = 1.0 / Math.tan(fieldOfViewInRadians / 2);
->  var rangeInv = 1 / (near - far);
-> 
->  return [
->     f / aspectRatio, 0,                          0,   0,
->    0,               f,                          0,   0,
->     0,               0,    (near + far) * rangeInv,  -1,
->    0,               0,  near * far * rangeInv * 2,   0
->  ];
->}
-> ```
-> 
-> 
-> 
-> The four parameters into this function are:
-> 
+>- [Trying to understand the math behind the perspective projection matrix in WebGL](https://stackoverflow.com/questions/28286057/trying-to-understand-the-math-behind-the-perspective-matrix-in-webgl/28301213#28301213)
+>
+
+One important thing to note about the perspective projection matrix used below is that it flips the z axis. In clip space the z+ goes away from the viewer, while with this matrix it comes towards the viewer.
+
+关于下面使用的透视投影矩阵，需要注意的一件重要事情是它翻转了 z 轴。 在剪辑空间中，z+ 远离观察者，而在此矩阵中，它朝向观察者。
+
+The reason to flip the z axis is that the clip space coordinate system is a left-handed coordinate system (wherein the z-axis points away from the viewer and into the screen), while the convention in mathematics, physics and 3D modeling, as well as for the view/eye coordinate system in OpenGL, is to use a right-handed coordinate system (z-axis points out of the screen towards the viewer) . More on that in the relevant Wikipedia articles: [Cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system#Orientation_and_handedness), [Right-hand rule](https://en.wikipedia.org/wiki/Right-hand_rule).
+
+翻转 z 轴的原因是剪辑空间坐标系是左手坐标系（其中 z 轴指向远离观察者并指向屏幕），而数学、物理和 3D 建模中的约定，如 以及对于 OpenGL 中的视图/眼睛坐标系，是使用右手坐标系（z 轴从屏幕指向观察者）
+
+Let's take a look at a `perspectiveMatrix()` function, which computes the perspective projection matrix.
+
+```
+MDN.perspectiveMatrix = function(fieldOfViewInRadians, aspectRatio, near, far) {
+ var f = 1.0 / Math.tan(fieldOfViewInRadians / 2);
+ var rangeInv = 1 / (near - far);
+
+ return [
+    f / aspectRatio, 0,                          0,   0,
+    0,               f,                          0,   0,
+    0,               0,    (near + far) * rangeInv,  -1,
+    0,               0,  near * far * rangeInv * 2,   0
+ ];
+}
+```
+
+The four parameters into this function are:
+
 >- `fieldOfviewInRadians`
-> 
->    An angle, given in radians, indicating how much of the scene is visible to the viewer at once. The larger the number is, the more is visible by the camera. The geometry at the edges becomes more and more distorted, equivalent to a wide angle lens. When the field of view is larger, the objects typically get smaller. When the field of view is smaller, then the camera can see less and less in the scene. The objects are distorted much less by perspective and objects seem much closer to the camera
-> 
+>
+>   An angle, given in radians, indicating how much of the scene is visible to the viewer at once. The larger the number is, the more is visible by the camera. The geometry at the edges becomes more and more distorted, equivalent to a wide angle lens. When the field of view is larger, the objects typically get smaller. When the field of view is smaller, then the camera can see less and less in the scene. The objects are distorted much less by perspective and objects seem much closer to the camera
+>
 >- `aspectRatio`
-> 
->     The scene's aspect ratio, which is equivalent to its width divided by its height. In these examples, that's the window's width divided by the window height. The introduction of this parameter finally solves the problem wherein the model gets warped as the canvas is resized and reshaped.
-> 
+>
+>    The scene's aspect ratio, which is equivalent to its width divided by its height. In these examples, that's the window's width divided by the window height. The introduction of this parameter finally solves the problem wherein the model gets warped as the canvas is resized and reshaped.
+>
 >- `nearClippingPlaneDistance`
-> 
->    A positive number indicating the distance into the screen to a plane which is perpendicular to the floor, nearer than which everything gets clipped away. This is mapped to -1 in clip space, and should not be set to 0.
-> 
+>
+>   A positive number indicating the distance into the screen to a plane which is perpendicular to the floor, nearer than which everything gets clipped away. This is mapped to -1 in clip space, and should not be set to 0.
+>
 >- `farClippingPlaneDistance`
-> 
->     A positive number indicating the distance to the plane beyond which geometry is clipped away. This is mapped to 1 in clip space. This value should be kept reasonably close to the distance of the geometry in order to avoid precision errors creeping in while rendering.
-> 
->In the latest version of the box demo, the `computeSimpleProjectionMatrix()` method has been replaced with the `computePerspectiveMatrix()` method.
-> 
->```
-> CubeDemo.prototype.computePerspectiveMatrix = function() {
->  var fieldOfViewInRadians = Math.PI * 0.5;
-> var aspectRatio = window.innerWidth / window.innerHeight;
->  var nearClippingPlaneDistance = 1;
-> var farClippingPlaneDistance = 50;
-> 
->  this.transforms.projection = MDN.perspectiveMatrix(
->     fieldOfViewInRadians,
->    aspectRatio,
->     nearClippingPlaneDistance,
->    farClippingPlaneDistance
->   );
-> };
-> ```
-> 
-> 
 >
-> The shader code is identical to the previous example:
+>    A positive number indicating the distance to the plane beyond which geometry is clipped away. This is mapped to 1 in clip space. This value should be kept reasonably close to the distance of the geometry in order to avoid precision errors creeping in while rendering.
 >
-> ```
-> gl_Position = projection * model * vec4(position, 1.0);
-> ```
-> 
->
-> 
->Additionally (not shown), the position and scale matrices of the model have been changed to take it out of clip space and into the larger coordinate system.
-> 
+
+
+
+In the latest version of the box demo, the `computeSimpleProjectionMatrix()` method has been replaced with the `computePerspectiveMatrix()` method.
+
+```
+CubeDemo.prototype.computePerspectiveMatrix = function() {
+ var fieldOfViewInRadians = Math.PI * 0.5;
+var aspectRatio = window.innerWidth / window.innerHeight;
+ var nearClippingPlaneDistance = 1;
+var farClippingPlaneDistance = 50;
+
+ this.transforms.projection = MDN.perspectiveMatrix(
+    fieldOfViewInRadians,
+   aspectRatio,
+    nearClippingPlaneDistance,
+   farClippingPlaneDistance
+  );
+};
+```
+
+The shader code is identical to the previous example:
+
+```
+gl_Position = projection * model * vec4(position, 1.0);
+```
+
+Additionally (not shown), the position and scale matrices of the model have been changed to take it out of clip space and into the larger coordinate system.
+
 >### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_6)
-> 
+>
 >[View on JSFiddle](https://jsfiddle.net/Lzxw7e1q)
-> 
+>
 >![A true perspective matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part6.png)
-> 
+>
 >### [Exercises](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercises_3)
-> 
+>
 >- Experiment with the parameters of the perspective projection matrix and the model matrix.
-> - Swap out the perspective projection matrix to use [orthographic projection](https://en.wikipedia.org/wiki/Orthographic_projection). In the MDN WebGL shared code you'll find the `MDN.orthographicMatrix()`. This can replace the `MDN.perspectiveMatrix()` function in `CubeDemo.prototype.computePerspectiveMatrix()`.
+>- Swap out the perspective projection matrix to use [orthographic projection](https://en.wikipedia.org/wiki/Orthographic_projection). In the MDN WebGL shared code you'll find the `MDN.orthographicMatrix()`. This can replace the `MDN.perspectiveMatrix()` function in `CubeDemo.prototype.computePerspectiveMatrix()`.
 >
-> ## [View matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#view_matrix)
+>## [View matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#view_matrix)
 >
-> While some graphics libraries have a virtual camera that can be positioned and pointed while composing a scene, OpenGL (and by extension WebGL) does not. This is where the **view matrix** comes in. Its job is to translate, rotate, and scale the objects in the scene so that they are located in the right place relative to the viewer given the viewer's position and orientation.
+>While some graphics libraries have a virtual camera that can be positioned and pointed while composing a scene, OpenGL (and by extension WebGL) does not. This is where the **view matrix** comes in. Its job is to translate, rotate, and scale the objects in the scene so that they are located in the right place relative to the viewer given the viewer's position and orientation.
 >
-> ### [Simulating a camera](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#simulating_a_camera)
-> 
-> This makes use of one of the fundamental facets of Einstein's special relativity theory: the principle of reference frames and relative motion says that, from the perspective of a viewer, you can simulate changing the position and orientation of the viewer by applying the opposite change to the objects in the scene. Either way, the result appears to be identical to the viewer.
-> 
-> Consider a box sitting on a table and a camera resting on the table one meter away, pointed at the box, the front of which is pointed toward the camera. Then consider moving the camera away from the box until it's two meters away (by adding a meter to the camera's Z position), then sliding it 10 centimeters to the its left. The box recedes from the camera by that amount and slides to the right slightly, thereby appearing smaller to the camera and exposing a small amount of its left side to the camera.
-> 
-> Now let's reset the scene, placing the box back in its starting point, with the camera two meters from, and directly facing, the box. This time, however, the camera is locked down on the table and cannot be moved or turned. This is what working in WebGL is like. So how do we simulate moving the camera through space?
-> 
-> Instead of moving the camera backward and to the left, we apply the inverse transform to the box: we move the *box* backward one meter, and then 10 centimeters to its right. The result, from the perspective of each of the two objects, is identical.
-> 
-> **<<< insert image(s) here >>>**
+>### [Simulating a camera](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#simulating_a_camera)
 >
-> The final step in all of this is to create the **view matrix**, which transforms the objects in the scene so they're positioned to simulate the camera's current location and orientation. Our code as it stands can move the cube around in world space and project everything to have perspective, but we still can't move the camera.
+>This makes use of one of the fundamental facets of Einstein's special relativity theory: the principle of reference frames and relative motion says that, from the perspective of a viewer, you can simulate changing the position and orientation of the viewer by applying the opposite change to the objects in the scene. Either way, the result appears to be identical to the viewer.
 >
-> Imagine shooting a movie with a physical camera. You have the freedom to place the camera essentially anywhere you wish, and to aim the camera in whichever direction you choose. To simulate this in 3D graphics, we use a view matrix to simulate the position and rotation of that physical camera.
+>Consider a box sitting on a table and a camera resting on the table one meter away, pointed at the box, the front of which is pointed toward the camera. Then consider moving the camera away from the box until it's two meters away (by adding a meter to the camera's Z position), then sliding it 10 centimeters to the its left. The box recedes from the camera by that amount and slides to the right slightly, thereby appearing smaller to the camera and exposing a small amount of its left side to the camera.
 >
-> Unlike the model matrix, which directly transforms the model vertices, the view matrix moves an abstract camera around. In reality, the vertex shader is still only moving the models while the "camera" stays in place. In order for this to work out correctly, the inverse of the transform matrix must be used. The inverse matrix essentially reverses a transformation, so if we move the camera view forward, the inverse matrix causes the objects in the scene to move back.
+>Now let's reset the scene, placing the box back in its starting point, with the camera two meters from, and directly facing, the box. This time, however, the camera is locked down on the table and cannot be moved or turned. This is what working in WebGL is like. So how do we simulate moving the camera through space?
 >
-> The following `computeViewMatrix()` method animates the view matrix by moving it in and out, and left and right.
-> 
-> ```
+>Instead of moving the camera backward and to the left, we apply the inverse transform to the box: we move the *box* backward one meter, and then 10 centimeters to its right. The result, from the perspective of each of the two objects, is identical.
+>
+>**<<< insert image(s) here >>>**
+>
+>The final step in all of this is to create the **view matrix**, which transforms the objects in the scene so they're positioned to simulate the camera's current location and orientation. Our code as it stands can move the cube around in world space and project everything to have perspective, but we still can't move the camera.
+>
+>Imagine shooting a movie with a physical camera. You have the freedom to place the camera essentially anywhere you wish, and to aim the camera in whichever direction you choose. To simulate this in 3D graphics, we use a view matrix to simulate the position and rotation of that physical camera.
+>
+>Unlike the model matrix, which directly transforms the model vertices, the view matrix moves an abstract camera around. In reality, the vertex shader is still only moving the models while the "camera" stays in place. In order for this to work out correctly, the inverse of the transform matrix must be used. The inverse matrix essentially reverses a transformation, so if we move the camera view forward, the inverse matrix causes the objects in the scene to move back.
+>
+>The following `computeViewMatrix()` method animates the view matrix by moving it in and out, and left and right.
+>
+>```
 >CubeDemo.prototype.computeViewMatrix = function(now) {
->   var moveInAndOut = 20 * Math.sin(now * 0.002);
-> var moveLeftAndRight = 15 * Math.sin(now * 0.0017);
-> 
->  // Move the camera around
->   var position = MDN.translateMatrix(moveLeftAndRight, 0, 50 + moveInAndOut );
-> 
->   // Multiply together, make sure and read them in opposite order
->   var matrix = MDN.multiplyArrayOfMatrices([
->     // Exercise: rotate the camera view
->     position
->   ]);
-> 
->   // Inverse the operation for camera movements, because we are actually
->   // moving the geometry in the scene, not the camera itself.
->   this.transforms.view = MDN.invertMatrix(matrix);
-> };
-> ```
-> 
-> 
+>  var moveInAndOut = 20 * Math.sin(now * 0.002);
+>var moveLeftAndRight = 15 * Math.sin(now * 0.0017);
 >
-> The shader now uses three matrices.
+> // Move the camera around
+>  var position = MDN.translateMatrix(moveLeftAndRight, 0, 50 + moveInAndOut );
 >
-> ```
+>  // Multiply together, make sure and read them in opposite order
+>  var matrix = MDN.multiplyArrayOfMatrices([
+>    // Exercise: rotate the camera view
+>    position
+>  ]);
+>
+>  // Inverse the operation for camera movements, because we are actually
+>  // moving the geometry in the scene, not the camera itself.
+>  this.transforms.view = MDN.invertMatrix(matrix);
+>};
+>```
+>
+>
+>
+>The shader now uses three matrices.
+>
+>```
 >gl_Position = projection * view * model * vec4(position, 1.0);
-> ```
+>```
 >
-> 
 >
-> After this step, the GPU pipeline will clip the out of range vertices, and send the model down to the fragment shader for rasterization.
 >
-> ### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_7)
+>After this step, the GPU pipeline will clip the out of range vertices, and send the model down to the fragment shader for rasterization.
 >
-> [View on JSFiddle](https://jsfiddle.net/86fd797g)
+>### [The results](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#the_results_7)
 >
-> ![The view matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part7.png)
+>[View on JSFiddle](https://jsfiddle.net/86fd797g)
 >
-> ### [Relating the coordinate systems](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#relating_the_coordinate_systems)
+>![The view matrix](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection/part7.png)
 >
-> At this point it would be beneficial to take a step back and look at and label the various coordinate systems we use. First off, the cube's vertices are defined in **model space**. To move the model around the scene. these vertices need to be converted into **world space** by applying the model matrix.
-> 
-> model space → model matrix → world space
-> 
-> The camera hasn't done anything yet, and the points need to be moved again. Currently they are in world space, but they need to be moved to **view space** (using the view matrix) in order to represent the camera placement.
-> 
-> world space → view matrix → view space
-> 
-> Finally a **projection** (in our case the perspective projection matrix) needs to be added in order to map the world coordinates into clip space coordinates.
-> 
-> view space → projection matrix → clip space
-> 
-> ### [Exercise](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercise_3)
-> 
-> - Move the camera around the scene.
-> - Add some rotation matrices to the view matrix to look around.
-> - Finally, track the mouse's position. Use 2 rotation matrices to have the camera look up and down based on where the user's mouse is on the screen.
-> 
-> ## [See also](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#see_also)
+>### [Relating the coordinate systems](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#relating_the_coordinate_systems)
 >
-> - [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+>At this point it would be beneficial to take a step back and look at and label the various coordinate systems we use. First off, the cube's vertices are defined in **model space**. To move the model around the scene. these vertices need to be converted into **world space** by applying the model matrix.
+>
+>model space → model matrix → world space
+>
+>The camera hasn't done anything yet, and the points need to be moved again. Currently they are in world space, but they need to be moved to **view space** (using the view matrix) in order to represent the camera placement.
+>
+>world space → view matrix → view space
+>
+>Finally a **projection** (in our case the perspective projection matrix) needs to be added in order to map the world coordinates into clip space coordinates.
+>
+>view space → projection matrix → clip space
+>
+>### [Exercise](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#exercise_3)
+>
+>- Move the camera around the scene.
+>- Add some rotation matrices to the view matrix to look around.
+>- Finally, track the mouse's position. Use 2 rotation matrices to have the camera look up and down based on where the user's mouse is on the screen.
+>
+>## [See also](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/WebGL_model_view_projection#see_also)
+>
+>- [WebGL](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
 >- [3D projection](https://en.wikipedia.org/wiki/3D_projection)
