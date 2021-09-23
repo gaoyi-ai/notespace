@@ -8,7 +8,7 @@ tags:
 date: 2021/8/28
 ---
 
-
+> [towardsdatascience.com](https://towardsdatascience.com/artificial-neural-networks-optimization-using-genetic-algorithm-with-python-1fe8ed17733e)
 
 # Artificial Neural Networks Optimization using Genetic Algorithm with Python
 
