@@ -4,8 +4,7 @@ categories:
 - Python
 tags:
 - pythonic
-date: 2019/8/1 20:00:14
-updated: 2021/1/11 12:00:14
+date: 2019/8/1
 ---
 
 # zip & map & filter
@@ -83,7 +82,7 @@ print(b) # ['2', '0', '6', '3', '1', '5', '0', '5', '1', '0']''
 print(type(b)) # <class 'list'>
 ```
 
-# 生成器
+# generator
 
 ```python
 g = (x * x for x in range(10))
@@ -91,7 +90,7 @@ print(g) # <generator object <genexpr> at 0x00000234C6568840>
 next(g) # 0
 ```
 
-# 字典value找key
+# dict -  map value to key
 
 If keys, values and items views are iterated over with no intervening modifications to the dictionary, the order of items will directly correspond.
 
@@ -116,53 +115,6 @@ for k,v in old_dict.items():
         new_dict[v].append(k)
 print(new_dict['001'])  # ['a', 'c']
 ```
-
-# super()
-
-继承的功能：父类的代码重用
-
-多态的功能：同一方法对不同类型的对象会有相应的结果
-
-开闭原则：对扩展开放，对修改封闭
-
-super类功能：新式类实现广度优先的不重复的调用父类，解决了钻石继承（多继承）的难题
-
-super实现原理：通过c3算法，生成mro（method resolution order）列表，根据列表中元素顺序查询调用
-
-新式类调用顺序为广度优先，旧式类为深度优先
-
-
-个人理解：
-
-1.调用了父类的方法，出入的是子类的实例对象
-
-2.新式类子类（A,B），A就在B之前
-
-3.super类似于嵌套的一种设计，当代码执行到super实例化后，先去找同级父类，若没有其余父类，再执行自身父类，再往下走，
-
-　　简洁点的三个原则就是：
-
-子类在父类前，所有类不重复调用，从左到右
-
-```python
-class A():
-    def go(self): # A
-        print ("go A go!")
-class B(A):
-    def go(self): # A B
-        super(B, self).go()
-        print ("go B go!")
-class C(A):
-    def go(self): # A C
-        super(C, self).go()
-        print ("go C go!")
-class D(B,C):
-    def go(self): # A C B D
-        super(D, self).go()
-        print ("go D go!")
-```
-
-> [Python面向对象中super用法与MRO机制](https://www.cnblogs.com/chenhuabin/p/10058594.html)
 
 # decorator
 
@@ -286,45 +238,6 @@ def log(text):
 
 `import functools`是导入`functools`模块。**现在，只需记住在定义`wrapper()`的前面加上`@functools.wraps(func)`即可。**
 
-# 枚举类
-
-Python提供了`Enum`类来实现这个功能：
-
-```python
-from enum import Enum
-
-Month = Enum('Month', ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'))
-```
-
-这样我们就获得了`Month`类型的枚举类，可以直接使用`Month.Jan`来引用一个常量，或者枚举它的所有成员：
-
-```python
-for name, member in Month.__members__.items():
-    print(name, '=>', member, ',', member.value)
-```
-
-`value`属性则是自动赋给成员的`int`常量，默认从`1`开始计数。
-
-如果需要更精确地控制枚举类型，可以从`Enum`派生出自定义类：
-
-```python
-from enum import Enum, unique
-
-@unique
-class Weekday(Enum):
-    Sun = 0 # Sun的value被设定为0
-    Mon = 1
-    Tue = 2
-    Wed = 3
-    Thu = 4
-    Fri = 5
-    Sat = 6
-```
-
-@unique`装饰器可以帮助我们检查保证没有重复值。
-
-既可以用成员名称引用枚举常量，又可以直接根据value的值获得枚举常量。
-
 # 解包
 
 ```python
@@ -429,100 +342,110 @@ for x in a[:]:
     if x < 0: a.remove(x)
 ```
 
-# cls
-
-一般来说，要使用某个类的方法，需要先实例化一个对象再调用方法。
-
-而使用@staticmethod或@classmethod，就可以不需要实例化，直接类名.方法名()来调用。
-
-这有利于组织代码，把某些应该属于某个类的函数给放到那个类里去，同时有利于命名空间的整洁。
-
-```python
-class A:
-    a = 'a'
-    
-    @staticmethod
-    def foo1(name):
-        print('hello', name)
-    
-    def foo2(self, name):
-        print('hello', name)
-    
-    @classmethod
-    def foo3(cls, name):
-        print('hello', name)
-```
-
-首先定义一个类A，类A中有三个函数，foo1为静态函数，用@staticmethod装饰器装饰，这种方法与类有某种关系但不需要使用到实例或者类来参与。如下两种方法都可以正常输出，也就是说既可以作为类的方法使用，也可以作为类的实例的方法使用。
-
-```python
-a = A()
-a.foo1('m') # 输出: hello m
-A.foo1('m')# 输出: hello m
-```
-
-foo2为正常的函数，是类的实例的函数，只能通过a调用。
-
-```python
-a.foo2('m') # 输出: hello m
-A.foo2('m') # 报错: unbound method foo2() must be called with A instance as first argument (got str instance instead)
-```
-
-foo3为类函数，cls作为第一个参数用来表示类本身. 在类方法中用到，类方法是只与类本身有关而与实例无关的方法。如下两种方法都可以正常输出。
-
-```python
-a.foo3('m') # 输出: hello ma
-A.foo3('m') # 输出: hello m
-```
-
-但是通过例子发现staticmethod与classmethod的使用方法和输出结果相同，再看看这两种方法的区别。
-
-> 既然@staticmethod和@classmethod都可以直接类名.方法名()来调用，那他们有什么区别呢
-> 从它们的使用上来看,
-> @staticmethod不需要表示自身对象的self和自身类的cls参数，就跟使用函数一样。
-> @classmethod也不需要self参数，但第一个参数需要是表示自身类的cls参数。
-> 如果在@staticmethod中要调用到这个类的一些属性方法，只能直接类名.属性名或类名.方法名。
-> 而@classmethod因为持有cls参数，可以来调用类的属性，类的方法，实例化对象等，避免硬编码。
-
-也就是说在classmethod中可以调用类中定义的其他方法、类的属性，但staticmethod只能通过A.a调用类的属性，但无法通过在该函数内部调用A.foo2()。修改上面的代码加以说明：
-
-```python
-class A:
-    a = 'a'
-    
-    @staticmethod
-    def foo1(name):
-        print('hello', name)
-        print(A.a) # 正常
-        print(A.foo2('mamq')) # 报错: unbound method foo2() must be called with A instance as first argument (got str instance instead)
-    
-    def foo2(self, name):
-        print('hello', name)
-    
-    @classmethod
-    def foo3(cls, name):
-        print('hello', name)
-        print(A.a)
-        print(cls().foo2(name))
-```
-
 # Return self
 
 Returning self from a method simply means that your method returns a reference to the instance object on which it was called. This can sometimes be seen in use with object oriented APIs that are designed as a fluent interface that encourages method cascading.
 从方法返回self只是意味着您的方法返回对调用该方法的实例对象的引用。 有时可以将其与面向对象的API一起使用，这些对象被设计为鼓励方法级联的流畅接口。
 
+# Static variables and methods in Python
+
+> [Static variables and methods in Python (radek.io)](https://radek.io/2011/07/21/static-variables-and-methods-in-python/)
+
+How to declare a data member or a method [static](https://en.wikipedia.org/wiki/Method_(computer_programming)#Static_methods) in Python? Static means, that the member is on a class level rather on the instance level. Static variables exist only on class level and aren't instantiated. If you change a static variable in one instance of the class, the change will affect its value in all other instances.
+
+Static methods don't refer to any instance of the class and can be called outside of it. They also cannot access any non-static data members of the class for obvious reasons. Let's have a look how to get some static from Python.
+
+## Variables
+
+All variables defined on the class level in Python are considered static. See this example:
+
 ```python
-class Foo:
+class Example:
+    staticVariable = 5 # Access through class
 
-   def __init__(self):
-     self.myattr = 0
-     
-   def bar(self):
-     self.myattr += 1
-     return self
+print Example.staticVariable # prints 5
 
-f = Foo()
-f.bar().bar().bar()
-print(f.myattr) # 3
+# Access through an instance
+instance = Example()
+print instance.staticVariable # still 5
+
+# Change within an instance
+instance.staticVariable = 6
+print instance.staticVariable # 6
+print Example.staticVariable # 5
+
+# Change through the class
+class Example.staticVariable = 7
+print instance.staticVariable # still 6
+print Example.staticVariable # now 7
 ```
 
+Seems pretty straight-forward. The only confusion might arise from the fact that you can have two different variables in your class with the same name (one static and one ordinary). I wouldn't recommend relying on that behaviour in your code.
+
+## Methods
+
+With static methods, it gets a little more complicated. In Python, there are two ways of defining static methods within a class.
+
+### @staticmethod
+
+A method decorated with this decorator only shares the namespace with the class. Note that no arguments are mandatory in the method definition. A static method defined this way can access the class' static variables. See the following example:
+
+```python
+class Example:
+    name = "Example"
+
+    @staticmethod
+    def static():
+        print "%s static() called" % Example.name
+
+class Offspring1(Example):
+    name = "Offspring1"
+
+class Offspring2(Example):
+    name = "Offspring2"
+
+    @staticmethod
+    def static():
+        print "%s static() called" % Offspring2.name
+
+Example.static() # prints Example
+Offspring1.static() # prints Example
+Offspring2.static() # prints Offspring2
+```
+
+### @classmethod
+
+The difference between class method and static method in Python is, that class method recieves one mandatory argument - a class it was called from. Let's take a look:
+
+```python
+class Example:
+    name = "Example"
+
+    @classmethod
+    def static(cls):
+        print "%s static() called" % cls.name
+
+class Offspring1(Example):
+    name = "Offspring1"
+    pass
+
+class Offspring2(Example):
+    name = "Offspring2"
+
+    @classmethod
+    def static(cls):
+        print "%s static() called" % cls.name
+
+Example.static()    # prints Example
+Offspring1.static() # prints Offspring1
+Offspring2.static() # prints Offspring2
+```
+
+Which one should you use? The first option allows you to only access the static variables in the same class. With the second approach, you'll be able to modify class variables of the subclasses without the neccessity of redefining the method when using inheritance.
+
+Personally, I prefer the first variant because I think it's a little cleaner, but the second variant might come useful in certain situations as well.
+
+## Sources
+
+- [Static vs. Class method @ RAPD](https://rapd.wordpress.com/2008/07/02/python-staticmethod-vs-classmethod/)
+- [Static variable @ stack overflow](https://stackoverflow.com/questions/68645/static-class-variables-in-python)
