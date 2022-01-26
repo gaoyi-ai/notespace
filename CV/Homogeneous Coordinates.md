@@ -1,7 +1,7 @@
 ---
 title: Homogeneous Coordinates
 categories:
-- CG
+- CV
 - Transform
 tags:
 - Homogeneous Coordinates

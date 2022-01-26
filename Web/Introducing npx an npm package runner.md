@@ -1,5 +1,5 @@
 ---
-title:  Introducing npx: an npm package runner
+title: Introducing npx- an npm package runner
 categories:
 - Web
 - npm 
